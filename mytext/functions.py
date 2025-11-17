@@ -73,7 +73,7 @@ def call_ai_studio(
         "model": selected_model}
 
 
-def run_mytext(text: str, api_key: str = None, mode: Mode = Mode.PARAPHRASE, tone: Tone = Tone.NEUTRAL, provider: Provider = Provider.AI_STUDIO):
+def run_mytext(text: str, auth: dict, mode: Mode = Mode.PARAPHRASE, tone: Tone = Tone.NEUTRAL, provider: Provider = Provider.AI_STUDIO):
     instruction_str = build_instruction(mode, tone)
     template = PromptTemplate(
         content="{instruction}\n\nUser text:\n{prompt[message]}",
@@ -81,6 +81,7 @@ def run_mytext(text: str, api_key: str = None, mode: Mode = Mode.PARAPHRASE, ton
     )
     prompt = Prompt(message=text, template=template)
     if provider == Provider.AI_STUDIO:
+        api_key = auth["api_key"]
         result = call_ai_studio(prompt=prompt, api_key=api_key)
     return result
 
@@ -108,22 +109,12 @@ def main():
         help="The text you want to transform"
     )
 
-    parser.add_argument(
-        "--api-key",
-        help="AI Studio API key."
-    )
-
     args = parser.parse_args()
     text = args.text
     tone = Tone(args.tone)
     mode = Mode(args.mode)
-    api_key = args.api_key or os.getenv("AI_STUDIO_API_KEY")
+    ai_studio_api_key = os.getenv("AI_STUDIO_API_KEY")
+    result = run_mytext(auth={"api_key": ai_studio_api_key}, text=text, mode=mode, tone=tone, provider=Provider.AI_STUDIO)
+    print(result["message"])
 
-    for provider in [Provider.AI_STUDIO]:
-        if not api_key and provider == Provider.AI_STUDIO:
-            continue
-        result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone, provider=provider)
-        if result["status"]:
-            print(result["message"])
-            return
-    return
+
