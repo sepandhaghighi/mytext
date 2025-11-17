@@ -35,6 +35,13 @@ AI_STUDIO_HEADERS = {
     "Content-Type": "application/json"
 }
 
+CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/meta/{model}"
+
+CLOUDFLARE_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json"
+}
+
 INSTRUCTIONS = {
     Mode.PARAPHRASE: "Paraphrase the following text clearly and naturally. Tone should be {tone}.",
     Mode.GRAMMAR: "Correct grammar and improve clarity while preserving meaning. Tone should be {tone}.",

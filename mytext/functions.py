@@ -9,6 +9,7 @@ import requests
 from memor import Prompt, PromptTemplate, RenderFormat
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
+from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
 from .params import INSTRUCTIONS
 
 
@@ -89,13 +90,11 @@ def call_cloudflare(
     error_message = ""
     next_delay = retry_delay
     selected_model = main_model
-    headers = {
-    "Authorization": "Bearer {api_key}".format(api_key=api_key),
-    "Content-Type": "application/json"
-}
+    headers = CLOUDFLARE_HEADERS.copy()
+    headers["Authorization"] = headers["Authorization"].format(api_key=api_key)
     while retry_index < max_retries:
         try:
-            api_url = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/meta/{model}".format(
+            api_url = CLOUDFLARE_API_URL.format(
                 account_id=account_id,
                 model=selected_model)
             with requests.Session() as session:
