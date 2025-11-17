@@ -27,3 +27,15 @@ class Tone(Enum):
     PROFESSIONAL = "professional"
     ACADEMIC = "academic"
     CREATIVE = "creative"
+
+
+AI_STUDIO_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+
+AI_STUDIO_HEADERS = {
+    "Content-Type": "application/json"
+}
+
+INSTRUCTIONS = {
+    Mode.PARAPHRASE: "Paraphrase the following text clearly and naturally. Tone should be {tone}.",
+    Mode.GRAMMAR: "Correct grammar and improve clarity while preserving meaning. Tone should be {tone}.",
+}
