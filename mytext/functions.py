@@ -9,6 +9,7 @@ import requests
 from memor import Prompt, PromptTemplate, RenderFormat
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
+from .params import MLVOCA_API_URL, MLVOCA_HEADERS
 from .params import INSTRUCTIONS
 
 
@@ -162,5 +163,8 @@ def main():
     tone = args.tone
     mode = args.mode
     api_key = args.api_key or os.getenv("AI_STUDIO_API_KEY")
-    result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone)
+    result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone, provider=Provider.AI_STUDIO)
+    if result["status"]:
+        print(result["message"])
+    result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone, provider=Provider.MLVOCA)
     print(result["message"])
