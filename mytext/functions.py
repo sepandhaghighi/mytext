@@ -121,12 +121,14 @@ def call_mlvoca(
 def run_mytext(text: str, api_key: str = None, mode: Mode = Mode.PARAPHRASE, tone: Tone = Tone.NEUTRAL, provider: Provider = Provider.AI_STUDIO):
     instruction_str = build_instruction(mode, tone)
     template = PromptTemplate(
-        content="{instruction}\n\nUser text:\n{prompt[text]}",
+        content="{instruction}\n\nUser text:\n{prompt[message]}",
         custom_map={"instruction": instruction_str},
     )
     prompt = Prompt(message=text, template=template)
     if provider == Provider.AI_STUDIO:
         result = call_ai_studio(prompt=prompt, api_key=api_key)
+    else:
+        result = call_mlvoca(prompt=prompt)
     return result
 
 
@@ -166,5 +168,5 @@ def main():
     result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone, provider=Provider.AI_STUDIO)
     if result["status"]:
         print(result["message"])
-    result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone, provider=Provider.MLVOCA)
+    result = run_mytext(text=text, mode=mode, tone=tone, provider=Provider.MLVOCA)
     print(result["message"])
