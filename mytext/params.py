@@ -8,6 +8,7 @@ class Provider(Enum):
     """LLM provider enum."""
 
     AI_STUDIO = "ai_studio"
+    MLVOCA = "mlvoca"
 
 
 class Mode(Enum):
@@ -32,6 +33,12 @@ class Tone(Enum):
 AI_STUDIO_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
 
 AI_STUDIO_HEADERS = {
+    "Content-Type": "application/json"
+}
+
+MLVOCA_API_URL = "https://mlvoca.com/api/generate"
+
+MLVOCA_HEADERS = {
     "Content-Type": "application/json"
 }
 
