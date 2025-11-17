@@ -76,8 +76,8 @@ def call_ai_studio(
 
 def call_mlvoca(
         prompt: Prompt,
-        main_model="deepseek-r1:1.5b",
-        fallback_model="tinyllama",
+        main_model="tinyllama",
+        fallback_model="deepseek-r1:1.5b",
         timeout=15,
         max_retries=3,
         retry_delay=0.5,
