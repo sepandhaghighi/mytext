@@ -8,6 +8,7 @@ class Provider(Enum):
     """LLM provider enum."""
 
     AI_STUDIO = "ai_studio"
+    CLOUDFLARE = "cloudflare"
 
 
 class Mode(Enum):

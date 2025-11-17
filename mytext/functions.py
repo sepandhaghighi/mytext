@@ -136,7 +136,23 @@ def run_mytext(text: str, auth: dict, mode: Mode = Mode.PARAPHRASE, tone: Tone =
     if provider == Provider.AI_STUDIO:
         api_key = auth["api_key"]
         result = call_ai_studio(prompt=prompt, api_key=api_key)
+    if provider == Provider.CLOUDFLARE:
+        api_key = auth["api_key"]
+        account_id = auth["account_id"]
+        result = call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
     return result
+
+
+def load_auth_from_env():
+    return {
+        Provider.AI_STUDIO: {
+            "api_key": os.getenv("AI_STUDIO_API_KEY")
+        },
+        Provider.CLOUDFLARE: {
+            "api_key": os.getenv("CLOUDFLARE_API_KEY"),
+            "account_id": os.getenv("CLOUDFLARE_ACCOUNT_ID"),
+        },
+    }
 
 
 def main():
@@ -166,8 +182,30 @@ def main():
     text = args.text
     tone = Tone(args.tone)
     mode = Mode(args.mode)
-    ai_studio_api_key = os.getenv("AI_STUDIO_API_KEY")
-    result = run_mytext(auth={"api_key": ai_studio_api_key}, text=text, mode=mode, tone=tone, provider=Provider.AI_STUDIO)
-    print(result["message"])
+    auth_map = load_auth_from_env()
+    errors = []
+    for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE]:
+        auth = auth_map.get(provider)
+        if not auth or not all(auth.values()):
+            continue
+        result = run_mytext(
+            auth=auth,
+            text=text,
+            mode=mode,
+            tone=tone,
+            provider=provider
+        )
+        if result["status"]:
+            print(result["message"])
+            return
+        else:
+            errors.append((provider, result["message"]))
+    print("No provider succeeded.\n")
+    if not errors:
+        print("No valid provider credentials found in the environment.")
+    else:
+        print("Tried the following providers, but all failed:\n")
+        for provider, msg in errors:
+            print("- {provider.value}: {msg}".format(provider=provider, msg=msg))
 
 
