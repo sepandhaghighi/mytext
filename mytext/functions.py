@@ -165,8 +165,12 @@ def main():
     tone = Tone(args.tone)
     mode = Mode(args.mode)
     api_key = args.api_key or os.getenv("AI_STUDIO_API_KEY")
-    result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone, provider=Provider.AI_STUDIO)
-    if result["status"]:
-        print(result["message"])
-    result = run_mytext(text=text, mode=mode, tone=tone, provider=Provider.MLVOCA)
-    print(result["message"])
+
+    for provider in [Provider.AI_STUDIO, Provider.MLVOCA]:
+        if not api_key and provider == Provider.AI_STUDIO:
+            continue
+        result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone, provider=provider)
+        if result["status"]:
+            print(result["message"])
+            return
+    return
