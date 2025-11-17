@@ -162,8 +162,8 @@ def main():
 
     args = parser.parse_args()
     text = args.text
-    tone = args.tone
-    mode = args.mode
+    tone = Tone(args.tone)
+    mode = Mode(args.mode)
     api_key = args.api_key or os.getenv("AI_STUDIO_API_KEY")
     result = run_mytext(api_key=api_key, text=text, mode=mode, tone=tone, provider=Provider.AI_STUDIO)
     if result["status"]:
