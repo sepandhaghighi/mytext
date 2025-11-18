@@ -10,6 +10,16 @@ from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
 from .params import INSTRUCTIONS
+from .params import (
+    INVALID_TEXT_ERROR,
+    INVALID_AUTH_ERROR,
+    INVALID_MODE_ERROR,
+    INVALID_TONE_ERROR,
+    INVALID_PROVIDER_ERROR,
+    UNSUPPORTED_PROVIDER_ERROR,
+    MISSING_API_KEY_ERROR,
+    MISSING_CLOUDFLARE_KEYS_ERROR,
+)
 
 
 def build_instruction(mode: Mode, tone: Tone) -> str:
@@ -148,6 +158,35 @@ def call_cloudflare(
         "message": error_message,
         "model": selected_model}
 
+def validate_run_mytext_inputs(text, auth, mode, tone, provider):
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError(INVALID_TEXT_ERROR)
+
+    if not isinstance(auth, dict):
+        raise ValueError(INVALID_AUTH_ERROR)
+
+    if not isinstance(mode, Mode):
+        raise ValueError(INVALID_MODE_ERROR.format(value=mode))
+
+    if not isinstance(tone, Tone):
+        raise ValueError(INVALID_TONE_ERROR.format(value=tone))
+
+    if not isinstance(provider, Provider):
+        raise ValueError(INVALID_PROVIDER_ERROR.format(value=provider))
+
+    if provider == Provider.AI_STUDIO:
+        if "api_key" not in auth:
+            raise KeyError(MISSING_API_KEY_ERROR)
+
+    elif provider == Provider.CLOUDFLARE:
+        missing = [k for k in ("api_key", "account_id") if k not in auth]
+        if missing:
+            raise KeyError(MISSING_CLOUDFLARE_KEYS_ERROR.format(
+                keys=", ".join(missing)
+            ))
+    else:
+        raise ValueError(UNSUPPORTED_PROVIDER_ERROR.format(value=provider))
+
 
 def run_mytext(
         text: str,
@@ -165,6 +204,7 @@ def run_mytext(
     :param provider: API provider
     """
     try:
+        validate_run_mytext_inputs(text, auth, mode, tone, provider)
         instruction_str = build_instruction(mode, tone)
         template = PromptTemplate(
             content="{instruction}\n\nUser text:\n{prompt[message]}",
