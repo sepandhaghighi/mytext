@@ -76,3 +76,7 @@ UNSUPPORTED_PROVIDER_ERROR = "Unsupported provider: {value}"
 
 MISSING_API_KEY_ERROR = "AI_STUDIO provider requires `api_key` in auth."
 MISSING_CLOUDFLARE_KEYS_ERROR = "CLOUDFLARE provider requires keys: {keys}"
+
+NO_PROVIDER_SUCCEEDED_MESSAGE = "No provider succeeded.\n"
+NO_VALID_PROVIDER_CREDENTIALS_MESSAGE = "No valid provider credentials found in the environment."
+ALL_PROVIDERS_FAILED_MESSAGE = "Tried the following providers, but all failed:\n"

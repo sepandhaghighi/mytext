@@ -10,16 +10,10 @@ from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
 from .params import INSTRUCTIONS
-from .params import (
-    INVALID_TEXT_ERROR,
-    INVALID_AUTH_ERROR,
-    INVALID_MODE_ERROR,
-    INVALID_TONE_ERROR,
-    INVALID_PROVIDER_ERROR,
-    UNSUPPORTED_PROVIDER_ERROR,
-    MISSING_API_KEY_ERROR,
-    MISSING_CLOUDFLARE_KEYS_ERROR,
-)
+from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
+from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR, UNSUPPORTED_PROVIDER_ERROR
+from .params import MISSING_API_KEY_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
+from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, NO_VALID_PROVIDER_CREDENTIALS_MESSAGE, ALL_PROVIDERS_FAILED_MESSAGE
 
 
 def build_instruction(mode: Mode, tone: Tone) -> str:
@@ -286,10 +280,10 @@ def main():
             return
         else:
             errors.append((provider, result["message"]))
-    print("No provider succeeded.\n")
+    print(NO_PROVIDER_SUCCEEDED_MESSAGE)
     if not errors:
-        print("No valid provider credentials found in the environment.")
+        print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
     else:
-        print("Tried the following providers, but all failed:\n")
+        print(ALL_PROVIDERS_FAILED_MESSAGE)
         for provider, _ in errors:
             print("- {provider}".format(provider=provider.value))
