@@ -158,6 +158,7 @@ def call_cloudflare(
         "message": error_message,
         "model": selected_model}
 
+
 def validate_run_mytext_inputs(text, auth, mode, tone, provider):
     if not isinstance(text, str) or not text.strip():
         raise ValueError(INVALID_TEXT_ERROR)
