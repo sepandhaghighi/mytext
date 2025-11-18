@@ -161,14 +161,14 @@ def main():
     parser.add_argument(
         "--mode",
         choices=[x.value for x in Mode],
-        default=Mode.PARAPHRASE,
+        default=Mode.PARAPHRASE.value,
         help="Processing mode (default: paraphrase)"
     )
 
     parser.add_argument(
         "--tone",
         choices=[x.value for x in Tone],
-        default=Tone.NEUTRAL,
+        default=Tone.NEUTRAL.value,
         help="Writing tone (default: neutral)"
     )
 
@@ -205,7 +205,7 @@ def main():
         print("No valid provider credentials found in the environment.")
     else:
         print("Tried the following providers, but all failed:\n")
-        for provider, msg in errors:
-            print("- {provider.value}: {msg}".format(provider=provider, msg=msg))
+        for provider, _ in errors:
+            print("- {provider}".format(provider=provider.value))
 
 
