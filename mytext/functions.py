@@ -127,20 +127,26 @@ def call_cloudflare(
 
 
 def run_mytext(text: str, auth: dict, mode: Mode = Mode.PARAPHRASE, tone: Tone = Tone.NEUTRAL, provider: Provider = Provider.AI_STUDIO):
-    instruction_str = build_instruction(mode, tone)
-    template = PromptTemplate(
-        content="{instruction}\n\nUser text:\n{prompt[message]}",
-        custom_map={"instruction": instruction_str},
-    )
-    prompt = Prompt(message=text, template=template)
-    if provider == Provider.AI_STUDIO:
-        api_key = auth["api_key"]
-        result = call_ai_studio(prompt=prompt, api_key=api_key)
-    if provider == Provider.CLOUDFLARE:
-        api_key = auth["api_key"]
-        account_id = auth["account_id"]
-        result = call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
-    return result
+    try:
+        instruction_str = build_instruction(mode, tone)
+        template = PromptTemplate(
+            content="{instruction}\n\nUser text:\n{prompt[message]}",
+            custom_map={"instruction": instruction_str},
+        )
+        prompt = Prompt(message=text, template=template)
+        if provider == Provider.AI_STUDIO:
+            api_key = auth["api_key"]
+            result = call_ai_studio(prompt=prompt, api_key=api_key)
+        if provider == Provider.CLOUDFLARE:
+            api_key = auth["api_key"]
+            account_id = auth["account_id"]
+            result = call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
+        return result
+    except Exception as e:
+        return {
+        "status": False,
+        "message": str(e),
+        "model": "unknown"}
 
 
 def load_auth_from_env():
