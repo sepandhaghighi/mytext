@@ -36,7 +36,7 @@ AI_STUDIO_HEADERS = {
     "Content-Type": "application/json"
 }
 
-CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/meta/{model}"
+CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/@cf/{model}"
 
 CLOUDFLARE_HEADERS = {
     "Authorization": "Bearer {api_key}",

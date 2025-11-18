@@ -3,7 +3,6 @@
 
 import os
 import time
-import json
 import argparse
 import requests
 from memor import Prompt, PromptTemplate, RenderFormat
@@ -28,12 +27,24 @@ def build_instruction(mode: Mode, tone: Tone) -> str:
 def call_ai_studio(
         prompt: Prompt,
         api_key: str,
-        main_model="gemini-2.0-flash",
-        fallback_model="gemini-2.0-flash-lite",
-        timeout=15,
-        max_retries=3,
-        retry_delay=0.5,
-        backoff_factor=1):
+        main_model: str="gemini-2.0-flash",
+        fallback_model: str="gemini-2.0-flash-lite",
+        timeout: float=15,
+        max_retries: int=3,
+        retry_delay: float=0.5,
+        backoff_factor: float=1):
+    """
+    Call AI Studio API and return the response.
+
+    :param prompt: user prompt
+    :param api_key: API key
+    :param main_model: main model
+    :param fallback_model: fallback model
+    :param timeout: API timeout
+    :param max_retries: max retries
+    :param retry_delay: retry delay
+    :param backoff_factor: backoff factor
+    """
     data = dict()
     data.update({"contents": prompt.render(RenderFormat.AI_STUDIO)})
     retry_index = 0
@@ -78,12 +89,25 @@ def call_cloudflare(
         prompt: Prompt,
         account_id: str,
         api_key: str,
-        main_model="llama-3-8b-instruct",
-        fallback_model="llama-3-8b-instruct",
-        timeout=15,
-        max_retries=3,
-        retry_delay=0.5,
-        backoff_factor=1):
+        main_model:str ="meta/llama-3-8b-instruct",
+        fallback_model:str ="qwen/qwen3-30b-a3b-fp8",
+        timeout: float=15,
+        max_retries: int=3,
+        retry_delay: float=0.5,
+        backoff_factor: float=1):
+    """
+    Call Cloudflare API and return the response.
+
+    :param prompt: user prompt
+    :param account_id: account ID
+    :param api_key: API key
+    :param main_model: main model
+    :param fallback_model: fallback model
+    :param timeout: API timeout
+    :param max_retries: max retries
+    :param retry_delay: retry delay
+    :param backoff_factor: backoff factor
+    """
     data = dict()
     data["messages"] = [prompt.render(RenderFormat.OPENAI)]
     retry_index = 0
@@ -127,6 +151,15 @@ def call_cloudflare(
 
 
 def run_mytext(text: str, auth: dict, mode: Mode = Mode.PARAPHRASE, tone: Tone = Tone.NEUTRAL, provider: Provider = Provider.AI_STUDIO):
+    """
+    Run mytext.
+
+    :param text: user text
+    :param auth: authentication parameters
+    :param mode: mode
+    :param tone: tone
+    :param provider: API provider
+    """
     try:
         instruction_str = build_instruction(mode, tone)
         template = PromptTemplate(
@@ -150,6 +183,7 @@ def run_mytext(text: str, auth: dict, mode: Mode = Mode.PARAPHRASE, tone: Tone =
 
 
 def load_auth_from_env():
+    """Load authentication parameters from environment."""
     return {
         Provider.AI_STUDIO: {
             "api_key": os.getenv("AI_STUDIO_API_KEY")
@@ -162,6 +196,7 @@ def load_auth_from_env():
 
 
 def main():
+    """Main CLI function."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
     parser.add_argument(
