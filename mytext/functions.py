@@ -12,7 +12,6 @@ from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
 from .params import INSTRUCTIONS
 
 
-
 def build_instruction(mode: Mode, tone: Tone) -> str:
     """
     Retrieve and format the instruction template for the given mode.
@@ -89,8 +88,8 @@ def call_cloudflare(
         prompt: Prompt,
         account_id: str,
         api_key: str,
-        main_model:str ="meta/llama-3-8b-instruct",
-        fallback_model:str ="qwen/qwen3-30b-a3b-fp8",
+        main_model: str ="meta/llama-3-8b-instruct",
+        fallback_model: str ="qwen/qwen3-30b-a3b-fp8",
         timeout: float=15,
         max_retries: int=3,
         retry_delay: float=0.5,
@@ -150,7 +149,12 @@ def call_cloudflare(
         "model": selected_model}
 
 
-def run_mytext(text: str, auth: dict, mode: Mode = Mode.PARAPHRASE, tone: Tone = Tone.NEUTRAL, provider: Provider = Provider.AI_STUDIO):
+def run_mytext(
+        text: str,
+        auth: dict,
+        mode: Mode = Mode.PARAPHRASE,
+        tone: Tone = Tone.NEUTRAL,
+        provider: Provider = Provider.AI_STUDIO):
     """
     Run mytext.
 
@@ -177,9 +181,9 @@ def run_mytext(text: str, auth: dict, mode: Mode = Mode.PARAPHRASE, tone: Tone =
         return result
     except Exception as e:
         return {
-        "status": False,
-        "message": str(e),
-        "model": "unknown"}
+            "status": False,
+            "message": str(e),
+            "model": "unknown"}
 
 
 def load_auth_from_env():
@@ -248,5 +252,3 @@ def main():
         print("Tried the following providers, but all failed:\n")
         for provider, _ in errors:
             print("- {provider}".format(provider=provider.value))
-
-
