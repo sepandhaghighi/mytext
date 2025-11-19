@@ -5,6 +5,7 @@ import os
 import time
 import argparse
 import requests
+from typing import Union, Dict, Any
 from memor import Prompt, PromptTemplate, RenderFormat
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
@@ -35,7 +36,7 @@ def call_ai_studio(
         timeout: float=15,
         max_retries: int=3,
         retry_delay: float=0.5,
-        backoff_factor: float=1):
+        backoff_factor: float=1) -> Dict[str, Union[bool, str]]:
     """
     Call AI Studio API and return the response.
 
@@ -97,7 +98,7 @@ def call_cloudflare(
         timeout: float=15,
         max_retries: int=3,
         retry_delay: float=0.5,
-        backoff_factor: float=1):
+        backoff_factor: float=1) -> Dict[str, Union[bool, str]]:
     """
     Call Cloudflare API and return the response.
 
@@ -153,7 +154,16 @@ def call_cloudflare(
         "model": selected_model}
 
 
-def validate_run_mytext_inputs(text, auth, mode, tone, provider):
+def validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any) -> None:
+    """
+    Validate run_mytext function inputs.
+
+    :param text: user text
+    :param auth: authentication parameters
+    :param mode: mode
+    :param tone: tone
+    :param provider: API provider
+    """
     if not isinstance(text, str) or not text.strip():
         raise ValueError(INVALID_TEXT_ERROR)
 
@@ -188,7 +198,7 @@ def run_mytext(
         auth: dict,
         mode: Mode = Mode.PARAPHRASE,
         tone: Tone = Tone.NEUTRAL,
-        provider: Provider = Provider.AI_STUDIO):
+        provider: Provider = Provider.AI_STUDIO) -> Dict[str, Union[bool, str]]:
     """
     Run mytext.
 
@@ -221,7 +231,7 @@ def run_mytext(
             "model": "unknown"}
 
 
-def load_auth_from_env():
+def load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
     """Load authentication parameters from environment."""
     return {
         Provider.AI_STUDIO: {
@@ -234,7 +244,7 @@ def load_auth_from_env():
     }
 
 
-def main():
+def main() -> None:
     """Main CLI function."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
