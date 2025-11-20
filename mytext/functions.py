@@ -295,5 +295,3 @@ def main() -> None:
         print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
     else:
         print(ALL_PROVIDERS_FAILED_MESSAGE)
-        for provider, _ in errors:
-            print("- {provider}".format(provider=provider.value))
