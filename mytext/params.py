@@ -66,7 +66,7 @@ INSTRUCTIONS = {
     ),
 }
 
-INVALID_TEXT_ERROR = "`text` must be a non-empty string."
+INVALID_TEXT_ERROR = "`text` must be a string."
 INVALID_AUTH_ERROR = "`auth` must be a dictionary."
 INVALID_MODE_ERROR = "`mode` must be an instance of Mode enum, got: {value}"
 INVALID_TONE_ERROR = "`tone` must be an instance of Tone enum, got: {value}"

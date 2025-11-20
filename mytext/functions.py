@@ -164,7 +164,7 @@ def validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provi
     :param tone: tone
     :param provider: API provider
     """
-    if not isinstance(text, str) or not text.strip():
+    if not isinstance(text, str):
         raise ValueError(INVALID_TEXT_ERROR)
 
     if not isinstance(auth, dict):
