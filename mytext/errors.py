@@ -6,4 +6,3 @@ class MyTextValidationError(ValueError):
     """Base class for validation errors in mytext."""
 
     pass
-
