@@ -74,7 +74,7 @@ INVALID_PROVIDER_ERROR = "`provider` must be an instance of Provider enum."
 UNSUPPORTED_PROVIDER_ERROR = "Unsupported provider: {value}"
 
 
-MISSING_API_KEY_ERROR = "AI_STUDIO provider requires `api_key` in auth."
+MISSING_AI_STUDIO_KEYS_ERROR = "AI_STUDIO provider requires `api_key` in auth."
 MISSING_CLOUDFLARE_KEYS_ERROR = "CLOUDFLARE provider requires keys: {keys}"
 
 NO_PROVIDER_SUCCEEDED_MESSAGE = "No provider succeeded.\n"

@@ -13,7 +13,7 @@ from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
 from .params import INSTRUCTIONS
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR, UNSUPPORTED_PROVIDER_ERROR
-from .params import MISSING_API_KEY_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
+from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, NO_VALID_PROVIDER_CREDENTIALS_MESSAGE, ALL_PROVIDERS_FAILED_MESSAGE
 
 
@@ -181,14 +181,11 @@ def validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provi
 
     if provider == Provider.AI_STUDIO:
         if "api_key" not in auth:
-            raise KeyError(MISSING_API_KEY_ERROR)
+            raise KeyError(MISSING_AI_STUDIO_KEYS_ERROR)
 
     elif provider == Provider.CLOUDFLARE:
-        missing = [k for k in ("api_key", "account_id") if k not in auth]
-        if missing:
-            raise KeyError(MISSING_CLOUDFLARE_KEYS_ERROR.format(
-                keys=", ".join(missing)
-            ))
+        if "api_key" not in auth or "account_id" not in auth:
+            raise KeyError(MISSING_CLOUDFLARE_KEYS_ERROR)
     else:
         raise ValueError(UNSUPPORTED_PROVIDER_ERROR.format(value=provider))
 
