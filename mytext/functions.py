@@ -7,7 +7,6 @@ import argparse
 import requests
 from typing import Union, Dict, Any
 from memor import Prompt, PromptTemplate, RenderFormat
-from .errors import MyTextValidationError
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
@@ -166,27 +165,27 @@ def validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provi
     :param provider: API provider
     """
     if not isinstance(text, str):
-        raise MyTextValidationError(INVALID_TEXT_ERROR)
+        raise ValueError(INVALID_TEXT_ERROR)
 
     if not isinstance(auth, dict):
-        raise MyTextValidationError(INVALID_AUTH_ERROR)
+        raise ValueError(INVALID_AUTH_ERROR)
 
     if not isinstance(mode, Mode):
-        raise MyTextValidationError(INVALID_MODE_ERROR)
+        raise ValueError(INVALID_MODE_ERROR)
 
     if not isinstance(tone, Tone):
-        raise MyTextValidationError(INVALID_TONE_ERROR)
+        raise ValueError(INVALID_TONE_ERROR)
 
     if not isinstance(provider, Provider):
-        raise MyTextValidationError(INVALID_PROVIDER_ERROR)
+        raise ValueError(INVALID_PROVIDER_ERROR)
 
     if provider == Provider.AI_STUDIO:
         if "api_key" not in auth:
-            raise MyTextValidationError(MISSING_AI_STUDIO_KEYS_ERROR)
+            raise ValueError(MISSING_AI_STUDIO_KEYS_ERROR)
 
     elif provider == Provider.CLOUDFLARE:
         if "api_key" not in auth or "account_id" not in auth:
-            raise MyTextValidationError(MISSING_CLOUDFLARE_KEYS_ERROR)
+            raise ValueError(MISSING_CLOUDFLARE_KEYS_ERROR)
 
 
 def run_mytext(
