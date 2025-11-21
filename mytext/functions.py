@@ -187,7 +187,7 @@ def validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provi
         if "api_key" not in auth or "account_id" not in auth:
             raise KeyError(MISSING_CLOUDFLARE_KEYS_ERROR)
     else:
-        raise ValueError(UNSUPPORTED_PROVIDER_ERROR.format(value=provider))
+        raise ValueError(UNSUPPORTED_PROVIDER_ERROR)
 
 
 def run_mytext(
