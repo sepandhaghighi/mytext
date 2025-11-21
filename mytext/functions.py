@@ -171,13 +171,13 @@ def validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provi
         raise ValueError(INVALID_AUTH_ERROR)
 
     if not isinstance(mode, Mode):
-        raise ValueError(INVALID_MODE_ERROR.format(value=mode))
+        raise ValueError(INVALID_MODE_ERROR)
 
     if not isinstance(tone, Tone):
-        raise ValueError(INVALID_TONE_ERROR.format(value=tone))
+        raise ValueError(INVALID_TONE_ERROR)
 
     if not isinstance(provider, Provider):
-        raise ValueError(INVALID_PROVIDER_ERROR.format(value=provider))
+        raise ValueError(INVALID_PROVIDER_ERROR)
 
     if provider == Provider.AI_STUDIO:
         if "api_key" not in auth:
