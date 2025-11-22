@@ -64,6 +64,34 @@ def test_run_mytext_api_failure(mock_call):
     assert "error" in result["message"]
 
 
+def test_run_mytext_cloudflare_failure():
+
+    auth = {"api_key": "KEY", "account_id": "ACC"}
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.CLOUDFLARE
+    )
+    assert not result["status"]
+    assert "error" in result["message"]
+
+
+def test_run_mytext_ai_studio_failure():
+
+    auth = {"api_key": "KEY"}
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.AI_STUDIO
+    )
+    assert not result["status"]
+    assert "error" in result["message"]
+
+
 @patch("mytext.functions.load_auth_from_env")
 @patch("mytext.functions.run_mytext")
 def test_main_success(mock_run, mock_env, capsys):
