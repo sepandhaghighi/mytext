@@ -9,12 +9,12 @@ TEST_CASE_NAME = "API tests"
 
 def skip_if_no_env_ai_studio():
     if not os.getenv("AI_STUDIO_API_KEY"):
-        pytest.skip("AI-Studio real API keys not available.")
+        pytest.skip("AI Studio real API keys are not available.")
 
 
 def skip_if_no_env_cloudflare():
     if not os.getenv("CLOUDFLARE_API_KEY") or not os.getenv("CLOUDFLARE_ACCOUNT_ID"):
-        pytest.skip("Cloudflare real API keys not available.")
+        pytest.skip("Cloudflare real API keys are not available.")
 
 
 def test_ai_studio_real_api():
