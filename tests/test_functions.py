@@ -29,13 +29,6 @@ def test_run_mytext_ai_studio_success(mock_call):
     assert result["message"] == "OK!"
 
 
-
-
-
-
-
-
-
 @patch("mytext.functions.call_cloudflare")
 def test_run_mytext_cloudflare_success(mock_call):
     mock_call.return_value = {
