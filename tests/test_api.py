@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+import os
+import pytest
+from mytext import run_mytext
+from mytext import Mode, Tone, Provider
+
+TEST_CASE_NAME = "API tests"
+
+
+def skip_if_no_env():
+    if not os.getenv("AI_STUDIO_API_KEY") and not os.getenv("CLOUDFLARE_API_KEY"):
+        pytest.skip("Real API keys not available.")
+
+
+def test_ai_studio_real_api():
+    skip_if_no_env()
+    api_key = os.getenv("AI_STUDIO_API_KEY")
+
+    result = run_mytext(
+        text="Hello, how are you?",
+        auth={"api_key": api_key},
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.AI_STUDIO,
+    )
+
+    assert result["status"]
+    assert result["message"]
+    assert result["model"]
+
+
+def test_cloudflare_real_api():
+    skip_if_no_env()
+    api_key = os.getenv("CLOUDFLARE_API_KEY")
+    account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
+
+    result = run_mytext(
+        text="Hello world!",
+        auth={"api_key": api_key, "account_id": account_id},
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.CLOUDFLARE,
+    )
+
+    assert result["status"]
+    assert result["message"]
+    assert result["model"]
