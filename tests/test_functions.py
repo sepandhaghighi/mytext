@@ -50,8 +50,14 @@ def test_run_mytext_cloudflare_success(mock_call):
     assert result["message"] == "OK2"
 
 
-@patch("mytext.functions.call_ai_studio", return_value={"status": False, "message": "error", "model": "m"})
+@patch("mytext.functions.call_ai_studio")
 def test_run_mytext_api_failure(mock_call):
+    mock_call.return_value = {
+        "status": False,
+        "message": "error",
+        "model": "unknown"
+    }
+
     auth = {"api_key": "KEY"}
     result = run_mytext(text="hi", auth=auth, provider=Provider.AI_STUDIO)
     assert not result["status"]
