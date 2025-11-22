@@ -7,13 +7,18 @@ from mytext import Mode, Tone, Provider
 TEST_CASE_NAME = "API tests"
 
 
-def skip_if_no_env():
-    if not os.getenv("AI_STUDIO_API_KEY") and not os.getenv("CLOUDFLARE_API_KEY"):
-        pytest.skip("Real API keys not available.")
+def skip_if_no_env_ai_studio():
+    if not os.getenv("AI_STUDIO_API_KEY"):
+        pytest.skip("AI-Studio real API keys not available.")
+
+
+def skip_if_no_env_cloudflare():
+    if not os.getenv("CLOUDFLARE_API_KEY") or not os.getenv("CLOUDFLARE_ACCOUNT_ID"):
+        pytest.skip("Cloudflare real API keys not available.")
 
 
 def test_ai_studio_real_api():
-    skip_if_no_env()
+    skip_if_no_env_ai_studio()
     api_key = os.getenv("AI_STUDIO_API_KEY")
 
     result = run_mytext(
@@ -30,7 +35,7 @@ def test_ai_studio_real_api():
 
 
 def test_cloudflare_real_api():
-    skip_if_no_env()
+    skip_if_no_env_cloudflare()
     api_key = os.getenv("CLOUDFLARE_API_KEY")
     account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
 
