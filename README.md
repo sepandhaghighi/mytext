@@ -9,7 +9,7 @@
 ## Overview	
 
 <p align="justify">		
-**MyText** is a lightweight AI-powered text enhancement tool that rewrites, paraphrases, and adjusts tone using modern LLM providers. It offers a clean command-line interface and a minimal Python API, supports multiple providers (Google AI Studio & Cloudflare Workers AI), and automatically selects the first available provider based on your environment variables.
+<b>MyText</b> is a lightweight AI-powered text enhancement tool that rewrites, paraphrases, and adjusts tone using modern LLM providers. It offers a clean command-line interface and a minimal Python API, supports multiple providers (Google AI Studio & Cloudflare Workers AI), and automatically selects the first available provider based on your environment variables.
 </p>
 
 <table>
