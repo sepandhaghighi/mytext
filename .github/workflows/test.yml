@@ -17,6 +17,9 @@ on:
 env:
   TEST_PYTHON_VERSION: 3.9
   TEST_OS: 'ubuntu-22.04'
+  AI_STUDIO_API_KEY: ${{ secrets.AI_STUDIO_API_KEY }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
 
 jobs:
   build:
@@ -40,9 +43,13 @@ jobs:
         run: |
           python otherfiles/requirements-splitter.py
           pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
-      - name: Test with pytest 
+      - name: Test with pytest (Functions) 
+        run: |
+          python -m pytest . --cov=mytext --cov-report=term --ignore=tests/test_api.py
+      - name: Test with pytest (API) 
         run: |
           python -m pytest . --cov=mytext --cov-report=term
+        if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
       - name: Vulture, Bandit and Pydocstyle tests
         run: |
           python -m vulture mytext/ otherfiles/ setup.py --min-confidence 65 --exclude=__init__.py --sort-by-size
