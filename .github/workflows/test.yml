@@ -50,6 +50,12 @@ jobs:
         run: |
           python -m pytest . --cov=mytext --cov-report=term
         if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+            fail_ci_if_error: true
+            token: ${{ secrets.CODECOV_TOKEN }}
+        if: matrix.python-version == env.TEST_PYTHON_VERSION && matrix.os == env.TEST_OS
       - name: Vulture, Bandit and Pydocstyle tests
         run: |
           python -m vulture mytext/ otherfiles/ setup.py --min-confidence 65 --exclude=__init__.py --sort-by-size
