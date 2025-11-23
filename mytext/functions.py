@@ -240,7 +240,7 @@ def load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
 
 
 def main() -> None:
-    """Main CLI function."""
+    """CLI main function."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
     parser.add_argument(
