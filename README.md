@@ -56,7 +56,7 @@
 ### CLI
 
 ```bash
-mytext --mode="paraphrase" --tone="formal" --text="Rewrite this text for me."
+mytext --mode="paraphrase" --tone="formal" --text="Can you update me on the project timeline by the end of the day?"
 ```
 
 ℹ️ Supported modes: `paraphrase`, `grammar`
@@ -73,7 +73,7 @@ from mytext import Mode, Tone, Provider
 
 auth = {"api_key": "YOUR_KEY"}
 result = run_mytext(
-    text="Rewrite this text please.",
+    text="Let me know if you have any questions after reviewing the attached document.",
     auth=auth,
     mode=Mode.PARAPHRASE,
     tone=Tone.NEUTRAL,
