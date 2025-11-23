@@ -1,5 +1,5 @@
 <div align="center">
-<h1>MyText: TODO</h1>
+<h1>MyText: A Minimal AI-Powered Text Rewriting Tool</h1>
 <br/>
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
 <a href="https://github.com/sepandhaghighi/mytext"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/sepandhaghighi/mytext"></a>
@@ -9,7 +9,7 @@
 ## Overview	
 
 <p align="justify">		
-TODO
+<b>MyText</b> is a lightweight AI-powered text enhancement tool that rewrites, paraphrases, and adjusts tone using modern LLM providers. It offers a clean command-line interface and a minimal Python API, supports multiple providers (Google AI Studio & Cloudflare Workers AI), and automatically selects the first available provider based on your environment variables.
 </p>
 
 <table>
@@ -53,19 +53,58 @@ TODO
 
 ## Usage
 
-TODO
+### CLI
+
+```bash
+mytext --mode="paraphrase" --tone="formal" --text="Can you update me on the project timeline by the end of the day?"
+```
+
+ℹ️ Supported modes: `paraphrase`, `grammar`
+
+ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`
+
+### Library
+
+You can also use MyText directly inside Python.
+
+```python
+from mytext import run_mytext
+from mytext import Mode, Tone, Provider
+
+auth = {"api_key": "YOUR_KEY"}
+result = run_mytext(
+    text="Let me know if you have any questions after reviewing the attached document.",
+    auth=auth,
+    mode=Mode.PARAPHRASE,
+    tone=Tone.NEUTRAL,
+    provider=Provider.AI_STUDIO
+)
+
+print(result["status"], result["message"])
+```
+
+## Supported Providers
+
+MyText automatically detects which providers are available based on environment variables:
+
+| Provider | Description | Required Environment Variables |
+|---------|-------------|--------------------------------|
+| **AI Studio** | Google AI Studio (Gemini models) | `AI_STUDIO_API_KEY` |
+| **Cloudflare** | Cloudflare Workers AI | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` |
+
+Set them before using:
+
+```bash
+export AI_STUDIO_API_KEY="your-key"
+export CLOUDFLARE_API_KEY="your-key"
+export CLOUDFLARE_ACCOUNT_ID="your-account-id"
+```
 
 ## Issues & Bug Reports			
 
 Just fill an issue and describe it. We'll check it ASAP!
 
 - Please complete the issue template
- 			
-
-## References
-
-TODO
-
 
 ## Show Your Support
 								
