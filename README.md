@@ -53,19 +53,58 @@
 
 ## Usage
 
-TODO
+### CLI
+
+```bash
+mytext --mode="paraphrase" --tone="formal" --text="Rewrite this text for me."
+```
+
+ℹ️ Supported modes: `paraphrase`, `grammar`
+
+ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`
+
+### Library
+
+You can also use MyText directly inside Python.
+
+```python
+from mytext import run_mytext
+from mytext import Mode, Tone, Provider
+
+auth = {"api_key": "YOUR_KEY"}
+result = run_mytext(
+    text="Rewrite this text please.",
+    auth=auth,
+    mode=Mode.PARAPHRASE,
+    tone=Tone.NEUTRAL,
+    provider=Provider.AI_STUDIO
+)
+
+print(result["status"], result["message"])
+```
+
+## Supported Providers
+
+MyText automatically detects which providers are available based on environment variables:
+
+| Provider | Description | Required Environment Variables |
+|---------|-------------|--------------------------------|
+| **AI Studio** | Google AI Studio (Gemini models) | `AI_STUDIO_API_KEY` |
+| **Cloudflare** | Cloudflare Workers AI | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` |
+
+Set them before using:
+
+```bash
+export AI_STUDIO_API_KEY="your-key"
+export CLOUDFLARE_API_KEY="your-key"
+export CLOUDFLARE_ACCOUNT_ID="your-account-id"
+```
 
 ## Issues & Bug Reports			
 
 Just fill an issue and describe it. We'll check it ASAP!
 
 - Please complete the issue template
- 			
-
-## References
-
-TODO
-
 
 ## Show Your Support
 								
