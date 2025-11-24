@@ -17,7 +17,7 @@ from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, NO_VALID_PROVIDER_CREDENTIALS_MESSAGE, ALL_PROVIDERS_FAILED_MESSAGE
 
 
-def build_instruction(mode: Mode, tone: Tone) -> str:
+def _build_instruction(mode: Mode, tone: Tone) -> str:
     """
     Retrieve and format the instruction template for the given mode.
 
@@ -28,7 +28,7 @@ def build_instruction(mode: Mode, tone: Tone) -> str:
     return template.format(tone=tone.value)
 
 
-def call_ai_studio(
+def _call_ai_studio(
         prompt: Prompt,
         api_key: str,
         main_model: str="gemini-2.0-flash",
@@ -89,7 +89,7 @@ def call_ai_studio(
         "model": selected_model}
 
 
-def call_cloudflare(
+def _call_cloudflare(
         prompt: Prompt,
         account_id: str,
         api_key: str,
@@ -154,7 +154,7 @@ def call_cloudflare(
         "model": selected_model}
 
 
-def validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any) -> None:
+def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any) -> None:
     """
     Validate run_mytext function inputs.
 
@@ -204,8 +204,8 @@ def run_mytext(
     :param provider: API provider
     """
     try:
-        validate_run_mytext_inputs(text, auth, mode, tone, provider)
-        instruction_str = build_instruction(mode, tone)
+        _validate_run_mytext_inputs(text, auth, mode, tone, provider)
+        instruction_str = _build_instruction(mode, tone)
         template = PromptTemplate(
             content="{instruction}\n\nUser text:\n{prompt[message]}",
             custom_map={"instruction": instruction_str},
@@ -213,11 +213,11 @@ def run_mytext(
         prompt = Prompt(message=text, template=template)
         if provider == Provider.AI_STUDIO:
             api_key = auth["api_key"]
-            result = call_ai_studio(prompt=prompt, api_key=api_key)
+            result = _call_ai_studio(prompt=prompt, api_key=api_key)
         if provider == Provider.CLOUDFLARE:
             api_key = auth["api_key"]
             account_id = auth["account_id"]
-            result = call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
+            result = _call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
         return result
     except Exception as e:
         return {
@@ -226,7 +226,7 @@ def run_mytext(
             "model": "unknown"}
 
 
-def load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
+def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
     """Load authentication parameters from environment."""
     return {
         Provider.AI_STUDIO: {
@@ -267,7 +267,7 @@ def main() -> None:
     text = args.text
     tone = Tone(args.tone)
     mode = Mode(args.mode)
-    auth_map = load_auth_from_env()
+    auth_map = _load_auth_from_env()
     errors = []
     for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE]:
         auth = auth_map.get(provider)

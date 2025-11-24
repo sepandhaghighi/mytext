@@ -8,7 +8,7 @@ from mytext.functions import main
 TEST_CASE_NAME = "Functions tests"
 
 
-@patch("mytext.functions.call_ai_studio")
+@patch("mytext.functions._call_ai_studio")
 def test_run_mytext_ai_studio_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -29,7 +29,7 @@ def test_run_mytext_ai_studio_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions.call_cloudflare")
+@patch("mytext.functions._call_cloudflare")
 def test_run_mytext_cloudflare_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -50,7 +50,7 @@ def test_run_mytext_cloudflare_success(mock_call):
     assert result["message"] == "OK2"
 
 
-@patch("mytext.functions.call_ai_studio")
+@patch("mytext.functions._call_ai_studio")
 def test_run_mytext_api_failure(mock_call):
     mock_call.return_value = {
         "status": False,
@@ -92,7 +92,7 @@ def test_run_mytext_ai_studio_failure():
     assert "error" in result["message"]
 
 
-@patch("mytext.functions.load_auth_from_env")
+@patch("mytext.functions._load_auth_from_env")
 @patch("mytext.functions.run_mytext")
 def test_main_success(mock_run, mock_env, capsys):
     mock_env.return_value = {
@@ -108,7 +108,7 @@ def test_main_success(mock_run, mock_env, capsys):
     assert "RESULT" in out
 
 
-@patch("mytext.functions.load_auth_from_env")
+@patch("mytext.functions._load_auth_from_env")
 @patch("mytext.functions.run_mytext")
 def test_main_all_failures(mock_run, mock_env, capsys):
     mock_env.return_value = {
