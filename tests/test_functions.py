@@ -4,6 +4,7 @@ from unittest.mock import patch, MagicMock
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
 from mytext.functions import main
+from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "Functions tests"
 
@@ -99,13 +100,28 @@ def test_main_success(mock_run, mock_env, capsys):
         Provider.AI_STUDIO: {"api_key": "x"},
         Provider.CLOUDFLARE: {"api_key": "y", "account_id": "z"},
     }
-    mock_run.return_value = {"status": True, "message": "RESULT", "model": "gemini"}
+    mock_run.return_value = {"status": True, "message": "AI RESULT", "model": "gemini"}
 
     with patch("sys.argv", ["mytext", "--text", "hello"]):
         main()
 
     out, _ = capsys.readouterr()
-    assert "RESULT" in out
+    assert "AI RESULT" in out
+
+
+def test_main_version(capsys):
+    with patch("sys.argv", ["mytext", "--version"]):
+        main()
+    out, _ = capsys.readouterr()
+    assert MY_TEXT_VERSION in out
+
+
+def test_main_info(capsys):
+    with patch("sys.argv", ["mytext", "--info"]):
+        main()
+    out, _ = capsys.readouterr()
+    assert MY_TEXT_OVERVIEW in out
+    assert MY_TEXT_REPO in out
 
 
 @patch("mytext.functions._load_auth_from_env")

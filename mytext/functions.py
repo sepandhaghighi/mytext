@@ -20,7 +20,7 @@ from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, NO_VALID_PROVIDER_CREDENTIALS_MESSAGE, ALL_PROVIDERS_FAILED_MESSAGE
 
 
-def _print_mytext_info() -> None:  # pragma: no cover
+def _print_mytext_info() -> None:
     """Print mytext details."""
     tprint("MyText")
     tprint("V:" + MY_TEXT_VERSION)
