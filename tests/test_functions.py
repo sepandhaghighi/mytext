@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from unittest.mock import patch, MagicMock
+import pytest
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
 from mytext.functions import main
@@ -122,6 +123,14 @@ def test_main_info(capsys):
     out, _ = capsys.readouterr()
     assert MY_TEXT_OVERVIEW in out
     assert MY_TEXT_REPO in out
+
+
+def test_main_no_text(capsys):
+    with patch("sys.argv", ["mytext"]):
+        with pytest.raises(SystemExit):
+            main()
+    out, err = capsys.readouterr()
+    assert "--text is required" in err
 
 
 @patch("mytext.functions._load_auth_from_env")
