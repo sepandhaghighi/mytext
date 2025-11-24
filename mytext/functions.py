@@ -7,7 +7,7 @@ import argparse
 import requests
 from typing import Union, Dict, Any
 from memor import Prompt, PromptTemplate, RenderFormat
-from .params import MY_TEXT_VERSION
+from .params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
@@ -17,6 +17,13 @@ from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, NO_VALID_PROVIDER_CREDENTIALS_MESSAGE, ALL_PROVIDERS_FAILED_MESSAGE
 
+
+def _print_mytext_info() -> None:  # pragma: no cover
+    """Print mytext details."""
+    tprint("MyText")
+    tprint("V:" + MY_TEXT_VERSION)
+    print(MY_TEXT_OVERVIEW)
+    print("Repo : " + MY_TEXT_REPO)
 
 def _build_instruction(mode: Mode, tone: Tone) -> str:
     """
@@ -246,6 +253,8 @@ def main() -> None:
 
     parser.add_argument('--version', help='Version', nargs="?", const=1)
 
+    parser.add_argument('--info', help='Info', nargs="?", const=1)
+
     parser.add_argument(
         "--mode",
         choices=[x.value for x in Mode],
@@ -269,6 +278,8 @@ def main() -> None:
     args = parser.parse_args()
     if args.version:
         print(MY_TEXT_VERSION)
+    elif args.info:
+        _print_mytext_info()
     else:
         text = args.text
         tone = Tone(args.tone)

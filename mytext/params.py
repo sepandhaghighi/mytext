@@ -3,6 +3,13 @@
 from enum import Enum
 MY_TEXT_VERSION = "0.1"
 
+MY_TEXT_OVERVIEW = """
+MyText is a lightweight AI-powered text enhancement tool that rewrites, paraphrases, and adjusts tone using modern LLM providers.
+It offers a clean command-line interface and a minimal Python API, supports multiple providers (Google AI Studio & Cloudflare Workers AI),
+and automatically selects the first available provider based on your environment variables.
+"""
+
+MY_TEXT_REPO = "https://github.com/sepandhaghighi/mytext"
 
 class Provider(Enum):
     """LLM provider enum."""
