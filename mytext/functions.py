@@ -15,6 +15,7 @@ from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
 from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
+from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, NO_VALID_PROVIDER_CREDENTIALS_MESSAGE, ALL_PROVIDERS_FAILED_MESSAGE
 
@@ -259,6 +260,7 @@ def main() -> None:
 
     parser.add_argument(
         "--mode",
+        type=str.lower,
         choices=[x.value for x in Mode],
         default=Mode.PARAPHRASE.value,
         help="Processing mode (default: paraphrase)"
@@ -266,6 +268,7 @@ def main() -> None:
 
     parser.add_argument(
         "--tone",
+        type=str.lower,
         choices=[x.value for x in Tone],
         default=Tone.NEUTRAL.value,
         help="Writing tone (default: neutral)"
@@ -273,7 +276,7 @@ def main() -> None:
 
     parser.add_argument(
         "--text",
-        required=True,
+        type=str,
         help="The text you want to transform"
     )
 
@@ -284,6 +287,8 @@ def main() -> None:
         _print_mytext_info()
     else:
         text = args.text
+        if not text:
+            parser.error(TEXT_IS_REQUIRED_ERROR)
         tone = Tone(args.tone)
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()

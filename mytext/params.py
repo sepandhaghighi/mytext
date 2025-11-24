@@ -86,6 +86,7 @@ INVALID_MODE_ERROR = "`mode` must be an instance of Mode enum."
 INVALID_TONE_ERROR = "`tone` must be an instance of Tone enum."
 INVALID_PROVIDER_ERROR = "`provider` must be an instance of Provider enum."
 UNSUPPORTED_PROVIDER_ERROR = "Unsupported provider."
+TEXT_IS_REQUIRED_ERROR = "--text is required."
 
 
 MISSING_AI_STUDIO_KEYS_ERROR = "AI_STUDIO provider requires keys: `api_key`"
