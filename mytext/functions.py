@@ -7,6 +7,7 @@ import argparse
 import requests
 from typing import Union, Dict, Any
 from memor import Prompt, PromptTemplate, RenderFormat
+from .params import MY_TEXT_VERSION
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
@@ -243,6 +244,8 @@ def main() -> None:
     """CLI main function."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
+    parser.add_argument('--version', help='Version', nargs="?", const=1)
+
     parser.add_argument(
         "--mode",
         choices=[x.value for x in Mode],
@@ -264,29 +267,32 @@ def main() -> None:
     )
 
     args = parser.parse_args()
-    text = args.text
-    tone = Tone(args.tone)
-    mode = Mode(args.mode)
-    auth_map = _load_auth_from_env()
-    errors = []
-    for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE]:
-        auth = auth_map.get(provider)
-        if not auth or not all(auth.values()):
-            continue
-        result = run_mytext(
-            auth=auth,
-            text=text,
-            mode=mode,
-            tone=tone,
-            provider=provider
-        )
-        if result["status"]:
-            print(OUTPUT_TEMPLATE.format(result = result["message"].strip()))
-            return
-        else:
-            errors.append((provider, result["message"]))
-    print(NO_PROVIDER_SUCCEEDED_MESSAGE)
-    if not errors:
-        print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
+    if args.version:
+        print(MY_TEXT_VERSION)
     else:
-        print(ALL_PROVIDERS_FAILED_MESSAGE)
+        text = args.text
+        tone = Tone(args.tone)
+        mode = Mode(args.mode)
+        auth_map = _load_auth_from_env()
+        errors = []
+        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE]:
+            auth = auth_map.get(provider)
+            if not auth or not all(auth.values()):
+                continue
+            result = run_mytext(
+                auth=auth,
+                text=text,
+                mode=mode,
+                tone=tone,
+                provider=provider
+            )
+            if result["status"]:
+                print(OUTPUT_TEMPLATE.format(result = result["message"].strip()))
+                return
+            else:
+                errors.append((provider, result["message"]))
+        print(NO_PROVIDER_SUCCEEDED_MESSAGE)
+        if not errors:
+            print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
+        else:
+            print(ALL_PROVIDERS_FAILED_MESSAGE)
