@@ -66,4 +66,8 @@ setup(
         'Topic :: Utilities',
     ],
     license='MIT',
+    entry_points={
+        'console_scripts': [
+            'mytext = mytext.functions:main',
+        ]}
 )
