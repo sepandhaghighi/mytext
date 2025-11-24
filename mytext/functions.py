@@ -10,7 +10,7 @@ from memor import Prompt, PromptTemplate, RenderFormat
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
-from .params import INSTRUCTIONS
+from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
@@ -281,7 +281,7 @@ def main() -> None:
             provider=provider
         )
         if result["status"]:
-            print(result["message"])
+            print(OUTPUT_TEMPLATE.format(result = result["message"].strip()))
             return
         else:
             errors.append((provider, result["message"]))

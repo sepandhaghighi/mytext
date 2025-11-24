@@ -66,6 +66,12 @@ INSTRUCTIONS = {
     ),
 }
 
+OUTPUT_TEMPLATE = """
+Result:
+
+{result}
+"""
+
 INVALID_TEXT_ERROR = "`text` must be a string."
 INVALID_AUTH_ERROR = "`auth` must be a dictionary."
 INVALID_MODE_ERROR = "`mode` must be an instance of Mode enum."
