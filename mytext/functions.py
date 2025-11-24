@@ -25,6 +25,7 @@ def _print_mytext_info() -> None:  # pragma: no cover
     print(MY_TEXT_OVERVIEW)
     print("Repo : " + MY_TEXT_REPO)
 
+
 def _build_instruction(mode: Mode, tone: Tone) -> str:
     """
     Retrieve and format the instruction template for the given mode.
@@ -298,7 +299,7 @@ def main() -> None:
                 provider=provider
             )
             if result["status"]:
-                print(OUTPUT_TEMPLATE.format(result = result["message"].strip()))
+                print(OUTPUT_TEMPLATE.format(result=result["message"].strip()))
                 return
             else:
                 errors.append((provider, result["message"]))
