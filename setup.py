@@ -24,14 +24,16 @@ def read_description() -> str:
             description += c.read()
         return description
     except Exception:
-        return '''TODO'''
+        return '''MyText is a lightweight AI-powered text enhancement tool that rewrites, paraphrases, and adjusts tone using modern LLM providers.
+        It offers a clean command-line interface and a minimal Python API, supports multiple providers (Google AI Studio & Cloudflare Workers AI),
+        and automatically selects the first available provider based on your environment variables.'''
 
 
 setup(
     name='mytext',
     packages=['mytext'],
     version='0.1',
-    description='MyText: TODO',
+    description='MyText: A Minimal AI-Powered Text Rewriting Tool',
     long_description=read_description(),
     long_description_content_type='text/markdown',
     include_package_data=True,
@@ -39,7 +41,7 @@ setup(
     author_email='me@sepand.tech',
     url='https://github.com/sepandhaghighi/mytext',
     download_url='https://github.com/sepandhaghighi/mytext/tarball/v0.1',
-    keywords="TODO",
+    keywords="text rewrite paraphrase editing llm ai text-processing cli",
     project_urls={
         'Source': 'https://github.com/sepandhaghighi/mytext'
     },
@@ -62,8 +64,10 @@ setup(
         'Intended Audience :: Education',
         'Intended Audience :: End Users/Desktop',
         'Intended Audience :: Other Audience',
-        'Topic :: Games/Entertainment',
         'Topic :: Utilities',
+        "Topic :: Text Processing :: Linguistic",
+        "Topic :: Text Processing :: General",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
     license='MIT',
     entry_points={
