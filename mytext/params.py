@@ -75,8 +75,6 @@ INSTRUCTIONS = {
 }
 
 OUTPUT_TEMPLATE = """
-Result:
-
 {result}
 """
 
