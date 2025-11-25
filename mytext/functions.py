@@ -6,18 +6,29 @@ import time
 import argparse
 import requests
 from typing import Union, Dict, Any
+from art import tprint
 from memor import Prompt, PromptTemplate, RenderFormat
+from .params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
-from .params import INSTRUCTIONS
+from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
+from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, NO_VALID_PROVIDER_CREDENTIALS_MESSAGE, ALL_PROVIDERS_FAILED_MESSAGE
 
 
-def build_instruction(mode: Mode, tone: Tone) -> str:
+def _print_mytext_info() -> None:
+    """Print mytext details."""
+    tprint("MyText")
+    tprint("V:" + MY_TEXT_VERSION)
+    print(MY_TEXT_OVERVIEW)
+    print("Repo : " + MY_TEXT_REPO)
+
+
+def _build_instruction(mode: Mode, tone: Tone) -> str:
     """
     Retrieve and format the instruction template for the given mode.
 
@@ -28,7 +39,7 @@ def build_instruction(mode: Mode, tone: Tone) -> str:
     return template.format(tone=tone.value)
 
 
-def call_ai_studio(
+def _call_ai_studio(
         prompt: Prompt,
         api_key: str,
         main_model: str="gemini-2.0-flash",
@@ -89,7 +100,7 @@ def call_ai_studio(
         "model": selected_model}
 
 
-def call_cloudflare(
+def _call_cloudflare(
         prompt: Prompt,
         account_id: str,
         api_key: str,
@@ -154,7 +165,7 @@ def call_cloudflare(
         "model": selected_model}
 
 
-def validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any) -> None:
+def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any) -> None:
     """
     Validate run_mytext function inputs.
 
@@ -204,8 +215,8 @@ def run_mytext(
     :param provider: API provider
     """
     try:
-        validate_run_mytext_inputs(text, auth, mode, tone, provider)
-        instruction_str = build_instruction(mode, tone)
+        _validate_run_mytext_inputs(text, auth, mode, tone, provider)
+        instruction_str = _build_instruction(mode, tone)
         template = PromptTemplate(
             content="{instruction}\n\nUser text:\n{prompt[message]}",
             custom_map={"instruction": instruction_str},
@@ -213,11 +224,11 @@ def run_mytext(
         prompt = Prompt(message=text, template=template)
         if provider == Provider.AI_STUDIO:
             api_key = auth["api_key"]
-            result = call_ai_studio(prompt=prompt, api_key=api_key)
+            result = _call_ai_studio(prompt=prompt, api_key=api_key)
         if provider == Provider.CLOUDFLARE:
             api_key = auth["api_key"]
             account_id = auth["account_id"]
-            result = call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
+            result = _call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
         return result
     except Exception as e:
         return {
@@ -226,7 +237,7 @@ def run_mytext(
             "model": "unknown"}
 
 
-def load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
+def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
     """Load authentication parameters from environment."""
     return {
         Provider.AI_STUDIO: {
@@ -243,8 +254,13 @@ def main() -> None:
     """CLI main function."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
+    parser.add_argument('--version', help='Version', nargs="?", const=1)
+
+    parser.add_argument('--info', help='Info', nargs="?", const=1)
+
     parser.add_argument(
         "--mode",
+        type=str.lower,
         choices=[x.value for x in Mode],
         default=Mode.PARAPHRASE.value,
         help="Processing mode (default: paraphrase)"
@@ -252,6 +268,7 @@ def main() -> None:
 
     parser.add_argument(
         "--tone",
+        type=str.lower,
         choices=[x.value for x in Tone],
         default=Tone.NEUTRAL.value,
         help="Writing tone (default: neutral)"
@@ -259,34 +276,41 @@ def main() -> None:
 
     parser.add_argument(
         "--text",
-        required=True,
+        type=str,
         help="The text you want to transform"
     )
 
     args = parser.parse_args()
-    text = args.text
-    tone = Tone(args.tone)
-    mode = Mode(args.mode)
-    auth_map = load_auth_from_env()
-    errors = []
-    for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE]:
-        auth = auth_map.get(provider)
-        if not auth or not all(auth.values()):
-            continue
-        result = run_mytext(
-            auth=auth,
-            text=text,
-            mode=mode,
-            tone=tone,
-            provider=provider
-        )
-        if result["status"]:
-            print(result["message"])
-            return
-        else:
-            errors.append((provider, result["message"]))
-    print(NO_PROVIDER_SUCCEEDED_MESSAGE)
-    if not errors:
-        print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
+    if args.version:
+        print(MY_TEXT_VERSION)
+    elif args.info:
+        _print_mytext_info()
     else:
-        print(ALL_PROVIDERS_FAILED_MESSAGE)
+        text = args.text
+        if not text:
+            parser.error(TEXT_IS_REQUIRED_ERROR)
+        tone = Tone(args.tone)
+        mode = Mode(args.mode)
+        auth_map = _load_auth_from_env()
+        errors = []
+        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE]:
+            auth = auth_map.get(provider)
+            if not auth or not all(auth.values()):
+                continue
+            result = run_mytext(
+                auth=auth,
+                text=text,
+                mode=mode,
+                tone=tone,
+                provider=provider
+            )
+            if result["status"]:
+                print(OUTPUT_TEMPLATE.format(result=result["message"].strip()))
+                return
+            else:
+                errors.append((provider, result["message"]))
+        print(NO_PROVIDER_SUCCEEDED_MESSAGE)
+        if not errors:
+            print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
+        else:
+            print(ALL_PROVIDERS_FAILED_MESSAGE)

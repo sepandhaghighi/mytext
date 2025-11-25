@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from unittest.mock import patch, MagicMock
+import pytest
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
 from mytext.functions import main
+from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "Functions tests"
 
 
-@patch("mytext.functions.call_ai_studio")
+@patch("mytext.functions._call_ai_studio")
 def test_run_mytext_ai_studio_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -29,7 +31,7 @@ def test_run_mytext_ai_studio_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions.call_cloudflare")
+@patch("mytext.functions._call_cloudflare")
 def test_run_mytext_cloudflare_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -50,7 +52,7 @@ def test_run_mytext_cloudflare_success(mock_call):
     assert result["message"] == "OK2"
 
 
-@patch("mytext.functions.call_ai_studio")
+@patch("mytext.functions._call_ai_studio")
 def test_run_mytext_api_failure(mock_call):
     mock_call.return_value = {
         "status": False,
@@ -92,23 +94,46 @@ def test_run_mytext_ai_studio_failure():
     assert "error" in result["message"]
 
 
-@patch("mytext.functions.load_auth_from_env")
+@patch("mytext.functions._load_auth_from_env")
 @patch("mytext.functions.run_mytext")
 def test_main_success(mock_run, mock_env, capsys):
     mock_env.return_value = {
         Provider.AI_STUDIO: {"api_key": "x"},
         Provider.CLOUDFLARE: {"api_key": "y", "account_id": "z"},
     }
-    mock_run.return_value = {"status": True, "message": "RESULT", "model": "gemini"}
+    mock_run.return_value = {"status": True, "message": "AI RESULT", "model": "gemini"}
 
     with patch("sys.argv", ["mytext", "--text", "hello"]):
         main()
 
     out, _ = capsys.readouterr()
-    assert "RESULT" in out
+    assert "AI RESULT" in out
 
 
-@patch("mytext.functions.load_auth_from_env")
+def test_main_version(capsys):
+    with patch("sys.argv", ["mytext", "--version"]):
+        main()
+    out, _ = capsys.readouterr()
+    assert MY_TEXT_VERSION in out
+
+
+def test_main_info(capsys):
+    with patch("sys.argv", ["mytext", "--info"]):
+        main()
+    out, _ = capsys.readouterr()
+    assert MY_TEXT_OVERVIEW in out
+    assert MY_TEXT_REPO in out
+
+
+def test_main_no_text(capsys):
+    with patch("sys.argv", ["mytext"]):
+        with pytest.raises(SystemExit):
+            main()
+    out, err = capsys.readouterr()
+    assert "--text is required" in err
+
+
+@patch("mytext.functions._load_auth_from_env")
 @patch("mytext.functions.run_mytext")
 def test_main_all_failures(mock_run, mock_env, capsys):
     mock_env.return_value = {

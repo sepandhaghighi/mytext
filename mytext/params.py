@@ -3,6 +3,14 @@
 from enum import Enum
 MY_TEXT_VERSION = "0.1"
 
+MY_TEXT_OVERVIEW = """
+MyText is a lightweight AI-powered text enhancement tool that rewrites, paraphrases, and adjusts tone using modern LLM providers.
+It offers a clean command-line interface and a minimal Python API, supports multiple providers (Google AI Studio & Cloudflare Workers AI),
+and automatically selects the first available provider based on your environment variables.
+"""
+
+MY_TEXT_REPO = "https://github.com/sepandhaghighi/mytext"
+
 
 class Provider(Enum):
     """LLM provider enum."""
@@ -66,12 +74,17 @@ INSTRUCTIONS = {
     ),
 }
 
+OUTPUT_TEMPLATE = """
+{result}
+"""
+
 INVALID_TEXT_ERROR = "`text` must be a string."
 INVALID_AUTH_ERROR = "`auth` must be a dictionary."
 INVALID_MODE_ERROR = "`mode` must be an instance of Mode enum."
 INVALID_TONE_ERROR = "`tone` must be an instance of Tone enum."
 INVALID_PROVIDER_ERROR = "`provider` must be an instance of Provider enum."
 UNSUPPORTED_PROVIDER_ERROR = "Unsupported provider."
+TEXT_IS_REQUIRED_ERROR = "--text is required."
 
 
 MISSING_AI_STUDIO_KEYS_ERROR = "AI_STUDIO provider requires keys: `api_key`"
