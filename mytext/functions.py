@@ -17,7 +17,7 @@ from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
-from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, NO_VALID_PROVIDER_CREDENTIALS_MESSAGE, ALL_PROVIDERS_FAILED_MESSAGE
+from .params import NO_PROVIDER_SUCCEEDED_MESSAGE
 
 
 def _print_mytext_info() -> None:
@@ -310,7 +310,7 @@ def main() -> None:
             else:
                 errors.append((provider, result["message"]))
         print(NO_PROVIDER_SUCCEEDED_MESSAGE)
-        if not errors:
-            print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
-        else:
-            print(ALL_PROVIDERS_FAILED_MESSAGE)
+        #if not errors:
+        #    print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
+        #else:
+        #    print(ALL_PROVIDERS_FAILED_MESSAGE)
