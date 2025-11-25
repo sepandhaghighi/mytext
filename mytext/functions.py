@@ -310,7 +310,7 @@ def main() -> None:
             else:
                 errors.append((provider, result["message"]))
         print(NO_PROVIDER_SUCCEEDED_MESSAGE)
-        if not errors:
-            print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
-        else:
-            print(ALL_PROVIDERS_FAILED_MESSAGE)
+        #if not errors:
+        #    print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
+        #else:
+        #    print(ALL_PROVIDERS_FAILED_MESSAGE)
