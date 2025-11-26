@@ -1,4 +1,4 @@
-memor==0.6
+memor==1.0
 requests==2.20.0
 art==6.5
 pytest>=4.3.1
