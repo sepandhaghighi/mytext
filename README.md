@@ -1,6 +1,7 @@
 <div align="center">
 <h1>MyText: A Minimal AI-Powered Text Rewriting Tool</h1>
 <br/>
+<a href="https://codecov.io/gh/sepandhaghighi/mytext"><img src="https://codecov.io/gh/sepandhaghighi/mytext/graph/badge.svg?token=qNCcVof7QW"></a>
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
 <a href="https://github.com/sepandhaghighi/mytext"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/sepandhaghighi/mytext"></a>
 <a href="https://badge.fury.io/py/mytext"><img src="https://badge.fury.io/py/mytext.svg" alt="PyPI version"></a>
