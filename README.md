@@ -37,7 +37,13 @@
 		<td align="center"><img src="https://github.com/sepandhaghighi/mytext/actions/workflows/test.yml/badge.svg?branch=dev"></td>
 	</tr>
 </table>
-
+<table>
+    <tr> 
+        <td align="center">Code Quality</td>
+        <td align="center"><a href="https://www.codefactor.io/repository/github/sepandhaghighi/mytext"><img src="https://www.codefactor.io/repository/github/sepandhaghighi/mytext/badge" alt="CodeFactor"></a></td>
+        <td align="center"><a href="https://app.codacy.com/gh/sepandhaghighi/mytext/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/239efecb91c0428693c3ec744853aff5"></a></td>
+    </tr>
+</table>
 
 ## Installation		
 
