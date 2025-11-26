@@ -1,5 +1,5 @@
 memor==1.0
-requests==2.20.0
+requests==2.32.5
 art==6.5
 pytest>=4.3.1
 pytest-cov>=2.6.1
