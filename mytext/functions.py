@@ -42,12 +42,12 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
 def _call_ai_studio(
         prompt: Prompt,
         api_key: str,
-        main_model: str="gemini-2.0-flash",
-        fallback_model: str="gemini-2.0-flash-lite",
-        timeout: float=15,
-        max_retries: int=3,
-        retry_delay: float=0.5,
-        backoff_factor: float=1) -> Dict[str, Union[bool, str]]:
+        main_model: str = "gemini-2.0-flash",
+        fallback_model: str = "gemini-2.0-flash-lite",
+        timeout: float = 15,
+        max_retries: int = 3,
+        retry_delay: float = 0.5,
+        backoff_factor: float = 1) -> Dict[str, Union[bool, str]]:
     """
     Call AI Studio API and return the response.
 
@@ -104,12 +104,12 @@ def _call_cloudflare(
         prompt: Prompt,
         account_id: str,
         api_key: str,
-        main_model: str ="meta/llama-3-8b-instruct",
-        fallback_model: str ="qwen/qwen3-30b-a3b-fp8",
-        timeout: float=15,
-        max_retries: int=3,
-        retry_delay: float=0.5,
-        backoff_factor: float=1) -> Dict[str, Union[bool, str]]:
+        main_model: str = "meta/llama-3-8b-instruct",
+        fallback_model: str = "qwen/qwen3-30b-a3b-fp8",
+        timeout: float = 15,
+        max_retries: int = 3,
+        retry_delay: float = 0.5,
+        backoff_factor: float = 1) -> Dict[str, Union[bool, str]]:
     """
     Call Cloudflare API and return the response.
 
