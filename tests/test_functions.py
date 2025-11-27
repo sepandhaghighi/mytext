@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import pytest
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
@@ -129,7 +129,7 @@ def test_main_no_text(capsys):
     with patch("sys.argv", ["mytext"]):
         with pytest.raises(SystemExit):
             main()
-    out, err = capsys.readouterr()
+    _, err = capsys.readouterr()
     assert "--text is required" in err
 
 
