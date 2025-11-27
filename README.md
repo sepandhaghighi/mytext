@@ -1,6 +1,7 @@
 <div align="center">
 <h1>MyText: A Minimal AI-Powered Text Rewriting Tool</h1>
 <br/>
+<a href="https://codecov.io/gh/sepandhaghighi/mytext"><img src="https://codecov.io/gh/sepandhaghighi/mytext/graph/badge.svg?token=qNCcVof7QW"></a>
 <a href="https://www.python.org/"><img src="https://img.shields.io/badge/built%20with-Python3-green.svg" alt="built with Python3"></a>
 <a href="https://github.com/sepandhaghighi/mytext"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/sepandhaghighi/mytext"></a>
 <a href="https://badge.fury.io/py/mytext"><img src="https://badge.fury.io/py/mytext.svg" alt="PyPI version"></a>
@@ -37,7 +38,13 @@
 		<td align="center"><img src="https://github.com/sepandhaghighi/mytext/actions/workflows/test.yml/badge.svg?branch=dev"></td>
 	</tr>
 </table>
-
+<table>
+    <tr> 
+        <td align="center">Code Quality</td>
+        <td align="center"><a href="https://www.codefactor.io/repository/github/sepandhaghighi/mytext"><img src="https://www.codefactor.io/repository/github/sepandhaghighi/mytext/badge" alt="CodeFactor"></a></td>
+        <td align="center"><a href="https://app.codacy.com/gh/sepandhaghighi/mytext/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/239efecb91c0428693c3ec744853aff5"></a></td>
+    </tr>
+</table>
 
 ## Installation		
 
