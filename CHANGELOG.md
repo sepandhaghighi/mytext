@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `summarize` mode
 - `simplify` mode
+- `bulletize` mode
 ### Changed
 - `README.md` updated
 ## [0.1] - 2025-11-26
