@@ -66,7 +66,7 @@
 mytext --mode="paraphrase" --tone="formal" --text="Can you update me on the project timeline by the end of the day?"
 ```
 
-ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`
+ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`
 
 ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`
 
