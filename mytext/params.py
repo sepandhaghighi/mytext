@@ -27,7 +27,7 @@ class Mode(Enum):
     SUMMARIZE = "summarize"
     SIMPLIFY = "simplify"
     BULLETIZE = "bulletize"
-    SHORTEN = "SHORTEN"
+    SHORTEN = "shorten"
 
 
 class Tone(Enum):
