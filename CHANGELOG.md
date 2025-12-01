@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `summarize` mode
 - `simplify` mode
 - `bulletize` mode
+- `shorten` mode
 ### Changed
 - `README.md` updated
 ## [0.1] - 2025-11-26
