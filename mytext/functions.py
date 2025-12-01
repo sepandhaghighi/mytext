@@ -105,7 +105,7 @@ def _call_cloudflare(
         account_id: str,
         api_key: str,
         main_model: str = "meta/llama-3-8b-instruct",
-        fallback_model: str = "qwen/qwen3-30b-a3b-fp8",
+        fallback_model: str = "meta/llama-3.1-8b-instruct-fast",
         timeout: float = 15,
         max_retries: int = 3,
         retry_delay: float = 0.5,
