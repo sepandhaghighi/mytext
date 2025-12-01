@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `shorten` mode
 ### Changed
 - `README.md` updated
+- Cloudflare fallback model changed to `meta/llama-3.1-8b-instruct-fast`
 ## [0.1] - 2025-11-26
 ### Added
 - `run_mytext` function
