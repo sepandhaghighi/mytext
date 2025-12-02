@@ -45,9 +45,9 @@ def _call_ai_studio(
         main_model: str = "gemini-2.0-flash",
         fallback_model: str = "gemini-2.0-flash-lite",
         timeout: float = 15,
-        max_retries: int = 3,
+        max_retries: int = 4,
         retry_delay: float = 0.5,
-        backoff_factor: float = 1) -> Dict[str, Union[bool, str]]:
+        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
     """
     Call AI Studio API and return the response.
 
@@ -67,6 +67,8 @@ def _call_ai_studio(
     next_delay = retry_delay
     selected_model = main_model
     while retry_index < max_retries:
+        if retry_index >= (max_retries / 2):
+            selected_model = fallback_model
         try:
             api_url = AI_STUDIO_API_URL.format(
                 api_key=api_key,
