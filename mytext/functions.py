@@ -109,9 +109,9 @@ def _call_cloudflare(
         main_model: str = "meta/llama-3-8b-instruct",
         fallback_model: str = "meta/llama-3.1-8b-instruct-fast",
         timeout: float = 15,
-        max_retries: int = 3,
+        max_retries: int = 4,
         retry_delay: float = 0.5,
-        backoff_factor: float = 1) -> Dict[str, Union[bool, str]]:
+        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
     """
     Call Cloudflare API and return the response.
 
@@ -134,6 +134,8 @@ def _call_cloudflare(
     headers = CLOUDFLARE_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=api_key)
     while retry_index < max_retries:
+        if retry_index >= (max_retries / 2):
+            selected_model = fallback_model
         try:
             api_url = CLOUDFLARE_API_URL.format(
                 account_id=account_id,
@@ -150,8 +152,6 @@ def _call_cloudflare(
                         "status": True,
                         "message": response_data["result"]["response"],
                         "model": selected_model}
-                elif response.status_code == 503:
-                    selected_model = fallback_model
                 raise Exception(
                     "Status Code: {status_code}\n\nContent:\n{content}".format(
                         status_code=response.status_code,
