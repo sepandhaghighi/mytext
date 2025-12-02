@@ -85,8 +85,6 @@ def _call_ai_studio(
                         "status": True,
                         "message": response_data['candidates'][0]['content']['parts'][0]['text'],
                         "model": selected_model}
-                elif response.status_code == 503:
-                    selected_model = fallback_model
                 raise Exception(
                     "Status Code: {status_code}\n\nContent:\n{content}".format(
                         status_code=response.status_code,
