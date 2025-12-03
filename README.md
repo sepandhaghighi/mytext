@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://github.com/sepandhaghighi/mytext/raw/logo/otherfiles/logo.png" width="300">
+<img src="https://github.com/sepandhaghighi/mytext/raw/logo/otherfiles/logo.png" width="350">
 <h1>MyText: A Minimal AI-Powered Text Rewriting Tool</h1>
 <br/>
 <a href="https://codecov.io/gh/sepandhaghighi/mytext"><img src="https://codecov.io/gh/sepandhaghighi/mytext/graph/badge.svg?token=qNCcVof7QW"></a>
