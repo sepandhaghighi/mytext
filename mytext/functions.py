@@ -45,9 +45,9 @@ def _call_ai_studio(
         main_model: str = "gemini-2.0-flash",
         fallback_model: str = "gemini-2.0-flash-lite",
         timeout: float = 15,
-        max_retries: int = 3,
+        max_retries: int = 4,
         retry_delay: float = 0.5,
-        backoff_factor: float = 1) -> Dict[str, Union[bool, str]]:
+        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
     """
     Call AI Studio API and return the response.
 
@@ -67,6 +67,8 @@ def _call_ai_studio(
     next_delay = retry_delay
     selected_model = main_model
     while retry_index < max_retries:
+        if retry_index >= (max_retries / 2):
+            selected_model = fallback_model
         try:
             api_url = AI_STUDIO_API_URL.format(
                 api_key=api_key,
@@ -83,8 +85,6 @@ def _call_ai_studio(
                         "status": True,
                         "message": response_data['candidates'][0]['content']['parts'][0]['text'],
                         "model": selected_model}
-                elif response.status_code == 503:
-                    selected_model = fallback_model
                 raise Exception(
                     "Status Code: {status_code}\n\nContent:\n{content}".format(
                         status_code=response.status_code,
@@ -107,9 +107,9 @@ def _call_cloudflare(
         main_model: str = "meta/llama-3-8b-instruct",
         fallback_model: str = "meta/llama-3.1-8b-instruct-fast",
         timeout: float = 15,
-        max_retries: int = 3,
+        max_retries: int = 4,
         retry_delay: float = 0.5,
-        backoff_factor: float = 1) -> Dict[str, Union[bool, str]]:
+        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
     """
     Call Cloudflare API and return the response.
 
@@ -132,6 +132,8 @@ def _call_cloudflare(
     headers = CLOUDFLARE_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=api_key)
     while retry_index < max_retries:
+        if retry_index >= (max_retries / 2):
+            selected_model = fallback_model
         try:
             api_url = CLOUDFLARE_API_URL.format(
                 account_id=account_id,
@@ -148,8 +150,6 @@ def _call_cloudflare(
                         "status": True,
                         "message": response_data["result"]["response"],
                         "model": selected_model}
-                elif response.status_code == 503:
-                    selected_model = fallback_model
                 raise Exception(
                     "Status Code: {status_code}\n\nContent:\n{content}".format(
                         status_code=response.status_code,
