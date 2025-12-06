@@ -12,6 +12,7 @@ from .params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 from .params import Mode, Tone, Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
+from .params import OPENROUTER_API_URL, OPENROUTER_HEADERS
 from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
@@ -165,6 +166,69 @@ def _call_cloudflare(
         "model": selected_model}
 
 
+def _call_openrouter(
+        prompt: Prompt,
+        api_key: str,
+        main_model: str = "openai/gpt-oss-20b:free",
+        fallback_model: str = "meta-llama/llama-3.2-3b-instruct:free",
+        timeout: float = 15,
+        max_retries: int = 4,
+        retry_delay: float = 0.5,
+        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
+    """
+    Call OpenRouter API and return the response.
+
+    :param prompt: user prompt
+    :param api_key: API key
+    :param main_model: main model
+    :param fallback_model: fallback model
+    :param timeout: API timeout
+    :param max_retries: max retries
+    :param retry_delay: retry delay
+    :param backoff_factor: backoff factor
+    """
+    retry_index = 0
+    error_message = ""
+    next_delay = retry_delay
+    selected_model = main_model
+    headers = OPENROUTER_HEADERS.copy()
+    headers["Authorization"] = headers["Authorization"].format(api_key=api_key)
+    while retry_index < max_retries:
+        if retry_index >= (max_retries / 2):
+            selected_model = fallback_model
+        data = {
+            "model": selected_model,
+            "messages": [prompt.render(RenderFormat.OPENAI)]
+        }
+        try:
+            with requests.Session() as session:
+                response = session.post(
+                    OPENROUTER_API_URL,
+                    headers=headers,
+                    json=data,
+                    timeout=timeout)
+                if response.status_code in (200, 201):
+                    response_data = response.json()
+                    message_text = response_data["choices"][0]["message"]["content"]
+                    return {
+                        "status": True,
+                        "message": message_text,
+                        "model": selected_model}
+                raise Exception(
+                    "Status Code: {status_code}\n\nContent:\n{content}".format(
+                        status_code=response.status_code,
+                        content=response.text))
+        except Exception as e:
+            error_message = str(e)
+            retry_index += 1
+            time.sleep(next_delay)
+            next_delay = next_delay * backoff_factor
+    return {
+        "status": False,
+        "message": error_message,
+        "model": selected_model}
+
+
 def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any) -> None:
     """
     Validate run_mytext function inputs.
@@ -229,6 +293,9 @@ def run_mytext(
             api_key = auth["api_key"]
             account_id = auth["account_id"]
             result = _call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
+        if provider == Provider.OPENROUTER:
+            api_key = auth["api_key"]
+            result = _call_openrouter(prompt=prompt, api_key=api_key)
         return result
     except Exception as e:
         return {
@@ -246,6 +313,9 @@ def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
         Provider.CLOUDFLARE: {
             "api_key": os.getenv("CLOUDFLARE_API_KEY"),
             "account_id": os.getenv("CLOUDFLARE_ACCOUNT_ID"),
+        },
+        Provider.OPENROUTER: {
+            "api_key": os.getenv("OPENROUTER_API_KEY"),
         },
     }
 
@@ -293,7 +363,7 @@ def main() -> None:
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
         errors = []
-        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE]:
+        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE, Provider.OPENROUTER]:
             auth = auth_map.get(provider)
             if not auth or not all(auth.values()):
                 continue

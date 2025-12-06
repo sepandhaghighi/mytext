@@ -17,6 +17,7 @@ class Provider(Enum):
 
     AI_STUDIO = "ai_studio"
     CLOUDFLARE = "cloudflare"
+    OPENROUTER = "openrouter"
 
 
 class Mode(Enum):
@@ -52,6 +53,14 @@ CLOUDFLARE_API_URL = "https://api.cloudflare.com/client/v4/accounts/{account_id}
 
 CLOUDFLARE_HEADERS = {
     "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json"
+}
+
+OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
+
+OPENROUTER_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "X-Title": "MyText",
     "Content-Type": "application/json"
 }
 
