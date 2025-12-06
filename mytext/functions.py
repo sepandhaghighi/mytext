@@ -168,10 +168,9 @@ def _call_cloudflare(
 
 def _call_openrouter(
         prompt: Prompt,
-        account_id: str,
         api_key: str,
-        main_model: str = "meta/llama-3-8b-instruct",
-        fallback_model: str = "meta/llama-3.1-8b-instruct-fast",
+        main_model: str = "openai/gpt-oss-120b:free",
+        fallback_model: str = "mistralai/mistral-7b-instruct:free",
         timeout: float = 15,
         max_retries: int = 4,
         retry_delay: float = 0.5,
@@ -180,7 +179,6 @@ def _call_openrouter(
     Call OpenRouter API and return the response.
 
     :param prompt: user prompt
-    :param account_id: account ID
     :param api_key: API key
     :param main_model: main model
     :param fallback_model: fallback model
@@ -211,9 +209,10 @@ def _call_openrouter(
                     timeout=timeout)
                 if response.status_code in (200, 201):
                     response_data = response.json()
+                    message_text = response_data["choices"][0]["message"]["content"]
                     return {
                         "status": True,
-                        "message": response_data["result"]["response"],
+                        "message": message_text,
                         "model": selected_model}
                 raise Exception(
                     "Status Code: {status_code}\n\nContent:\n{content}".format(
