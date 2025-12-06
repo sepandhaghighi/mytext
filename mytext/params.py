@@ -17,6 +17,7 @@ class Provider(Enum):
 
     AI_STUDIO = "ai_studio"
     CLOUDFLARE = "cloudflare"
+    OPENROUTER = "openrouter"
 
 
 class Mode(Enum):

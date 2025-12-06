@@ -293,6 +293,9 @@ def run_mytext(
             api_key = auth["api_key"]
             account_id = auth["account_id"]
             result = _call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
+        if provider == Provider.OPENROUTER:
+            api_key = auth["api_key"]
+            result = _call_openrouter(prompt=prompt, api_key=api_key)
         return result
     except Exception as e:
         return {
@@ -310,6 +313,9 @@ def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
         Provider.CLOUDFLARE: {
             "api_key": os.getenv("CLOUDFLARE_API_KEY"),
             "account_id": os.getenv("CLOUDFLARE_ACCOUNT_ID"),
+        },
+        Provider.OPENROUTER: {
+            "api_key": os.getenv("OPENROUTER_API_KEY"),
         },
     }
 
@@ -357,7 +363,7 @@ def main() -> None:
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
         errors = []
-        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE]:
+        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE, Provider.OPENROUTER]:
             auth = auth_map.get(provider)
             if not auth or not all(auth.values()):
                 continue
