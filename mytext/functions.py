@@ -169,8 +169,8 @@ def _call_cloudflare(
 def _call_openrouter(
         prompt: Prompt,
         api_key: str,
-        main_model: str = "openai/gpt-oss-120b:free",
-        fallback_model: str = "mistralai/mistral-7b-instruct:free",
+        main_model: str = "openai/gpt-oss-20b:free",
+        fallback_model: str = "meta-llama/llama-3.2-3b-instruct:free",
         timeout: float = 15,
         max_retries: int = 4,
         retry_delay: float = 0.5,
