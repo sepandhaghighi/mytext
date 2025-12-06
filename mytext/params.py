@@ -55,6 +55,14 @@ CLOUDFLARE_HEADERS = {
     "Content-Type": "application/json"
 }
 
+OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
+
+OPENROUTER_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "X-Title": "MyText",
+    "Content-Type": "application/json"
+}
+
 INSTRUCTIONS = {
     Mode.PARAPHRASE: (
         "Paraphrase the user's text."
