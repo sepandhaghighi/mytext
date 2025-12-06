@@ -17,6 +17,11 @@ def skip_if_no_env_cloudflare():
         pytest.skip("Cloudflare real API keys are not available.")
 
 
+def skip_if_no_env_openrouter():
+    if not os.getenv("OPENROUTER_API_KEY"):
+        pytest.skip("OpenRouter real API keys are not available.")
+
+
 def test_ai_studio_real_api():
     skip_if_no_env_ai_studio()
     api_key = os.getenv("AI_STUDIO_API_KEY")
@@ -45,6 +50,23 @@ def test_cloudflare_real_api():
         mode=Mode.PARAPHRASE,
         tone=Tone.NEUTRAL,
         provider=Provider.CLOUDFLARE,
+    )
+
+    assert result["status"]
+    assert result["message"]
+    assert result["model"]
+
+
+def test_openrouter_real_api():
+    skip_if_no_env_openrouter()
+    api_key = os.getenv("OPENROUTER_API_KEY")
+
+    result = run_mytext(
+        text="Hello, how are you?",
+        auth={"api_key": api_key},
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.OPENROUTER,
     )
 
     assert result["status"]
