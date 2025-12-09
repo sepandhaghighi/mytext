@@ -171,9 +171,9 @@ def test_main_no_text(capsys):
 @patch("mytext.functions.run_mytext")
 def test_main_all_failures(mock_run, mock_env, capsys):
     mock_env.return_value = {
-        Provider.AI_STUDIO: {"api_key": "x"},
-        Provider.CLOUDFLARE: {"api_key": "y", "account_id": "z"},
-        Provider.OPENROUTER: {"api_key": "x"},
+        Provider.AI_STUDIO: {"api_key": "a"},
+        Provider.CLOUDFLARE: {"api_key": "b", "account_id": "c"},
+        Provider.OPENROUTER: {"api_key": "d"},
     }
     mock_run.return_value = {"status": False, "message": "ERR", "model": "m"}
 

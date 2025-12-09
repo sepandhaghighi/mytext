@@ -18,7 +18,7 @@ from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
-from .params import NO_PROVIDER_SUCCEEDED_MESSAGE
+from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, MISSING_OPENROUTER_KEYS_ERROR
 
 
 def _print_mytext_info() -> None:
@@ -257,10 +257,12 @@ def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, prov
     if provider == Provider.AI_STUDIO:
         if "api_key" not in auth:
             raise ValueError(MISSING_AI_STUDIO_KEYS_ERROR)
-
     elif provider == Provider.CLOUDFLARE:
         if "api_key" not in auth or "account_id" not in auth:
             raise ValueError(MISSING_CLOUDFLARE_KEYS_ERROR)
+    elif provider == Provider.OPENROUTER:
+        if "api_key" not in auth:
+            raise ValueError(MISSING_OPENROUTER_KEYS_ERROR)
 
 
 def run_mytext(
