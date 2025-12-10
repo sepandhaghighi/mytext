@@ -43,8 +43,8 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
 def _call_ai_studio(
         prompt: Prompt,
         api_key: str,
-        main_model: str = "gemini-2.0-flash",
-        fallback_model: str = "gemini-2.0-flash-lite",
+        main_model: str = "gemini-2.5-flash",
+        fallback_model: str = "gemma-3-1b-it",
         timeout: float = 15,
         max_retries: int = 4,
         retry_delay: float = 0.5,

@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Test system modified
 - `README.md` updated
+- AI Studio main model changed to `gemini-2.5-flash`
+- AI Studio fallback model changed to `gemma-3-1b-it`
 ## [0.2] - 2025-12-05
 ### Added
 - Logo
