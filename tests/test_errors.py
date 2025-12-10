@@ -48,3 +48,10 @@ def test_run_mytext_missing_keys_for_cloudflare():
     result = run_mytext(text="test", auth=auth, provider=Provider.CLOUDFLARE)
     assert not result["status"]
     assert result["message"] == "CLOUDFLARE provider requires keys: `api_key`, `account_id`"
+
+
+def test_run_mytext_missing_api_key_for_openrouter():
+    auth = {}
+    result = run_mytext(text="test", auth=auth, provider=Provider.OPENROUTER)
+    assert not result["status"]
+    assert result["message"] == "OPENROUTER provider requires keys: `api_key`"
