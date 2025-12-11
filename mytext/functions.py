@@ -371,6 +371,9 @@ def run_mytext(
         if provider == Provider.OPENROUTER:
             api_key = auth["api_key"]
             result = _call_openrouter(prompt=prompt, api_key=api_key)
+        if provider == Provider.CEREBRAS:
+            api_key = auth["api_key"]
+            result = _call_cerebras(prompt=prompt, api_key=api_key)
         return result
     except Exception as e:
         return {
