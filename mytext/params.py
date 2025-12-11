@@ -64,6 +64,13 @@ OPENROUTER_HEADERS = {
     "Content-Type": "application/json"
 }
 
+CEREBRAS_API_URL = "https://api.cerebras.ai/v1/chat/completions"
+
+CEREBRAS_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json"
+}
+
 INSTRUCTIONS = {
     Mode.PARAPHRASE: (
         "Paraphrase the user's text."
