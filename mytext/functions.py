@@ -20,6 +20,7 @@ from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, MISSING_OPENROUTER_KEYS_ERROR
+from .params import MISSING_CEREBRAS_KEYS_ERROR
 
 
 def _print_mytext_info() -> None:
@@ -332,6 +333,9 @@ def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, prov
     elif provider == Provider.OPENROUTER:
         if "api_key" not in auth:
             raise ValueError(MISSING_OPENROUTER_KEYS_ERROR)
+    elif provider == Provider.CEREBRAS:
+        if "api_key" not in auth:
+            raise ValueError(MISSING_CEREBRAS_KEYS_ERROR)
 
 
 def run_mytext(
@@ -387,6 +391,9 @@ def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
         },
         Provider.OPENROUTER: {
             "api_key": os.getenv("OPENROUTER_API_KEY"),
+        },
+        Provider.CEREBRAS: {
+            "api_key": os.getenv("CEREBRAS_API_KEY"),
         },
     }
 
