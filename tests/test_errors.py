@@ -55,3 +55,10 @@ def test_run_mytext_missing_api_key_for_openrouter():
     result = run_mytext(text="test", auth=auth, provider=Provider.OPENROUTER)
     assert not result["status"]
     assert result["message"] == "OPENROUTER provider requires keys: `api_key`"
+
+
+def test_run_mytext_missing_api_key_for_cerebras():
+    auth = {}
+    result = run_mytext(text="test", auth=auth, provider=Provider.CEREBRAS)
+    assert not result["status"]
+    assert result["message"] == "CEREBRAS provider requires keys: `api_key`"

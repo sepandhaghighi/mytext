@@ -22,6 +22,11 @@ def skip_if_no_env_openrouter():
         pytest.skip("OpenRouter real API keys are not available.")
 
 
+def skip_if_no_env_cerebras():
+    if not os.getenv("CEREBRAS_API_KEY"):
+        pytest.skip("Cerebras real API keys are not available.")
+
+
 def test_ai_studio_real_api():
     skip_if_no_env_ai_studio()
     api_key = os.getenv("AI_STUDIO_API_KEY")
@@ -67,6 +72,23 @@ def test_openrouter_real_api():
         mode=Mode.PARAPHRASE,
         tone=Tone.NEUTRAL,
         provider=Provider.OPENROUTER,
+    )
+
+    assert result["status"]
+    assert result["message"]
+    assert result["model"]
+
+
+def test_cerebras_real_api():
+    skip_if_no_env_cerebras()
+    api_key = os.getenv("CEREBRAS_API_KEY")
+
+    result = run_mytext(
+        text="Hello, how are you?",
+        auth={"api_key": api_key},
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.CEREBRAS,
     )
 
     assert result["status"]

@@ -9,6 +9,27 @@ from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "Functions tests"
 
+@patch("mytext.functions._call_cerebras")
+def test_run_mytext_cerebras_success(mock_call):
+    mock_call.return_value = {
+        "status": True,
+        "message": "OK!",
+        "model": "model"
+    }
+
+    auth = {"api_key": "KEY"}
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.CEREBRAS
+    )
+
+    assert result["status"]
+    assert result["message"] == "OK!"
+
+
 @patch("mytext.functions._call_openrouter")
 def test_run_mytext_openrouter_success(mock_call):
     mock_call.return_value = {
@@ -128,6 +149,21 @@ def test_run_mytext_openrouter_failure():
     assert "error" in result["message"]
 
 
+
+def test_run_mytext_cerebras_failure():
+
+    auth = {"api_key": "KEY"}
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.CEREBRAS
+    )
+    assert not result["status"]
+    assert "error" in result["message"]
+
+
 @patch("mytext.functions._load_auth_from_env")
 @patch("mytext.functions.run_mytext")
 def test_main_success(mock_run, mock_env, capsys):
@@ -174,6 +210,7 @@ def test_main_all_failures(mock_run, mock_env, capsys):
         Provider.AI_STUDIO: {"api_key": "a"},
         Provider.CLOUDFLARE: {"api_key": "b", "account_id": "c"},
         Provider.OPENROUTER: {"api_key": "d"},
+        Provider.CEREBRAS: {"api_key": "e"},
     }
     mock_run.return_value = {"status": False, "message": "ERR", "model": "m"}
 
