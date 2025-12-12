@@ -234,8 +234,8 @@ def _call_openrouter(
 def _call_cerebras(
         prompt: Prompt,
         api_key: str,
-        main_model: str = "llama3.1-8b",
-        fallback_model: str = "llama3.1-8b",
+        main_model: str = "gpt-oss-120b",
+        fallback_model: str = "llama-3.3-70b",
         timeout: float = 15,
         max_retries: int = 4,
         retry_delay: float = 0.5,
