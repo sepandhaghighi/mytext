@@ -100,6 +100,7 @@ MyText automatically detects which providers are available based on environment 
 | **AI Studio** | Google AI Studio (Gemini models) | `AI_STUDIO_API_KEY` |
 | **Cloudflare** | Cloudflare Workers AI | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` |
 | **OpenRouter** | OpenRouter | `OPENROUTER_API_KEY` |
+| **Cerebras** | Cerebras | `CEREBRAS_API_KEY` |
 
 Set them before using:
 
@@ -108,6 +109,7 @@ export AI_STUDIO_API_KEY="your-key"
 export CLOUDFLARE_API_KEY="your-key"
 export CLOUDFLARE_ACCOUNT_ID="your-account-id"
 export OPENROUTER_API_KEY="your-key"
+export CEREBRAS_API_KEY="your-key"
 ```
 
 ## Issues & Bug Reports			
