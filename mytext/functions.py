@@ -444,7 +444,7 @@ def main() -> None:
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
         errors = []
-        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE, Provider.OPENROUTER]:
+        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE, Provider.OPENROUTER, Provider.CEREBRAS]:
             auth = auth_map.get(provider)
             if not auth or not all(auth.values()):
                 continue
