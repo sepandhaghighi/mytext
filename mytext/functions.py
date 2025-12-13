@@ -10,6 +10,7 @@ from memor import Prompt, PromptTemplate
 from .providers import _call_provider
 from .params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 from .params import Mode, Tone, Provider
+from .params import DEFAULT_MODELS
 from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
@@ -100,7 +101,11 @@ def run_mytext(
             custom_map={"instruction": instruction_str},
         )
         prompt = Prompt(message=text, template=template)
-        result = _call_provider(provider=provider, prompt=prompt, auth=auth)
+        result = _call_provider(provider=provider, 
+                                prompt=prompt, 
+                                auth=auth, 
+                                main_model=DEFAULT_MODELS[provider]["main"], 
+                                fallback_model=DEFAULT_MODELS[provider]["fallback"])
         return result
     except Exception as e:
         return {
