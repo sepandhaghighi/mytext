@@ -2,18 +2,14 @@
 """mytext functions."""
 
 import os
-import time
 import argparse
-import requests
 from typing import Union, Dict, Any
 from art import tprint
-from memor import Prompt, PromptTemplate, RenderFormat
+from memor import Prompt, PromptTemplate
+from .providers import _call_provider
 from .params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 from .params import Mode, Tone, Provider
-from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
-from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
-from .params import OPENROUTER_API_URL, OPENROUTER_HEADERS
-from .params import CEREBRAS_API_URL, CEREBRAS_HEADERS
+from .params import DEFAULT_MODELS
 from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
@@ -40,263 +36,6 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     """
     template = INSTRUCTIONS.get(mode, INSTRUCTIONS[Mode.PARAPHRASE])
     return template.format(tone=tone.value)
-
-
-def _call_ai_studio(
-        prompt: Prompt,
-        api_key: str,
-        main_model: str = "gemini-2.5-flash",
-        fallback_model: str = "gemma-3-1b-it",
-        timeout: float = 15,
-        max_retries: int = 4,
-        retry_delay: float = 0.5,
-        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
-    """
-    Call AI Studio API and return the response.
-
-    :param prompt: user prompt
-    :param api_key: API key
-    :param main_model: main model
-    :param fallback_model: fallback model
-    :param timeout: API timeout
-    :param max_retries: max retries
-    :param retry_delay: retry delay
-    :param backoff_factor: backoff factor
-    """
-    data = dict()
-    data.update({"contents": prompt.render(RenderFormat.AI_STUDIO)})
-    retry_index = 0
-    error_message = ""
-    next_delay = retry_delay
-    selected_model = main_model
-    while retry_index < max_retries:
-        if retry_index >= (max_retries / 2):
-            selected_model = fallback_model
-        try:
-            api_url = AI_STUDIO_API_URL.format(
-                api_key=api_key,
-                model=selected_model)
-            with requests.Session() as session:
-                response = session.post(
-                    api_url,
-                    headers=AI_STUDIO_HEADERS,
-                    json=data,
-                    timeout=timeout)
-                if response.status_code in (200, 201):
-                    response_data = response.json()
-                    return {
-                        "status": True,
-                        "message": response_data['candidates'][0]['content']['parts'][0]['text'],
-                        "model": selected_model}
-                raise Exception(
-                    "Status Code: {status_code}\n\nContent:\n{content}".format(
-                        status_code=response.status_code,
-                        content=response.text))
-        except Exception as e:
-            error_message = str(e)
-            retry_index += 1
-            time.sleep(next_delay)
-            next_delay = next_delay * backoff_factor
-    return {
-        "status": False,
-        "message": error_message,
-        "model": selected_model}
-
-
-def _call_cloudflare(
-        prompt: Prompt,
-        account_id: str,
-        api_key: str,
-        main_model: str = "meta/llama-3-8b-instruct",
-        fallback_model: str = "meta/llama-3.1-8b-instruct-fast",
-        timeout: float = 15,
-        max_retries: int = 4,
-        retry_delay: float = 0.5,
-        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
-    """
-    Call Cloudflare API and return the response.
-
-    :param prompt: user prompt
-    :param account_id: account ID
-    :param api_key: API key
-    :param main_model: main model
-    :param fallback_model: fallback model
-    :param timeout: API timeout
-    :param max_retries: max retries
-    :param retry_delay: retry delay
-    :param backoff_factor: backoff factor
-    """
-    data = dict()
-    data["messages"] = [prompt.render(RenderFormat.OPENAI)]
-    retry_index = 0
-    error_message = ""
-    next_delay = retry_delay
-    selected_model = main_model
-    headers = CLOUDFLARE_HEADERS.copy()
-    headers["Authorization"] = headers["Authorization"].format(api_key=api_key)
-    while retry_index < max_retries:
-        if retry_index >= (max_retries / 2):
-            selected_model = fallback_model
-        try:
-            api_url = CLOUDFLARE_API_URL.format(
-                account_id=account_id,
-                model=selected_model)
-            with requests.Session() as session:
-                response = session.post(
-                    api_url,
-                    headers=headers,
-                    json=data,
-                    timeout=timeout)
-                if response.status_code in (200, 201):
-                    response_data = response.json()
-                    return {
-                        "status": True,
-                        "message": response_data["result"]["response"],
-                        "model": selected_model}
-                raise Exception(
-                    "Status Code: {status_code}\n\nContent:\n{content}".format(
-                        status_code=response.status_code,
-                        content=response.text))
-        except Exception as e:
-            error_message = str(e)
-            retry_index += 1
-            time.sleep(next_delay)
-            next_delay = next_delay * backoff_factor
-    return {
-        "status": False,
-        "message": error_message,
-        "model": selected_model}
-
-
-def _call_openrouter(
-        prompt: Prompt,
-        api_key: str,
-        main_model: str = "mistralai/mistral-small-3.1-24b-instruct:free",
-        fallback_model: str = "google/gemma-3-27b-it:free",
-        timeout: float = 15,
-        max_retries: int = 4,
-        retry_delay: float = 0.5,
-        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
-    """
-    Call OpenRouter API and return the response.
-
-    :param prompt: user prompt
-    :param api_key: API key
-    :param main_model: main model
-    :param fallback_model: fallback model
-    :param timeout: API timeout
-    :param max_retries: max retries
-    :param retry_delay: retry delay
-    :param backoff_factor: backoff factor
-    """
-    retry_index = 0
-    error_message = ""
-    next_delay = retry_delay
-    selected_model = main_model
-    headers = OPENROUTER_HEADERS.copy()
-    headers["Authorization"] = headers["Authorization"].format(api_key=api_key)
-    while retry_index < max_retries:
-        if retry_index >= (max_retries / 2):
-            selected_model = fallback_model
-        data = {
-            "model": selected_model,
-            "messages": [prompt.render(RenderFormat.OPENAI)]
-        }
-        try:
-            with requests.Session() as session:
-                response = session.post(
-                    OPENROUTER_API_URL,
-                    headers=headers,
-                    json=data,
-                    timeout=timeout)
-                if response.status_code in (200, 201):
-                    response_data = response.json()
-                    message_text = response_data["choices"][0]["message"]["content"]
-                    return {
-                        "status": True,
-                        "message": message_text,
-                        "model": selected_model}
-                raise Exception(
-                    "Status Code: {status_code}\n\nContent:\n{content}".format(
-                        status_code=response.status_code,
-                        content=response.text))
-        except Exception as e:
-            error_message = str(e)
-            retry_index += 1
-            time.sleep(next_delay)
-            next_delay = next_delay * backoff_factor
-    return {
-        "status": False,
-        "message": error_message,
-        "model": selected_model}
-
-
-def _call_cerebras(
-        prompt: Prompt,
-        api_key: str,
-        main_model: str = "gpt-oss-120b",
-        fallback_model: str = "llama-3.3-70b",
-        timeout: float = 15,
-        max_retries: int = 4,
-        retry_delay: float = 0.5,
-        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
-    """
-    Call Cerebras API and return the response.
-
-    :param prompt: user prompt
-    :param api_key: API key
-    :param main_model: main model
-    :param fallback_model: fallback model
-    :param timeout: API timeout
-    :param max_retries: max retries
-    :param retry_delay: retry delay
-    :param backoff_factor: backoff factor
-    """
-    data = dict()
-    data["messages"] = [prompt.render(RenderFormat.OPENAI)]
-    retry_index = 0
-    error_message = ""
-    next_delay = retry_delay
-    selected_model = main_model
-    headers = CEREBRAS_HEADERS.copy()
-    headers["Authorization"] = headers["Authorization"].format(api_key=api_key)
-    while retry_index < max_retries:
-        if retry_index >= (max_retries / 2):
-            selected_model = fallback_model
-        try:
-            with requests.Session() as session:
-                response = session.post(
-                    CEREBRAS_API_URL,
-                    headers=headers,
-                    json={
-                        "model": selected_model,
-                        "messages": data["messages"]
-                    },
-                    timeout=timeout,
-                )
-                if response.status_code in (200, 201):
-                    response_data = response.json()
-                    return {
-                        "status": True,
-                        "message": response_data["choices"][0]["message"]["content"],
-                        "model": selected_model
-                    }
-                raise Exception(
-                    "Status Code: {status_code}\n\nContent:\n{content}".format(
-                        status_code=response.status_code,
-                        content=response.text
-                    )
-                )
-        except Exception as e:
-            error_message = str(e)
-            retry_index += 1
-            time.sleep(next_delay)
-            next_delay *= backoff_factor
-    return {
-        "status": False,
-        "message": error_message,
-        "model": selected_model
-    }
 
 
 def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any) -> None:
@@ -361,19 +100,11 @@ def run_mytext(
             custom_map={"instruction": instruction_str},
         )
         prompt = Prompt(message=text, template=template)
-        if provider == Provider.AI_STUDIO:
-            api_key = auth["api_key"]
-            result = _call_ai_studio(prompt=prompt, api_key=api_key)
-        if provider == Provider.CLOUDFLARE:
-            api_key = auth["api_key"]
-            account_id = auth["account_id"]
-            result = _call_cloudflare(prompt=prompt, api_key=api_key, account_id=account_id)
-        if provider == Provider.OPENROUTER:
-            api_key = auth["api_key"]
-            result = _call_openrouter(prompt=prompt, api_key=api_key)
-        if provider == Provider.CEREBRAS:
-            api_key = auth["api_key"]
-            result = _call_cerebras(prompt=prompt, api_key=api_key)
+        result = _call_provider(provider=provider, 
+                                prompt=prompt, 
+                                auth=auth, 
+                                main_model=DEFAULT_MODELS[provider]["main"], 
+                                fallback_model=DEFAULT_MODELS[provider]["fallback"])
         return result
     except Exception as e:
         return {
