@@ -185,6 +185,7 @@ def _call_provider(
     """
     Call a provider and return the response.
 
+    :param provider: LLM provider
     :param prompt: user prompt
     :param auth: authentication parameters
     :param main_model: main model
