@@ -2,7 +2,6 @@
 """mytext functions."""
 
 import os
-import time
 import argparse
 from typing import Union, Dict, Any
 from art import tprint

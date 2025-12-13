@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """mytext providers."""
 
+import time
 import requests
 from typing import Union, Dict
 from memor import Prompt, RenderFormat
