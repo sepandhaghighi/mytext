@@ -4,16 +4,12 @@
 import os
 import time
 import argparse
-import requests
 from typing import Union, Dict, Any
 from art import tprint
-from memor import Prompt, PromptTemplate, RenderFormat
+from memor import Prompt, PromptTemplate
+from .providers import _call_provider
 from .params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 from .params import Mode, Tone, Provider
-from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
-from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
-from .params import OPENROUTER_API_URL, OPENROUTER_HEADERS
-from .params import CEREBRAS_API_URL, CEREBRAS_HEADERS
 from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
