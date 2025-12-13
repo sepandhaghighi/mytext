@@ -3,60 +3,12 @@
 
 import requests
 from typing import Union, Dict
-from memor import RenderFormat
+from memor import Prompt, RenderFormat
 from .params import Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
 from .params import OPENROUTER_API_URL, OPENROUTER_HEADERS
 from .params import CEREBRAS_API_URL, CEREBRAS_HEADERS
-
-
-PROVIDER_MAP = {Provider.AI_STUDIO: _call_ai_studio,
-                Provider.CLOUDFLARE: _call_cloudflare,
-                Provider.OPENROUTER: _call_openrouter,
-                Provider.CEREBRAS: _call_cerebras,}
-
-
-def _call_provider(
-        provider: Provider,
-        prompt: Prompt,
-        auth: Dict[str, str],
-        main_model: str,
-        fallback_model: str,
-        timeout: float = 15,
-        max_retries: int = 4,
-        retry_delay: float = 0.5,
-        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
-    """
-    Call a provider and return the response.
-
-    :param prompt: user prompt
-    :param auth: authentication parameters
-    :param main_model: main model
-    :param fallback_model: fallback model
-    :param timeout: API timeout
-    :param max_retries: max retries
-    :param retry_delay: retry delay
-    :param backoff_factor: backoff factor
-    """
-    retry_index = 0
-    error_message = ""
-    next_delay = retry_delay
-    selected_model = main_model
-    while retry_index < max_retries:
-        if retry_index >= (max_retries / 2):
-            selected_model = fallback_model
-        try:
-            return PROVIDER_MAP[provider](prompt=prompt, auth=auth, model=selected_model, timeout=timeout)
-        except Exception as e:
-            error_message = str(e)
-            retry_index += 1
-            time.sleep(next_delay)
-            next_delay = next_delay * backoff_factor
-    return {
-        "status": False,
-        "message": error_message,
-        "model": selected_model}
 
 
 def _call_ai_studio(
@@ -211,3 +163,51 @@ def _call_cerebras(
                 content=response.text
             )
         )
+
+
+PROVIDER_MAP = {Provider.AI_STUDIO: _call_ai_studio,
+                Provider.CLOUDFLARE: _call_cloudflare,
+                Provider.OPENROUTER: _call_openrouter,
+                Provider.CEREBRAS: _call_cerebras,}
+
+
+def _call_provider(
+        provider: Provider,
+        prompt: Prompt,
+        auth: Dict[str, str],
+        main_model: str,
+        fallback_model: str,
+        timeout: float = 15,
+        max_retries: int = 4,
+        retry_delay: float = 0.5,
+        backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
+    """
+    Call a provider and return the response.
+
+    :param prompt: user prompt
+    :param auth: authentication parameters
+    :param main_model: main model
+    :param fallback_model: fallback model
+    :param timeout: API timeout
+    :param max_retries: max retries
+    :param retry_delay: retry delay
+    :param backoff_factor: backoff factor
+    """
+    retry_index = 0
+    error_message = ""
+    next_delay = retry_delay
+    selected_model = main_model
+    while retry_index < max_retries:
+        if retry_index >= (max_retries / 2):
+            selected_model = fallback_model
+        try:
+            return PROVIDER_MAP[provider](prompt=prompt, auth=auth, model=selected_model, timeout=timeout)
+        except Exception as e:
+            error_message = str(e)
+            retry_index += 1
+            time.sleep(next_delay)
+            next_delay = next_delay * backoff_factor
+    return {
+        "status": False,
+        "message": error_message,
+        "model": selected_model}
