@@ -9,7 +9,7 @@ from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "Functions tests"
 
-@patch("mytext.functions._call_cerebras")
+@patch("mytext.functions._call_provider")
 def test_run_mytext_cerebras_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -30,7 +30,7 @@ def test_run_mytext_cerebras_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_openrouter")
+@patch("mytext.functions._call_provider")
 def test_run_mytext_openrouter_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -51,7 +51,7 @@ def test_run_mytext_openrouter_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_ai_studio")
+@patch("mytext.functions._call_provider")
 def test_run_mytext_ai_studio_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -72,7 +72,7 @@ def test_run_mytext_ai_studio_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_cloudflare")
+@patch("mytext.functions._call_provider")
 def test_run_mytext_cloudflare_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -93,7 +93,7 @@ def test_run_mytext_cloudflare_success(mock_call):
     assert result["message"] == "OK2"
 
 
-@patch("mytext.functions._call_ai_studio")
+@patch("mytext.functions._call_provider")
 def test_run_mytext_api_failure(mock_call):
     mock_call.return_value = {
         "status": False,
