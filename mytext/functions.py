@@ -100,10 +100,10 @@ def run_mytext(
             custom_map={"instruction": instruction_str},
         )
         prompt = Prompt(message=text, template=template)
-        result = _call_provider(provider=provider, 
-                                prompt=prompt, 
-                                auth=auth, 
-                                main_model=DEFAULT_MODELS[provider]["main"], 
+        result = _call_provider(provider=provider,
+                                prompt=prompt,
+                                auth=auth,
+                                main_model=DEFAULT_MODELS[provider]["main"],
                                 fallback_model=DEFAULT_MODELS[provider]["fallback"])
         return result
     except Exception as e:
@@ -192,7 +192,7 @@ def main() -> None:
             else:
                 errors.append((provider, result["message"]))
         print(NO_PROVIDER_SUCCEEDED_MESSAGE)
-        #if not errors:
+        # if not errors:
         #    print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
-        #else:
+        # else:
         #    print(ALL_PROVIDERS_FAILED_MESSAGE)
