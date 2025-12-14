@@ -53,7 +53,7 @@ DEFAULT_MODELS = {
         "fallback": "meta/llama-3.1-8b-instruct-fast"},
     Provider.OPENROUTER: {
         "main": "mistralai/mistral-small-3.1-24b-instruct:free",
-                "fallback": "google/gemma-3-27b-it:free"},
+        "fallback": "google/gemma-3-27b-it:free"},
     Provider.CEREBRAS: {
         "main": "gpt-oss-120b",
         "fallback": "llama-3.3-70b"},
