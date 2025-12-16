@@ -166,10 +166,12 @@ def _call_cerebras(
         )
 
 
-PROVIDER_MAP = {Provider.AI_STUDIO: _call_ai_studio,
-                Provider.CLOUDFLARE: _call_cloudflare,
-                Provider.OPENROUTER: _call_openrouter,
-                Provider.CEREBRAS: _call_cerebras, }
+PROVIDER_MAP = {
+    Provider.AI_STUDIO: _call_ai_studio,
+    Provider.CLOUDFLARE: _call_cloudflare,
+    Provider.OPENROUTER: _call_openrouter,
+    Provider.CEREBRAS: _call_cerebras,
+    }
 
 
 def _call_provider(
