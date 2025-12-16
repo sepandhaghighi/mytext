@@ -44,10 +44,20 @@ class Tone(Enum):
     CREATIVE = "creative"
 
 
-DEFAULT_MODELS = {Provider.AI_STUDIO: {"main":"gemini-2.5-flash" , "fallback": "gemma-3-1b-it"},
-                  Provider.CLOUDFLARE: {"main":"meta/llama-3-8b-instruct" , "fallback": "meta/llama-3.1-8b-instruct-fast"},
-                  Provider.OPENROUTER: {"main":"mistralai/mistral-small-3.1-24b-instruct:free" , "fallback": "google/gemma-3-27b-it:free"},
-                  Provider.CEREBRAS: {"main":"gpt-oss-120b" , "fallback": "llama-3.3-70b"},}
+DEFAULT_MODELS = {
+    Provider.AI_STUDIO: {
+        "main": "gemini-2.5-flash",
+        "fallback": "gemma-3-1b-it"},
+    Provider.CLOUDFLARE: {
+        "main": "meta/llama-3-8b-instruct",
+        "fallback": "meta/llama-3.1-8b-instruct-fast"},
+    Provider.OPENROUTER: {
+        "main": "mistralai/mistral-small-3.1-24b-instruct:free",
+        "fallback": "google/gemma-3-27b-it:free"},
+    Provider.CEREBRAS: {
+        "main": "gpt-oss-120b",
+        "fallback": "llama-3.3-70b"},
+}
 
 
 AI_STUDIO_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"

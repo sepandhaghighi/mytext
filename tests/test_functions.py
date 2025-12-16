@@ -9,6 +9,7 @@ from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "Functions tests"
 
+
 @patch("mytext.functions._call_provider")
 def test_run_mytext_cerebras_success(mock_call):
     mock_call.return_value = {
@@ -147,7 +148,6 @@ def test_run_mytext_openrouter_failure():
     )
     assert not result["status"]
     assert "error" in result["message"]
-
 
 
 def test_run_mytext_cerebras_failure():

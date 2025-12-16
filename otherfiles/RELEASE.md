@@ -1,6 +1,6 @@
 # MyText Release Instructions
 
-**Last Update: 2025-11-16**
+**Last Update: 2025-12-15**
 
 1. Create the `release` branch under `dev`
 2. Update all version tags
@@ -21,7 +21,7 @@
 	3. Labels: `release`
 	4. Set milestone
 	5. Wait for all CI pass
-	6. Need review
+	6. Need review (**1** reviewer)
 	7. Squash and merge
 	8. Delete `release` branch
 6. Merge `dev` branch into `main`

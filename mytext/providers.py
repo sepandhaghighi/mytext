@@ -28,8 +28,8 @@ def _call_ai_studio(
     data = dict()
     data.update({"contents": prompt.render(RenderFormat.AI_STUDIO)})
     api_url = AI_STUDIO_API_URL.format(
-                api_key=auth["api_key"],
-                model=model)
+        api_key=auth["api_key"],
+        model=model)
     with requests.Session() as session:
         response = session.post(
             api_url,
@@ -100,9 +100,9 @@ def _call_openrouter(
     :param timeout: API timeout
     """
     data = {
-            "model": model,
-            "messages": [prompt.render(RenderFormat.OPENAI)]
-        }
+        "model": model,
+        "messages": [prompt.render(RenderFormat.OPENAI)]
+    }
     headers = OPENROUTER_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
@@ -166,10 +166,12 @@ def _call_cerebras(
         )
 
 
-PROVIDER_MAP = {Provider.AI_STUDIO: _call_ai_studio,
-                Provider.CLOUDFLARE: _call_cloudflare,
-                Provider.OPENROUTER: _call_openrouter,
-                Provider.CEREBRAS: _call_cerebras,}
+PROVIDER_MAP = {
+    Provider.AI_STUDIO: _call_ai_studio,
+    Provider.CLOUDFLARE: _call_cloudflare,
+    Provider.OPENROUTER: _call_openrouter,
+    Provider.CEREBRAS: _call_cerebras,
+    }
 
 
 def _call_provider(
