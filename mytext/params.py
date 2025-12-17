@@ -58,6 +58,9 @@ DEFAULT_MODELS = {
     Provider.CEREBRAS: {
         "main": "gpt-oss-120b",
         "fallback": "llama-3.3-70b"},
+    Provider.GROQ: {
+        "main": "llama3-8b-8192",
+        "fallback": "llama3-70b-8192"},
 }
 
 
