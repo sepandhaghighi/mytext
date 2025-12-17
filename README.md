@@ -101,6 +101,7 @@ MyText automatically detects which providers are available based on environment 
 | **Cloudflare** | Cloudflare Workers AI | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` |
 | **OpenRouter** | OpenRouter | `OPENROUTER_API_KEY` |
 | **Cerebras** | Cerebras | `CEREBRAS_API_KEY` |
+| **Groq** | Groq | `GROQ_API_KEY` |
 
 Set them before using:
 
@@ -110,6 +111,7 @@ export CLOUDFLARE_API_KEY="your-key"
 export CLOUDFLARE_ACCOUNT_ID="your-account-id"
 export OPENROUTER_API_KEY="your-key"
 export CEREBRAS_API_KEY="your-key"
+export GROQ_API_KEY="your-key"
 ```
 
 ## Issues & Bug Reports			
