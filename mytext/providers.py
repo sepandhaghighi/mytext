@@ -183,12 +183,11 @@ def _call_groq(
     data = dict()
     data["messages"] = [prompt.render(RenderFormat.OPENAI)]
     data["model"] = model
-    api_url = GROQ_API_URL
     headers = GROQ_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
         response = session.post(
-            api_url,
+            GROQ_API_URL,
             headers=headers,
             json=data,
             timeout=timeout)
