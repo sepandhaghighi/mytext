@@ -19,6 +19,7 @@ class Provider(Enum):
     CLOUDFLARE = "cloudflare"
     OPENROUTER = "openrouter"
     CEREBRAS = "cerebras"
+    GROQ = "groq"
 
 
 class Mode(Enum):
@@ -86,6 +87,13 @@ CEREBRAS_API_URL = "https://api.cerebras.ai/v1/chat/completions"
 CEREBRAS_HEADERS = {
     "Authorization": "Bearer {api_key}",
     "Content-Type": "application/json"
+}
+
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+
+GROQ_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json",
 }
 
 INSTRUCTIONS = {

@@ -10,6 +10,7 @@ from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
 from .params import OPENROUTER_API_URL, OPENROUTER_HEADERS
 from .params import CEREBRAS_API_URL, CEREBRAS_HEADERS
+from .params import GROQ_API_URL, GROQ_HEADERS
 
 
 def _call_ai_studio(
@@ -166,11 +167,49 @@ def _call_cerebras(
         )
 
 
+def _call_groq(
+        prompt: Prompt,
+        auth: Dict[str, str],
+        model: str,
+        timeout: float = 15) -> Dict[str, Union[bool, str]]:
+    """
+    Call Groq API and return the response.
+
+    :param prompt: user prompt
+    :param auth: authentication parameters
+    :param model: model
+    :param timeout: API timeout
+    """
+    data = dict()
+    data["messages"] = [prompt.render(RenderFormat.OPENAI)]
+    data["model"] = model
+    api_url = GROQ_API_URL
+    headers = GROQ_HEADERS.copy()
+    headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
+    with requests.Session() as session:
+        response = session.post(
+            api_url,
+            headers=headers,
+            json=data,
+            timeout=timeout)
+        if response.status_code in (200, 201):
+            response_data = response.json()
+            return {
+                "status": True,
+                "message": response_data["choices"][0]["message"]["content"],
+                "model": model}
+        raise Exception(
+            "Status Code: {status_code}\n\nContent:\n{content}".format(
+                status_code=response.status_code,
+                content=response.text))
+
+
 PROVIDER_MAP = {
     Provider.AI_STUDIO: _call_ai_studio,
     Provider.CLOUDFLARE: _call_cloudflare,
     Provider.OPENROUTER: _call_openrouter,
     Provider.CEREBRAS: _call_cerebras,
+    Provider.GROQ: _call_groq,
     }
 
 
