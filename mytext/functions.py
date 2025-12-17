@@ -75,6 +75,9 @@ def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, prov
     elif provider == Provider.CEREBRAS:
         if "api_key" not in auth:
             raise ValueError(MISSING_CEREBRAS_KEYS_ERROR)
+    elif provider == Provider.GROQ:
+        if "api_key" not in auth:
+            raise ValueError(MISSING_GROQ_KEYS_ERROR)
 
 
 def run_mytext(
@@ -129,6 +132,9 @@ def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
         Provider.CEREBRAS: {
             "api_key": os.getenv("CEREBRAS_API_KEY"),
         },
+        Provider.GROQ: {
+            "api_key": os.getenv("GROQ_API_KEY"),
+        },
     }
 
 
@@ -175,7 +181,7 @@ def main() -> None:
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
         errors = []
-        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE, Provider.OPENROUTER, Provider.CEREBRAS]:
+        for provider in [Provider.AI_STUDIO, Provider.CLOUDFLARE, Provider.OPENROUTER, Provider.CEREBRAS, Provider.GROQ]:
             auth = auth_map.get(provider)
             if not auth or not all(auth.values()):
                 continue
