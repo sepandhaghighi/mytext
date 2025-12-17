@@ -59,8 +59,8 @@ DEFAULT_MODELS = {
         "main": "gpt-oss-120b",
         "fallback": "llama-3.3-70b"},
     Provider.GROQ: {
-        "main": "llama3-8b-8192",
-        "fallback": "llama3-70b-8192"},
+        "main": "llama-3.1-8b-instant",
+        "fallback": "openai/gpt-oss-20b"},
 }
 
 
