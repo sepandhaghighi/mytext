@@ -230,7 +230,7 @@ def test_run_mytext_nvidia_failure():
         provider=Provider.NVIDIA
     )
     assert not result["status"]
-    assert "error" in result["message"]
+    assert "failed" in result["message"]
 
 
 @patch("mytext.functions._load_auth_from_env")
