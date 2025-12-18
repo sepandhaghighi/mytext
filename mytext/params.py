@@ -103,7 +103,7 @@ GROQ_HEADERS = {
     "Content-Type": "application/json",
 }
 
-NVIDIA_API_URL = "https://api.nvidia.com/v1/chat/completions"
+NVIDIA_API_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
 
 NVIDIA_HEADERS = {
     "Authorization": "Bearer {api_key}",
