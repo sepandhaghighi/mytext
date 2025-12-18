@@ -63,8 +63,8 @@ DEFAULT_MODELS = {
         "main": "openai/gpt-oss-20b",
         "fallback": "llama-3.1-8b-instant"},
     Provider.NVIDIA: {
-        "main": "",
-        "fallback": ""},
+        "main": "01-ai/yi-large",
+        "fallback": "abacusai/dracarys-llama-3.1-70b-instruct"},
 }
 
 
@@ -192,6 +192,7 @@ MISSING_CLOUDFLARE_KEYS_ERROR = "CLOUDFLARE provider requires keys: `api_key`, `
 MISSING_OPENROUTER_KEYS_ERROR = "OPENROUTER provider requires keys: `api_key`"
 MISSING_CEREBRAS_KEYS_ERROR = "CEREBRAS provider requires keys: `api_key`"
 MISSING_GROQ_KEYS_ERROR = "GROQ provider requires keys: `api_key`"
+MISSING_NVIDIA_KEYS_ERROR = "NVIDIA provider requires keys: `api_key`"
 
 NO_PROVIDER_SUCCEEDED_MESSAGE = "No provider succeeded.\n"
 NO_VALID_PROVIDER_CREDENTIALS_MESSAGE = "No valid provider credentials found in the environment."
