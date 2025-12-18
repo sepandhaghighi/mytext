@@ -20,6 +20,7 @@ class Provider(Enum):
     OPENROUTER = "openrouter"
     CEREBRAS = "cerebras"
     GROQ = "groq"
+    NVIDIA = "nvidia"
 
 
 class Mode(Enum):
@@ -61,6 +62,9 @@ DEFAULT_MODELS = {
     Provider.GROQ: {
         "main": "openai/gpt-oss-20b",
         "fallback": "llama-3.1-8b-instant"},
+    Provider.NVIDIA: {
+        "main": "",
+        "fallback": ""},
 }
 
 
@@ -95,6 +99,13 @@ CEREBRAS_HEADERS = {
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 GROQ_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json",
+}
+
+NVIDIA_API_URL = "https://api.nvidia.com/v1/chat/completions"
+
+NVIDIA_HEADERS = {
     "Authorization": "Bearer {api_key}",
     "Content-Type": "application/json",
 }
