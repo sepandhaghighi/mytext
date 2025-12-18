@@ -19,6 +19,7 @@ class Provider(Enum):
     CLOUDFLARE = "cloudflare"
     OPENROUTER = "openrouter"
     CEREBRAS = "cerebras"
+    GROQ = "groq"
 
 
 class Mode(Enum):
@@ -57,6 +58,9 @@ DEFAULT_MODELS = {
     Provider.CEREBRAS: {
         "main": "gpt-oss-120b",
         "fallback": "llama-3.3-70b"},
+    Provider.GROQ: {
+        "main": "openai/gpt-oss-20b",
+        "fallback": "llama-3.1-8b-instant"},
 }
 
 
@@ -86,6 +90,13 @@ CEREBRAS_API_URL = "https://api.cerebras.ai/v1/chat/completions"
 CEREBRAS_HEADERS = {
     "Authorization": "Bearer {api_key}",
     "Content-Type": "application/json"
+}
+
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+
+GROQ_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json",
 }
 
 INSTRUCTIONS = {
@@ -169,6 +180,7 @@ MISSING_AI_STUDIO_KEYS_ERROR = "AI_STUDIO provider requires keys: `api_key`"
 MISSING_CLOUDFLARE_KEYS_ERROR = "CLOUDFLARE provider requires keys: `api_key`, `account_id`"
 MISSING_OPENROUTER_KEYS_ERROR = "OPENROUTER provider requires keys: `api_key`"
 MISSING_CEREBRAS_KEYS_ERROR = "CEREBRAS provider requires keys: `api_key`"
+MISSING_GROQ_KEYS_ERROR = "GROQ provider requires keys: `api_key`"
 
 NO_PROVIDER_SUCCEEDED_MESSAGE = "No provider succeeded.\n"
 NO_VALID_PROVIDER_CREDENTIALS_MESSAGE = "No valid provider credentials found in the environment."

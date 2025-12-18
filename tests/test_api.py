@@ -27,6 +27,11 @@ def skip_if_no_env_cerebras():
         pytest.skip("Cerebras real API keys are not available.")
 
 
+def skip_if_no_env_groq():
+    if not os.getenv("GROQ_API_KEY"):
+        pytest.skip("Groq real API keys are not available.")
+
+
 def test_ai_studio_real_api():
     skip_if_no_env_ai_studio()
     api_key = os.getenv("AI_STUDIO_API_KEY")
@@ -89,6 +94,23 @@ def test_cerebras_real_api():
         mode=Mode.PARAPHRASE,
         tone=Tone.NEUTRAL,
         provider=Provider.CEREBRAS,
+    )
+
+    assert result["status"]
+    assert result["message"]
+    assert result["model"]
+
+
+def test_groq_real_api():
+    skip_if_no_env_groq()
+    api_key = os.getenv("GROQ_API_KEY")
+
+    result = run_mytext(
+        text="Hello, how are you?",
+        auth={"api_key": api_key},
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.GROQ,
     )
 
     assert result["status"]
