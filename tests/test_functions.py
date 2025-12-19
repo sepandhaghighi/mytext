@@ -9,6 +9,7 @@ from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "Functions tests"
 
+
 @patch("mytext.functions._call_provider")
 def test_run_mytext_nvidia_success(mock_call):
     mock_call.return_value = {
