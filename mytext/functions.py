@@ -17,6 +17,7 @@ from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, MISSING_OPENROUTER_KEYS_ERROR
 from .params import MISSING_CEREBRAS_KEYS_ERROR, MISSING_GROQ_KEYS_ERROR
+from .params import MISSING_NVIDIA_KEYS_ERROR
 
 
 def _print_mytext_info() -> None:
@@ -78,6 +79,9 @@ def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, prov
     elif provider == Provider.GROQ:
         if "api_key" not in auth:
             raise ValueError(MISSING_GROQ_KEYS_ERROR)
+    elif provider == Provider.NVIDIA:
+        if "api_key" not in auth:
+            raise ValueError(MISSING_NVIDIA_KEYS_ERROR)
 
 
 def run_mytext(
@@ -135,6 +139,9 @@ def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
         Provider.GROQ: {
             "api_key": os.getenv("GROQ_API_KEY"),
         },
+        Provider.NVIDIA: {
+            "api_key": os.getenv("NVIDIA_API_KEY"),
+        },
     }
 
 
@@ -186,7 +193,8 @@ def main() -> None:
                 Provider.CLOUDFLARE,
                 Provider.OPENROUTER,
                 Provider.CEREBRAS,
-                Provider.GROQ]:
+                Provider.GROQ,
+                Provider.NVIDIA]:
             auth = auth_map.get(provider)
             if not auth or not all(auth.values()):
                 continue

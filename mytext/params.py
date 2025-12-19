@@ -20,6 +20,7 @@ class Provider(Enum):
     OPENROUTER = "openrouter"
     CEREBRAS = "cerebras"
     GROQ = "groq"
+    NVIDIA = "nvidia"
 
 
 class Mode(Enum):
@@ -61,6 +62,9 @@ DEFAULT_MODELS = {
     Provider.GROQ: {
         "main": "openai/gpt-oss-20b",
         "fallback": "llama-3.1-8b-instant"},
+    Provider.NVIDIA: {
+        "main": "meta/llama-3.1-8b-instruct",
+        "fallback": "meta/llama3-8b-instruct"},
 }
 
 
@@ -95,6 +99,13 @@ CEREBRAS_HEADERS = {
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 GROQ_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json",
+}
+
+NVIDIA_API_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
+
+NVIDIA_HEADERS = {
     "Authorization": "Bearer {api_key}",
     "Content-Type": "application/json",
 }
@@ -181,6 +192,7 @@ MISSING_CLOUDFLARE_KEYS_ERROR = "CLOUDFLARE provider requires keys: `api_key`, `
 MISSING_OPENROUTER_KEYS_ERROR = "OPENROUTER provider requires keys: `api_key`"
 MISSING_CEREBRAS_KEYS_ERROR = "CEREBRAS provider requires keys: `api_key`"
 MISSING_GROQ_KEYS_ERROR = "GROQ provider requires keys: `api_key`"
+MISSING_NVIDIA_KEYS_ERROR = "NVIDIA provider requires keys: `api_key`"
 
 NO_PROVIDER_SUCCEEDED_MESSAGE = "No provider succeeded.\n"
 NO_VALID_PROVIDER_CREDENTIALS_MESSAGE = "No valid provider credentials found in the environment."

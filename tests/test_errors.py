@@ -69,3 +69,10 @@ def test_run_mytext_missing_api_key_for_groq():
     result = run_mytext(text="test", auth=auth, provider=Provider.GROQ)
     assert not result["status"]
     assert result["message"] == "GROQ provider requires keys: `api_key`"
+
+
+def test_run_mytext_missing_api_key_for_nvidia():
+    auth = {}
+    result = run_mytext(text="test", auth=auth, provider=Provider.NVIDIA)
+    assert not result["status"]
+    assert result["message"] == "NVIDIA provider requires keys: `api_key`"
