@@ -63,8 +63,8 @@ DEFAULT_MODELS = {
         "main": "openai/gpt-oss-20b",
         "fallback": "llama-3.1-8b-instant"},
     Provider.NVIDIA: {
-        "main": "01-ai/yi-large",
-        "fallback": "abacusai/dracarys-llama-3.1-70b-instruct"},
+        "main": "meta/llama-3.1-8b-instruct",
+        "fallback": "meta/llama3-8b-instruct"},
 }
 
 
