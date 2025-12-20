@@ -18,7 +18,7 @@ from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, MISSING_OPENROUTER_KEYS_ERROR
 from .params import MISSING_CEREBRAS_KEYS_ERROR, MISSING_GROQ_KEYS_ERROR
 from .params import MISSING_NVIDIA_KEYS_ERROR
-from .params import LOOP_MESSAGE
+from .params import LOOP_INPUT_MESSAGE
 
 
 def _print_mytext_info() -> None:
@@ -187,13 +187,13 @@ def main() -> None:
         text = args.text
         if not text:
             if args.loop:
-                text = input(LOOP_MESSAGE)
+                text = input(LOOP_INPUT_MESSAGE)
             else:
                 parser.error(TEXT_IS_REQUIRED_ERROR)
+        tone = Tone(args.tone)
+        mode = Mode(args.mode)
+        auth_map = _load_auth_from_env()
         while True:
-            tone = Tone(args.tone)
-            mode = Mode(args.mode)
-            auth_map = _load_auth_from_env()
             errors = []
             successful_attempt = False
             for provider in [
@@ -226,6 +226,6 @@ def main() -> None:
             # else:
             #    print(ALL_PROVIDERS_FAILED_MESSAGE)
             if args.loop:
-                text = input(LOOP_MESSAGE)
+                text = input(LOOP_INPUT_MESSAGE)
             else:
                 break
