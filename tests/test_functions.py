@@ -250,6 +250,33 @@ def test_main_success(mock_run, mock_env, capsys):
     assert "AI RESULT" in out
 
 
+@patch("mytext.functions._load_auth_from_env")
+@patch("mytext.functions.run_mytext")
+def test_main_loop_success(mock_run, mock_env, capsys):
+    mock_env.return_value = {
+        Provider.AI_STUDIO: {"api_key": "x"},
+        Provider.CLOUDFLARE: {"api_key": "y", "account_id": "z"},
+    }
+    mock_run.return_value = {"status": True, "message": "AI RESULT", "model": "gemini"}
+
+    inputs = ["hello", "world"]
+
+    def fake_input(_):
+        if inputs:
+            return inputs.pop(0)
+        raise KeyboardInterrupt
+
+    with patch("builtins.input", side_effect=fake_input):
+        with patch("sys.argv", ["mytext", "--loop"]):
+            try:
+                main()
+            except KeyboardInterrupt:
+                pass
+
+    out, _ = capsys.readouterr()
+    assert out.count("AI RESULT") == 2
+
+
 def test_main_version(capsys):
     with patch("sys.argv", ["mytext", "--version"]):
         main()
