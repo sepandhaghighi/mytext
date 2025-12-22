@@ -197,3 +197,5 @@ MISSING_NVIDIA_KEYS_ERROR = "NVIDIA provider requires keys: `api_key`"
 NO_PROVIDER_SUCCEEDED_MESSAGE = "No provider succeeded.\n"
 NO_VALID_PROVIDER_CREDENTIALS_MESSAGE = "No valid provider credentials found in the environment."
 ALL_PROVIDERS_FAILED_MESSAGE = "Tried the following providers, but all failed:\n"
+
+LOOP_INPUT_MESSAGE = "Enter the text: "

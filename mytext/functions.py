@@ -18,6 +18,7 @@ from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, MISSING_OPENROUTER_KEYS_ERROR
 from .params import MISSING_CEREBRAS_KEYS_ERROR, MISSING_GROQ_KEYS_ERROR
 from .params import MISSING_NVIDIA_KEYS_ERROR
+from .params import LOOP_INPUT_MESSAGE
 
 
 def _print_mytext_info() -> None:
@@ -175,6 +176,8 @@ def main() -> None:
         help="The text you want to transform"
     )
 
+    parser.add_argument("--loop", help="Loop mode flag", action='store_true', default=False)
+
     args = parser.parse_args()
     if args.version:
         print(MY_TEXT_VERSION)
@@ -183,35 +186,46 @@ def main() -> None:
     else:
         text = args.text
         if not text:
-            parser.error(TEXT_IS_REQUIRED_ERROR)
+            if args.loop:
+                text = input(LOOP_INPUT_MESSAGE)
+            else:
+                parser.error(TEXT_IS_REQUIRED_ERROR)
         tone = Tone(args.tone)
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
-        errors = []
-        for provider in [
-                Provider.AI_STUDIO,
-                Provider.CLOUDFLARE,
-                Provider.OPENROUTER,
-                Provider.CEREBRAS,
-                Provider.GROQ,
-                Provider.NVIDIA]:
-            auth = auth_map.get(provider)
-            if not auth or not all(auth.values()):
-                continue
-            result = run_mytext(
-                auth=auth,
-                text=text,
-                mode=mode,
-                tone=tone,
-                provider=provider
-            )
-            if result["status"]:
-                print(OUTPUT_TEMPLATE.format(result=result["message"].strip()))
-                return
+        while True:
+            errors = []
+            successful_attempt = False
+            for provider in [
+                    Provider.AI_STUDIO,
+                    Provider.CLOUDFLARE,
+                    Provider.OPENROUTER,
+                    Provider.CEREBRAS,
+                    Provider.GROQ,
+                    Provider.NVIDIA]:
+                auth = auth_map.get(provider)
+                if not auth or not all(auth.values()):
+                    continue
+                result = run_mytext(
+                    auth=auth,
+                    text=text,
+                    mode=mode,
+                    tone=tone,
+                    provider=provider
+                )
+                if result["status"]:
+                    print(OUTPUT_TEMPLATE.format(result=result["message"].strip()))
+                    successful_attempt = True
+                    break
+                else:
+                    errors.append((provider, result["message"]))
+            if not successful_attempt:
+                print(NO_PROVIDER_SUCCEEDED_MESSAGE)
+            # if not errors:
+            #    print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
+            # else:
+            #    print(ALL_PROVIDERS_FAILED_MESSAGE)
+            if args.loop:
+                text = input(LOOP_INPUT_MESSAGE)
             else:
-                errors.append((provider, result["message"]))
-        print(NO_PROVIDER_SUCCEEDED_MESSAGE)
-        # if not errors:
-        #    print(NO_VALID_PROVIDER_CREDENTIALS_MESSAGE)
-        # else:
-        #    print(ALL_PROVIDERS_FAILED_MESSAGE)
+                break
