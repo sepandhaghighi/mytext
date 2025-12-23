@@ -63,9 +63,28 @@
 
 ### CLI
 
+#### Single Run
+
+Executes a one-time text transformation using the provided options and exits immediately after producing the result.
+
 ```bash
-mytext --mode="paraphrase" --tone="formal" --text="Can you update me on the project timeline by the end of the day?"
+mytext \
+  --mode="paraphrase" \
+  --tone="formal" \
+  --text="Can you update me on the project timeline by the end of the day?"
 ```
+
+#### Loop
+
+Starts an interactive session that repeatedly accepts new text inputs from the user while keeping the same configuration until the process is terminated.
+
+```bash
+mytext \
+  --mode="paraphrase" \
+  --tone="formal" \
+  --loop
+```
+
 
 ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`
 
@@ -95,14 +114,14 @@ print(result["status"], result["message"])
 
 MyText automatically detects which providers are available based on environment variables:
 
-| Provider | Description | Required Environment Variables |
-|---------|-------------|--------------------------------|
-| **AI Studio** | Google AI Studio (Gemini models) | `AI_STUDIO_API_KEY` |
-| **Cloudflare** | Cloudflare Workers AI | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` |
-| **OpenRouter** | OpenRouter | `OPENROUTER_API_KEY` |
-| **Cerebras** | Cerebras | `CEREBRAS_API_KEY` |
-| **Groq** | Groq | `GROQ_API_KEY` |
-| **NVIDIA** | NVIDIA NIM | `NVIDIA_API_KEY` |
+| Provider | Required Environment Variables | Main Model | Fallback Model |
+|---------|--------------------------------|------------|----------------|
+| [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemini-2.5-flash` | `gemma-3-1b-it` |
+| [**Cloudflare**](https://developers.cloudflare.com/workers-ai/) | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` | `meta/llama-3.1-8b-instruct-fast` |
+| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `mistralai/mistral-small-3.1-24b-instruct:free` | `google/gemma-3-27b-it:free` |
+| [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `gpt-oss-120b` | `llama-3.3-70b` |
+| [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `llama-3.1-8b-instant` |
+| [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `meta/llama3-8b-instruct` |
 
 Set them before using:
 
