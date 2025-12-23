@@ -63,9 +63,28 @@
 
 ### CLI
 
+#### Single Run
+
+Executes a one-time text transformation using the provided options and exits immediately after producing the result.
+
 ```bash
-mytext --mode="paraphrase" --tone="formal" --text="Can you update me on the project timeline by the end of the day?"
+mytext \
+  --mode="paraphrase" \
+  --tone="formal" \
+  --text="Can you update me on the project timeline by the end of the day?"
 ```
+
+#### Loop
+
+Starts an interactive session that repeatedly accepts new text inputs from the user while keeping the same configuration until the process is terminated.
+
+```bash
+mytext \
+  --mode="paraphrase" \
+  --tone="formal" \
+  --loop
+```
+
 
 ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`
 
