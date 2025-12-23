@@ -114,14 +114,14 @@ print(result["status"], result["message"])
 
 MyText automatically detects which providers are available based on environment variables:
 
-| Provider | Description | Required Environment Variables |
-|---------|-------------|--------------------------------|
-| **AI Studio** | Google AI Studio (Gemini models) | `AI_STUDIO_API_KEY` |
-| **Cloudflare** | Cloudflare Workers AI | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` |
-| **OpenRouter** | OpenRouter | `OPENROUTER_API_KEY` |
-| **Cerebras** | Cerebras | `CEREBRAS_API_KEY` |
-| **Groq** | Groq | `GROQ_API_KEY` |
-| **NVIDIA** | NVIDIA NIM | `NVIDIA_API_KEY` |
+| Provider | Description | Required Environment Variables | Main Model | Fallback Model |
+|---------|-------------|--------------------------------|------------|----------------|
+| **AI Studio** | Google AI Studio (Gemini models) | `AI_STUDIO_API_KEY` | `gemini-2.5-flash` | `gemma-3-1b-it` |
+| **Cloudflare** | Cloudflare Workers AI | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` | `meta/llama-3.1-8b-instruct-fast` |
+| **OpenRouter** | OpenRouter | `OPENROUTER_API_KEY` | `mistralai/mistral-small-3.1-24b-instruct:free` | `google/gemma-3-27b-it:free` |
+| **Cerebras** | Cerebras | `CEREBRAS_API_KEY` | `gpt-oss-120b` | `llama-3.3-70b` |
+| **Groq** | Groq | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `llama-3.1-8b-instant` |
+| **NVIDIA** | NVIDIA NIM | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `meta/llama3-8b-instruct` |
 
 Set them before using:
 
