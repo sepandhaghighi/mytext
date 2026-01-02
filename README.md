@@ -85,10 +85,23 @@ mytext \
   --loop
 ```
 
+#### Arguments
+
+| Parameter | Description | Default |
+|--------- |-------------|---------|
+| `--text` | Text to process (required unless `--loop` is used) | — |
+| `--mode` | Processing mode | `paraphrase` |
+| `--tone` | Writing tone | `neutral` |
+| `--provider` | AI provider selection | `auto` |
+| `--loop` | Enable interactive loop mode | `false` |
+| `--version` | Show application version| — |
+| `--info` | Show application information| — |
 
 ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`
 
 ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`
+
+ℹ️ Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`
 
 ### Library
 
