@@ -87,7 +87,7 @@ mytext \
 
 #### Arguments
 
-| Parameter | Description | Default |
+| Argument | Description | Default |
 |--------- |-------------|---------|
 | `--text` | Text to process (required unless `--loop` is used) | — |
 | `--mode` | Processing mode | `paraphrase` |
