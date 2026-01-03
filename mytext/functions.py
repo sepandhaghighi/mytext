@@ -201,13 +201,7 @@ def main() -> None:
         tone = Tone(args.tone)
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
-        providers = [
-            Provider.AI_STUDIO,
-            Provider.CLOUDFLARE,
-            Provider.OPENROUTER,
-            Provider.CEREBRAS,
-            Provider.GROQ,
-            Provider.NVIDIA]
+        providers = [x for x in Provider]
         if args.provider != "auto":
             providers = [Provider(args.provider)]
         while True:
