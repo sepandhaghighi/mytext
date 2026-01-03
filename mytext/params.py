@@ -15,7 +15,7 @@ MY_TEXT_REPO = "https://github.com/sepandhaghighi/mytext"
 class Provider(Enum):
     """LLM provider enum."""
 
-    AI_STUDIO = "ai_studio"
+    AI_STUDIO = "ai-studio"
     CLOUDFLARE = "cloudflare"
     OPENROUTER = "openrouter"
     CEREBRAS = "cerebras"

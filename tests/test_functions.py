@@ -236,7 +236,7 @@ def test_run_mytext_nvidia_failure():
 
 @patch("mytext.functions._load_auth_from_env")
 @patch("mytext.functions.run_mytext")
-def test_main_success(mock_run, mock_env, capsys):
+def test_main_single_run_success1(mock_run, mock_env, capsys):
     mock_env.return_value = {
         Provider.AI_STUDIO: {"api_key": "x"},
         Provider.CLOUDFLARE: {"api_key": "y", "account_id": "z"},
@@ -244,6 +244,22 @@ def test_main_success(mock_run, mock_env, capsys):
     mock_run.return_value = {"status": True, "message": "AI RESULT", "model": "gemini"}
 
     with patch("sys.argv", ["mytext", "--text", "hello"]):
+        main()
+
+    out, _ = capsys.readouterr()
+    assert "AI RESULT" in out
+
+
+@patch("mytext.functions._load_auth_from_env")
+@patch("mytext.functions.run_mytext")
+def test_main_single_run_success2(mock_run, mock_env, capsys):
+    mock_env.return_value = {
+        Provider.AI_STUDIO: {"api_key": "x"},
+        Provider.CLOUDFLARE: {"api_key": None, "account_id": None},
+    }
+    mock_run.return_value = {"status": True, "message": "AI RESULT", "model": "gemini"}
+
+    with patch("sys.argv", ["mytext", "--text", "hello", "--provider", "ai-studio"]):
         main()
 
     out, _ = capsys.readouterr()
@@ -302,7 +318,7 @@ def test_main_no_text(capsys):
 
 @patch("mytext.functions._load_auth_from_env")
 @patch("mytext.functions.run_mytext")
-def test_main_all_failures(mock_run, mock_env, capsys):
+def test_main_all_providers_failure(mock_run, mock_env, capsys):
     mock_env.return_value = {
         Provider.AI_STUDIO: {"api_key": "a"},
         Provider.CLOUDFLARE: {"api_key": "b", "account_id": "c"},
@@ -314,6 +330,26 @@ def test_main_all_failures(mock_run, mock_env, capsys):
     mock_run.return_value = {"status": False, "message": "ERR", "model": "m"}
 
     with patch("sys.argv", ["mytext", "--text", "hello"]):
+        main()
+
+    out, _ = capsys.readouterr()
+    assert "No provider succeeded" in out
+
+
+@patch("mytext.functions._load_auth_from_env")
+@patch("mytext.functions.run_mytext")
+def test_main_specific_provider_failure(mock_run, mock_env, capsys):
+    mock_env.return_value = {
+        Provider.AI_STUDIO: {"api_key": "a"},
+        Provider.CLOUDFLARE: {"api_key": "b", "account_id": "c"},
+        Provider.OPENROUTER: {"api_key": "d"},
+        Provider.CEREBRAS: {"api_key": "e"},
+        Provider.GROQ: {"api_key": "f"},
+        Provider.NVIDIA: {"api_key": None},
+    }
+    mock_run.return_value = {"status": False, "message": "ERR", "model": "m"}
+
+    with patch("sys.argv", ["mytext", "--text", "hello", "--provider", "nvidia"]):
         main()
 
     out, _ = capsys.readouterr()
