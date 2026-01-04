@@ -121,7 +121,7 @@ def run_mytext(
     :param fallback_model: fallback model
     """
     try:
-        _validate_run_mytext_inputs(text, auth, mode, tone, provider)
+        _validate_run_mytext_inputs(text, auth, mode, tone, provider, main_model, fallback_model)
         instruction_str = _build_instruction(mode, tone)
         template = PromptTemplate(
             content="{instruction}\n\nUser text:\n{prompt[message]}",
