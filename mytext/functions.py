@@ -13,6 +13,7 @@ from .params import DEFAULT_MODELS
 from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
+from .params import INVALID_MAIN_MODEL_ERROR, INVALID_FALLBACK_MODEL_ERROR
 from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, MISSING_OPENROUTER_KEYS_ERROR
@@ -40,7 +41,7 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     return template.format(tone=tone.value)
 
 
-def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any) -> None:
+def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any, main_model: Any, fallback_model: Any) -> None:
     """
     Validate run_mytext function inputs.
 
@@ -49,6 +50,8 @@ def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, prov
     :param mode: mode
     :param tone: tone
     :param provider: API provider
+    :param main_model: main model
+    :param fallback_model: fallback model
     """
     if not isinstance(text, str):
         raise ValueError(INVALID_TEXT_ERROR)
@@ -64,6 +67,12 @@ def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, prov
 
     if not isinstance(provider, Provider):
         raise ValueError(INVALID_PROVIDER_ERROR)
+
+    if main_model is not None and not isinstance(main_model, str):
+        raise ValueError(INVALID_MAIN_MODEL_ERROR)
+
+    if fallback_model is not None and not isinstance(fallback_model, str):
+        raise ValueError(INVALID_FALLBACK_MODEL_ERROR)
 
     if provider == Provider.AI_STUDIO:
         if "api_key" not in auth:
