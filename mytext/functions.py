@@ -3,7 +3,7 @@
 
 import os
 import argparse
-from typing import Union, Dict, Any
+from typing import Union, Dict, Any, Optional
 from art import tprint
 from memor import Prompt, PromptTemplate
 from .providers import _call_provider
@@ -90,7 +90,9 @@ def run_mytext(
         auth: dict,
         mode: Mode = Mode.PARAPHRASE,
         tone: Tone = Tone.NEUTRAL,
-        provider: Provider = Provider.AI_STUDIO) -> Dict[str, Union[bool, str]]:
+        provider: Provider = Provider.AI_STUDIO,
+        main_model: Optional[str] = None,
+        fallback_model: Optional[str] = None) -> Dict[str, Union[bool, str]]:
     """
     Run mytext.
 
@@ -99,6 +101,8 @@ def run_mytext(
     :param mode: mode
     :param tone: tone
     :param provider: API provider
+    :param main_model: main model
+    :param fallback_model: fallback model
     """
     try:
         _validate_run_mytext_inputs(text, auth, mode, tone, provider)
@@ -111,8 +115,8 @@ def run_mytext(
         result = _call_provider(provider=provider,
                                 prompt=prompt,
                                 auth=auth,
-                                main_model=DEFAULT_MODELS[provider]["main"],
-                                fallback_model=DEFAULT_MODELS[provider]["fallback"])
+                                main_model=main_model or DEFAULT_MODELS[provider]["main"],
+                                fallback_model=fallback_model or DEFAULT_MODELS[provider]["fallback"])
         return result
     except Exception as e:
         return {
@@ -179,6 +183,18 @@ def main() -> None:
     )
 
     parser.add_argument(
+        "--main-model",
+        type=str,
+        help="Override main model"
+    )
+
+    parser.add_argument(
+        "--fallback-model",
+        type=str,
+        help="Override fallback model"
+    )
+
+    parser.add_argument(
         "--text",
         type=str,
         help="The text you want to transform"
@@ -202,8 +218,12 @@ def main() -> None:
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
         providers = [x for x in Provider]
+        main_model = None
+        fallback_model = None
         if args.provider != "auto":
             providers = [Provider(args.provider)]
+            main_model = args.main_model
+            fallback_model = args.fallback_model
         while True:
             errors = []
             successful_attempt = False
@@ -216,7 +236,9 @@ def main() -> None:
                     text=text,
                     mode=mode,
                     tone=tone,
-                    provider=provider
+                    provider=provider,
+                    main_model=main_model,
+                    fallback_model=fallback_model
                 )
                 if result["status"]:
                     print(OUTPUT_TEMPLATE.format(result=result["message"].strip()))
