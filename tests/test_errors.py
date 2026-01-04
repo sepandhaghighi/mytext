@@ -36,6 +36,18 @@ def test_run_mytext_invalid_provider_type():
     assert result["message"] == "`provider` must be an instance of Provider enum."
 
 
+def test_run_mytext_invalid_main_model_type():
+    result = run_mytext(text="a", auth={}, mode=Mode.PARAPHRASE, tone=Tone.NEUTRAL, main_model=2)
+    assert not result["status"]
+    assert result["message"] == "`main_model` must be a string or None."
+
+
+def test_run_mytext_invalid_fallback_model_type():
+    result = run_mytext(text="a", auth={}, mode=Mode.PARAPHRASE, tone=Tone.NEUTRAL, fallback_model=2)
+    assert not result["status"]
+    assert result["message"] == "`fallback_model` must be a string or None."
+
+
 def test_run_mytext_missing_api_key_for_ai_studio():
     auth = {}
     result = run_mytext(text="test", auth=auth, provider=Provider.AI_STUDIO)
