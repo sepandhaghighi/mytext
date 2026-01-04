@@ -41,7 +41,14 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     return template.format(tone=tone.value)
 
 
-def _validate_run_mytext_inputs(text: Any, auth: Any, mode: Any, tone: Any, provider: Any, main_model: Any, fallback_model: Any) -> None:
+def _validate_run_mytext_inputs(
+        text: Any,
+        auth: Any,
+        mode: Any,
+        tone: Any,
+        provider: Any,
+        main_model: Any,
+        fallback_model: Any) -> None:
     """
     Validate run_mytext function inputs.
 
