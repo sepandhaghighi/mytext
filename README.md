@@ -89,13 +89,15 @@ mytext \
 
 | Argument | Description | Default |
 |--------- |-------------|---------|
-| `--text` | Text to process (required unless `--loop` is used) | — |
+| `--text` | Text to process (required unless `--loop` is used) | - |
 | `--mode` | Processing mode | `paraphrase` |
 | `--tone` | Writing tone | `neutral` |
 | `--provider` | AI provider selection | `auto` |
 | `--loop` | Enable interactive loop mode | `false` |
-| `--version` | Show application version| — |
-| `--info` | Show application information| — |
+| `--main-model` | Main model | - |
+| `--fallback-model` | Fallback model | - |
+| `--version` | Show application version| - |
+| `--info` | Show application information| - |
 
 ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`
 
