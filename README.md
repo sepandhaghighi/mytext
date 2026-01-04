@@ -90,8 +90,8 @@ mytext \
 | Argument | Description | Default |
 |--------- |-------------|---------|
 | `--text` | Text to process (required unless `--loop` is used) | - |
-| `--mode` | Processing mode | `paraphrase` |
-| `--tone` | Writing tone | `neutral` |
+| `--mode` | Text processing mode | `paraphrase` |
+| `--tone` | Output text desired tone | `neutral` |
 | `--provider` | AI provider selection | `auto` |
 | `--loop` | Enable interactive loop mode | `false` |
 | `--main-model` | Override provider main model | - |
@@ -132,7 +132,7 @@ print(result["status"], result["message"])
 | `text` | Yes | Input text to process | — |
 | `auth` | Yes | Authentication parameters for the provider | — |
 | `mode` | Yes | Text processing mode | `Mode.PARAPHRASE` |
-| `tone` | Yes | Writing tone | `Tone.NEUTRAL` |
+| `tone` | Yes | Output text desired tone | `Tone.NEUTRAL` |
 | `provider` | Yes | AI provider | `Provider.AI_STUDIO` |
 | `main_model` | No | Override provider main model | `None` |
 | `fallback_model` | No | Override provider fallback model | `None` |
