@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `--provider` argument
+- `--main-model` argument
+- `--fallback-model` argument
 ### Changed
+- `main_model` parameter added to `run_mytext` function
+- `fallback_model` parameter added to `run_mytext` function
 - Test system modified
 - `README.md` updated
 ## [0.4] - 2025-12-25
