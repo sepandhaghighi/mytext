@@ -183,6 +183,8 @@ INVALID_AUTH_ERROR = "`auth` must be a dictionary."
 INVALID_MODE_ERROR = "`mode` must be an instance of Mode enum."
 INVALID_TONE_ERROR = "`tone` must be an instance of Tone enum."
 INVALID_PROVIDER_ERROR = "`provider` must be an instance of Provider enum."
+INVALID_MAIN_MODEL_ERROR = "`main_model` must be a string or None."
+INVALID_FALLBACK_MODEL_ERROR = "`fallback_model` must be a string or None."
 UNSUPPORTED_PROVIDER_ERROR = "Unsupported provider."
 TEXT_IS_REQUIRED_ERROR = "--text is required."
 

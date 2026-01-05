@@ -89,13 +89,15 @@ mytext \
 
 | Argument | Description | Default |
 |--------- |-------------|---------|
-| `--text` | Text to process (required unless `--loop` is used) | — |
-| `--mode` | Processing mode | `paraphrase` |
-| `--tone` | Writing tone | `neutral` |
+| `--text` | Text to process (required unless `--loop` is used) | - |
+| `--mode` | Text processing mode | `paraphrase` |
+| `--tone` | Output text desired tone | `neutral` |
 | `--provider` | AI provider selection | `auto` |
 | `--loop` | Enable interactive loop mode | `false` |
-| `--version` | Show application version| — |
-| `--info` | Show application information| — |
+| `--main-model` | Override provider main model | - |
+| `--fallback-model` | Override provider fallback model | - |
+| `--version` | Show application version| - |
+| `--info` | Show application information| - |
 
 ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`
 
@@ -122,6 +124,18 @@ result = run_mytext(
 
 print(result["status"], result["message"])
 ```
+
+#### Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `text` | Input text to process | - |
+| `auth` | Authentication parameters for the provider | - |
+| `mode` | Text processing mode | `Mode.PARAPHRASE` |
+| `tone` | Output text desired tone | `Tone.NEUTRAL` |
+| `provider` | AI provider | `Provider.AI_STUDIO` |
+| `main_model` | Override provider main model | `None` |
+| `fallback_model` | Override provider fallback model | `None` |
 
 ## Supported Providers
 
