@@ -127,15 +127,15 @@ print(result["status"], result["message"])
 
 #### Parameters
 
-| Parameter | Required | Description | Default |
-|----------|----------|-------------|---------|
-| `text` | Yes | Input text to process | - |
-| `auth` | Yes | Authentication parameters for the provider | - |
-| `mode` | Yes | Text processing mode | `Mode.PARAPHRASE` |
-| `tone` | Yes | Output text desired tone | `Tone.NEUTRAL` |
-| `provider` | Yes | AI provider | `Provider.AI_STUDIO` |
-| `main_model` | No | Override provider main model | `None` |
-| `fallback_model` | No | Override provider fallback model | `None` |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `text` | Input text to process | - |
+| `auth` | Authentication parameters for the provider | - |
+| `mode` | Text processing mode | `Mode.PARAPHRASE` |
+| `tone` | Output text desired tone | `Tone.NEUTRAL` |
+| `provider` | AI provider | `Provider.AI_STUDIO` |
+| `main_model` | Override provider main model | `None` |
+| `fallback_model` | Override provider fallback model | `None` |
 
 ## Supported Providers
 
