@@ -129,8 +129,8 @@ print(result["status"], result["message"])
 
 | Parameter | Required | Description | Default |
 |----------|----------|-------------|---------|
-| `text` | Yes | Input text to process | — |
-| `auth` | Yes | Authentication parameters for the provider | — |
+| `text` | Yes | Input text to process | - |
+| `auth` | Yes | Authentication parameters for the provider | - |
 | `mode` | Yes | Text processing mode | `Mode.PARAPHRASE` |
 | `tone` | Yes | Output text desired tone | `Tone.NEUTRAL` |
 | `provider` | Yes | AI provider | `Provider.AI_STUDIO` |
