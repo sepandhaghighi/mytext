@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `--model` argument
 ### Changed
 - `model` parameter added to `run_mytext` function
+- AI Studio default model changed to `gemma-3-1b-it`
+- OpenRouter default model changed to `google/gemma-3-27b-it:free`
 - Test system modified
 - `README.md` updated
 ## [0.4] - 2025-12-25

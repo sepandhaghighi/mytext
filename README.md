@@ -143,7 +143,7 @@ MyText automatically detects which providers are available based on environment 
 |---------|--------------------------------|------------|
 | [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemma-3-1b-it` |
 | [**Cloudflare**](https://developers.cloudflare.com/workers-ai/) | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` |
-| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `mistralai/mistral-small-3.1-24b-instruct:free` |
+| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `google/gemma-3-27b-it:free` |
 | [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `gpt-oss-120b` |
 | [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` |
 | [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` |
