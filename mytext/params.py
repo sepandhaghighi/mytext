@@ -47,24 +47,12 @@ class Tone(Enum):
 
 
 DEFAULT_MODELS = {
-    Provider.AI_STUDIO: {
-        "main": "gemma-3-1b-it",
-        "fallback": "gemini-2.5-flash"},
-    Provider.CLOUDFLARE: {
-        "main": "meta/llama-3-8b-instruct",
-        "fallback": "meta/llama-3.1-8b-instruct-fast"},
-    Provider.OPENROUTER: {
-        "main": "google/gemma-3-27b-it:free",
-        "fallback": "mistralai/mistral-small-3.1-24b-instruct:free"},
-    Provider.CEREBRAS: {
-        "main": "gpt-oss-120b",
-        "fallback": "llama-3.3-70b"},
-    Provider.GROQ: {
-        "main": "openai/gpt-oss-20b",
-        "fallback": "llama-3.1-8b-instant"},
-    Provider.NVIDIA: {
-        "main": "meta/llama-3.1-8b-instruct",
-        "fallback": "meta/llama3-8b-instruct"},
+    Provider.AI_STUDIO: "gemma-3-1b-it",
+    Provider.CLOUDFLARE: "meta/llama-3-8b-instruct",
+    Provider.OPENROUTER: "google/gemma-3-27b-it:free",
+    Provider.CEREBRAS: "gpt-oss-120b",
+    Provider.GROQ: "openai/gpt-oss-20b",
+    Provider.NVIDIA: "meta/llama-3.1-8b-instruct",
 }
 
 

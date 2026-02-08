@@ -125,7 +125,7 @@ def run_mytext(
         result = _call_provider(provider=provider,
                                 prompt=prompt,
                                 auth=auth,
-                                model=model or DEFAULT_MODELS[provider]["main"])
+                                model=model or DEFAULT_MODELS[provider])
         return result
     except Exception as e:
         return {
