@@ -13,7 +13,7 @@ from .params import DEFAULT_MODELS
 from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
-from .params import INVALID_MAIN_MODEL_ERROR, INVALID_FALLBACK_MODEL_ERROR
+from .params import INVALID_MAIN_MODEL_ERROR
 from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, MISSING_OPENROUTER_KEYS_ERROR
@@ -47,8 +47,7 @@ def _validate_run_mytext_inputs(
         mode: Any,
         tone: Any,
         provider: Any,
-        main_model: Any,
-        fallback_model: Any) -> None:
+        main_model: Any) -> None:
     """
     Validate run_mytext function inputs.
 
@@ -58,7 +57,6 @@ def _validate_run_mytext_inputs(
     :param tone: tone
     :param provider: API provider
     :param main_model: main model
-    :param fallback_model: fallback model
     """
     if not isinstance(text, str):
         raise ValueError(INVALID_TEXT_ERROR)
@@ -78,8 +76,6 @@ def _validate_run_mytext_inputs(
     if main_model is not None and not isinstance(main_model, str):
         raise ValueError(INVALID_MAIN_MODEL_ERROR)
 
-    if fallback_model is not None and not isinstance(fallback_model, str):
-        raise ValueError(INVALID_FALLBACK_MODEL_ERROR)
 
     if provider == Provider.AI_STUDIO:
         if "api_key" not in auth:
@@ -107,8 +103,7 @@ def run_mytext(
         mode: Mode = Mode.PARAPHRASE,
         tone: Tone = Tone.NEUTRAL,
         provider: Provider = Provider.AI_STUDIO,
-        main_model: Optional[str] = None,
-        fallback_model: Optional[str] = None) -> Dict[str, Union[bool, str]]:
+        main_model: Optional[str] = None) -> Dict[str, Union[bool, str]]:
     """
     Run mytext.
 
@@ -118,10 +113,9 @@ def run_mytext(
     :param tone: tone
     :param provider: API provider
     :param main_model: main model
-    :param fallback_model: fallback model
     """
     try:
-        _validate_run_mytext_inputs(text, auth, mode, tone, provider, main_model, fallback_model)
+        _validate_run_mytext_inputs(text, auth, mode, tone, provider, main_model)
         instruction_str = _build_instruction(mode, tone)
         template = PromptTemplate(
             content="{instruction}\n\nUser text:\n{prompt[message]}",
@@ -131,8 +125,7 @@ def run_mytext(
         result = _call_provider(provider=provider,
                                 prompt=prompt,
                                 auth=auth,
-                                main_model=main_model or DEFAULT_MODELS[provider]["main"],
-                                fallback_model=fallback_model or DEFAULT_MODELS[provider]["fallback"])
+                                main_model=main_model or DEFAULT_MODELS[provider]["main"])
         return result
     except Exception as e:
         return {
@@ -205,12 +198,6 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--fallback-model",
-        type=str,
-        help="Override fallback model"
-    )
-
-    parser.add_argument(
         "--text",
         type=str,
         help="The text you want to transform"
@@ -235,11 +222,9 @@ def main() -> None:
         auth_map = _load_auth_from_env()
         providers = [x for x in Provider]
         main_model = None
-        fallback_model = None
         if args.provider != "auto":
             providers = [Provider(args.provider)]
             main_model = args.main_model
-            fallback_model = args.fallback_model
         while True:
             errors = []
             successful_attempt = False
@@ -253,8 +238,7 @@ def main() -> None:
                     mode=mode,
                     tone=tone,
                     provider=provider,
-                    main_model=main_model,
-                    fallback_model=fallback_model
+                    main_model=main_model
                 )
                 if result["status"]:
                     print(OUTPUT_TEMPLATE.format(result=result["message"].strip()))

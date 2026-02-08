@@ -260,7 +260,6 @@ def _call_provider(
         prompt: Prompt,
         auth: Dict[str, str],
         main_model: str,
-        fallback_model: str,
         timeout: float = 15,
         max_retries: int = 4,
         retry_delay: float = 0.5,
@@ -272,7 +271,6 @@ def _call_provider(
     :param prompt: user prompt
     :param auth: authentication parameters
     :param main_model: main model
-    :param fallback_model: fallback model
     :param timeout: API timeout
     :param max_retries: max retries
     :param retry_delay: retry delay
@@ -283,8 +281,6 @@ def _call_provider(
     next_delay = retry_delay
     selected_model = main_model
     while retry_index < max_retries:
-        if retry_index >= (max_retries / 2):
-            selected_model = fallback_model
         try:
             return PROVIDER_MAP[provider](prompt=prompt, auth=auth, model=selected_model, timeout=timeout)
         except Exception as e:
