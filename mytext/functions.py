@@ -13,7 +13,7 @@ from .params import DEFAULT_MODELS
 from .params import INSTRUCTIONS, OUTPUT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
-from .params import INVALID_MAIN_MODEL_ERROR
+from .params import INVALID_MODEL_ERROR
 from .params import TEXT_IS_REQUIRED_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE, MISSING_OPENROUTER_KEYS_ERROR
@@ -47,7 +47,7 @@ def _validate_run_mytext_inputs(
         mode: Any,
         tone: Any,
         provider: Any,
-        main_model: Any) -> None:
+        model: Any) -> None:
     """
     Validate run_mytext function inputs.
 
@@ -56,7 +56,7 @@ def _validate_run_mytext_inputs(
     :param mode: mode
     :param tone: tone
     :param provider: API provider
-    :param main_model: main model
+    :param model: LLM model
     """
     if not isinstance(text, str):
         raise ValueError(INVALID_TEXT_ERROR)
@@ -73,8 +73,8 @@ def _validate_run_mytext_inputs(
     if not isinstance(provider, Provider):
         raise ValueError(INVALID_PROVIDER_ERROR)
 
-    if main_model is not None and not isinstance(main_model, str):
-        raise ValueError(INVALID_MAIN_MODEL_ERROR)
+    if model is not None and not isinstance(model, str):
+        raise ValueError(INVALID_MODEL_ERROR)
 
 
     if provider == Provider.AI_STUDIO:
@@ -103,7 +103,7 @@ def run_mytext(
         mode: Mode = Mode.PARAPHRASE,
         tone: Tone = Tone.NEUTRAL,
         provider: Provider = Provider.AI_STUDIO,
-        main_model: Optional[str] = None) -> Dict[str, Union[bool, str]]:
+        model: Optional[str] = None) -> Dict[str, Union[bool, str]]:
     """
     Run mytext.
 
@@ -112,10 +112,10 @@ def run_mytext(
     :param mode: mode
     :param tone: tone
     :param provider: API provider
-    :param main_model: main model
+    :param model: LLM model
     """
     try:
-        _validate_run_mytext_inputs(text, auth, mode, tone, provider, main_model)
+        _validate_run_mytext_inputs(text, auth, mode, tone, provider, model)
         instruction_str = _build_instruction(mode, tone)
         template = PromptTemplate(
             content="{instruction}\n\nUser text:\n{prompt[message]}",
@@ -125,7 +125,7 @@ def run_mytext(
         result = _call_provider(provider=provider,
                                 prompt=prompt,
                                 auth=auth,
-                                main_model=main_model or DEFAULT_MODELS[provider]["main"])
+                                model=model or DEFAULT_MODELS[provider]["main"])
         return result
     except Exception as e:
         return {
@@ -192,9 +192,9 @@ def main() -> None:
     )
 
     parser.add_argument(
-        "--main-model",
+        "--model",
         type=str,
-        help="Override main model"
+        help="Override LLM model"
     )
 
     parser.add_argument(
@@ -221,10 +221,10 @@ def main() -> None:
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
         providers = [x for x in Provider]
-        main_model = None
+        model = None
         if args.provider != "auto":
             providers = [Provider(args.provider)]
-            main_model = args.main_model
+            model = args.model
         while True:
             errors = []
             successful_attempt = False
@@ -238,7 +238,7 @@ def main() -> None:
                     mode=mode,
                     tone=tone,
                     provider=provider,
-                    main_model=main_model
+                    model=model
                 )
                 if result["status"]:
                     print(OUTPUT_TEMPLATE.format(result=result["message"].strip()))

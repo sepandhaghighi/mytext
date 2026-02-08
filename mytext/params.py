@@ -48,8 +48,8 @@ class Tone(Enum):
 
 DEFAULT_MODELS = {
     Provider.AI_STUDIO: {
-        "main": "gemini-2.5-flash",
-        "fallback": "gemma-3-1b-it"},
+        "main": "gemma-3-1b-it",
+        "fallback": "gemini-2.5-flash"},
     Provider.CLOUDFLARE: {
         "main": "meta/llama-3-8b-instruct",
         "fallback": "meta/llama-3.1-8b-instruct-fast"},
@@ -183,7 +183,7 @@ INVALID_AUTH_ERROR = "`auth` must be a dictionary."
 INVALID_MODE_ERROR = "`mode` must be an instance of Mode enum."
 INVALID_TONE_ERROR = "`tone` must be an instance of Tone enum."
 INVALID_PROVIDER_ERROR = "`provider` must be an instance of Provider enum."
-INVALID_MAIN_MODEL_ERROR = "`main_model` must be a string or None."
+INVALID_MODEL_ERROR = "`model` must be a string or None."
 UNSUPPORTED_PROVIDER_ERROR = "Unsupported provider."
 TEXT_IS_REQUIRED_ERROR = "--text is required."
 

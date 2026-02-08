@@ -259,7 +259,7 @@ def _call_provider(
         provider: Provider,
         prompt: Prompt,
         auth: Dict[str, str],
-        main_model: str,
+        model: str,
         timeout: float = 15,
         max_retries: int = 4,
         retry_delay: float = 0.5,
@@ -270,7 +270,7 @@ def _call_provider(
     :param provider: LLM provider
     :param prompt: user prompt
     :param auth: authentication parameters
-    :param main_model: main model
+    :param model: LLM model
     :param timeout: API timeout
     :param max_retries: max retries
     :param retry_delay: retry delay
@@ -279,7 +279,7 @@ def _call_provider(
     retry_index = 0
     error_message = ""
     next_delay = retry_delay
-    selected_model = main_model
+    selected_model = model
     while retry_index < max_retries:
         try:
             return PROVIDER_MAP[provider](prompt=prompt, auth=auth, model=selected_model, timeout=timeout)
