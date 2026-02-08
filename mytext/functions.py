@@ -76,7 +76,6 @@ def _validate_run_mytext_inputs(
     if model is not None and not isinstance(model, str):
         raise ValueError(INVALID_MODEL_ERROR)
 
-
     if provider == Provider.AI_STUDIO:
         if "api_key" not in auth:
             raise ValueError(MISSING_AI_STUDIO_KEYS_ERROR)
