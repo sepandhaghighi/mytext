@@ -95,7 +95,6 @@ mytext \
 | `--provider` | AI provider selection | `auto` |
 | `--loop` | Enable interactive loop mode | `false` |
 | `--main-model` | Override provider main model | - |
-| `--fallback-model` | Override provider fallback model | - |
 | `--version` | Show application version| - |
 | `--info` | Show application information| - |
 
@@ -135,7 +134,6 @@ print(result["status"], result["message"])
 | `tone` | Output text desired tone | `Tone.NEUTRAL` |
 | `provider` | AI provider | `Provider.AI_STUDIO` |
 | `main_model` | Override provider main model | `None` |
-| `fallback_model` | Override provider fallback model | `None` |
 
 ## Supported Providers
 
