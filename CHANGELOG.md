@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `--provider` argument
-- `--main-model` argument
-- `--fallback-model` argument
+- `--model` argument
 ### Changed
-- `main_model` parameter added to `run_mytext` function
-- `fallback_model` parameter added to `run_mytext` function
+- `model` parameter added to `run_mytext` function
+- AI Studio default model changed to `gemma-3-1b-it`
+- OpenRouter default model changed to `google/gemma-3-27b-it:free`
 - Test system modified
 - `README.md` updated
 ## [0.4] - 2025-12-25
