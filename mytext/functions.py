@@ -231,6 +231,7 @@ def main() -> None:
         tone = Tone(args.tone)
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
+        model_map = _load_model_from_env()
         providers = [x for x in Provider]
         model = None
         if args.provider != "auto":
@@ -241,6 +242,7 @@ def main() -> None:
             successful_attempt = False
             for provider in providers:
                 auth = auth_map.get(provider)
+                model = args.model or model_map.get(provider)
                 if not auth or not all(auth.values()):
                     continue
                 result = run_mytext(
