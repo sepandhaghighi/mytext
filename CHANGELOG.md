@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `--provider` argument
 - `--model` argument
+- `_load_model_from_env` function
 ### Changed
 - `model` parameter added to `run_mytext` function
 - AI Studio default model changed to `gemma-3-1b-it`
