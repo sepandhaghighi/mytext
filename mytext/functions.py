@@ -161,7 +161,7 @@ def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
 def _load_model_from_env() -> Dict[Provider, str]:
     """Load model from environment."""
     return {
-        Provider.AI_STUDIO: os.getenv("AI_STUDIO_MODEL")
+        Provider.AI_STUDIO: os.getenv("AI_STUDIO_MODEL"),
         Provider.CLOUDFLARE: os.getenv("CLOUDFLARE_MODEL"),
         Provider.OPENROUTER: os.getenv("OPENROUTER_MODEL"),
         Provider.CEREBRAS: os.getenv("CEREBRAS_MODEL"),
