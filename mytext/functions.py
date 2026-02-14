@@ -236,13 +236,14 @@ def main() -> None:
         model = None
         if args.provider != "auto":
             providers = [Provider(args.provider)]
-            model = args.model
         while True:
             errors = []
             successful_attempt = False
             for provider in providers:
                 auth = auth_map.get(provider)
-                model = args.model or model_map.get(provider)
+                model = model_map.get(provider) 
+                if args.provider != "auto":
+                    model = args.model or model
                 if not auth or not all(auth.values()):
                     continue
                 result = run_mytext(
