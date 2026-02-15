@@ -138,7 +138,7 @@ print(result["status"], result["message"])
 ## Supported Providers
 
 MyText automatically detects which providers are available based on environment variables.
-Each provider has a default model. You can optionally override it using a corresponding `*_MODEL` environment variable.
+Each provider has a default model. You may optionally override it using either the CLI `--model` argument or a `*_MODEL` environment variable.
 
 | Provider | Required Environment Variables | Default Model | Optional Model Override |
 |---------|--------------------------------|------------|------------|
