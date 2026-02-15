@@ -149,30 +149,6 @@ Each provider has a default model. You may optionally override it using either t
 | [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` |
 | [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `NVIDIA_MODEL` |
 
-## Environment Configuration
-
-Set your API keys before using MyText:
-
-```bash
-export AI_STUDIO_API_KEY="your-key"
-export CLOUDFLARE_API_KEY="your-key"
-export CLOUDFLARE_ACCOUNT_ID="your-account-id"
-export OPENROUTER_API_KEY="your-key"
-export CEREBRAS_API_KEY="your-key"
-export GROQ_API_KEY="your-key"
-export NVIDIA_API_KEY="your-key"
-```
-
-If you want to use a custom model instead of the default one:
-
-```bash
-export AI_STUDIO_MODEL="your-model"
-export CLOUDFLARE_MODEL="your-model"
-export OPENROUTER_MODEL="your-model"
-export CEREBRAS_MODEL="your-model"
-export GROQ_MODEL="your-model"
-export NVIDIA_MODEL="your-model"
-```
 
 ## Configuration Resolution Priority
 
