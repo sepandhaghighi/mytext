@@ -158,6 +158,18 @@ def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
     }
 
 
+def _load_model_from_env() -> Dict[Provider, str]:
+    """Load model from environment."""
+    return {
+        Provider.AI_STUDIO: os.getenv("AI_STUDIO_MODEL"),
+        Provider.CLOUDFLARE: os.getenv("CLOUDFLARE_MODEL"),
+        Provider.OPENROUTER: os.getenv("OPENROUTER_MODEL"),
+        Provider.CEREBRAS: os.getenv("CEREBRAS_MODEL"),
+        Provider.GROQ: os.getenv("GROQ_MODEL"),
+        Provider.NVIDIA: os.getenv("NVIDIA_MODEL"),
+    }
+
+
 def main() -> None:
     """CLI main function."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
@@ -219,16 +231,19 @@ def main() -> None:
         tone = Tone(args.tone)
         mode = Mode(args.mode)
         auth_map = _load_auth_from_env()
+        model_map = _load_model_from_env()
         providers = [x for x in Provider]
         model = None
         if args.provider != "auto":
             providers = [Provider(args.provider)]
-            model = args.model
         while True:
             errors = []
             successful_attempt = False
             for provider in providers:
                 auth = auth_map.get(provider)
+                model = model_map.get(provider) 
+                if args.provider != "auto":
+                    model = args.model or model
                 if not auth or not all(auth.values()):
                     continue
                 result = run_mytext(

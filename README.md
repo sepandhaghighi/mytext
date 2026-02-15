@@ -137,18 +137,21 @@ print(result["status"], result["message"])
 
 ## Supported Providers
 
-MyText automatically detects which providers are available based on environment variables:
+MyText automatically detects which providers are available based on environment variables.
+Each provider has a default model. You can optionally override it using a corresponding `*_MODEL` environment variable.
 
-| Provider | Required Environment Variables | Default Model |
-|---------|--------------------------------|------------|
-| [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemma-3-1b-it` |
-| [**Cloudflare**](https://developers.cloudflare.com/workers-ai/) | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` |
-| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `google/gemma-3-27b-it:free` |
-| [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `gpt-oss-120b` |
-| [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` |
-| [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` |
+| Provider | Required Environment Variables | Default Model | Optional Model Override |
+|---------|--------------------------------|------------|------------|
+| [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemma-3-1b-it` | `AI_STUDIO_MODEL` |
+| [**Cloudflare**](https://developers.cloudflare.com/workers-ai/) | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` | `CLOUDFLARE_MODEL` |
+| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `google/gemma-3-27b-it:free` | `OPENROUTER_MODEL` |
+| [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `gpt-oss-120b` | `CEREBRAS_MODEL` |
+| [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` |
+| [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `NVIDIA_MODEL` |
 
-Set them before using:
+## Environment Configuration
+
+Set your API keys before using MyText:
 
 ```bash
 export AI_STUDIO_API_KEY="your-key"
@@ -158,6 +161,17 @@ export OPENROUTER_API_KEY="your-key"
 export CEREBRAS_API_KEY="your-key"
 export GROQ_API_KEY="your-key"
 export NVIDIA_API_KEY="your-key"
+```
+
+If you want to use a custom model instead of the default one:
+
+```bash
+export AI_STUDIO_MODEL="your-model"
+export CLOUDFLARE_MODEL="your-model"
+export OPENROUTER_MODEL="your-model"
+export CEREBRAS_MODEL="your-model"
+export GROQ_MODEL="your-model"
+export NVIDIA_MODEL="your-model"
 ```
 
 ## Issues & Bug Reports			
