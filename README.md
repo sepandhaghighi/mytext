@@ -174,6 +174,15 @@ export GROQ_MODEL="your-model"
 export NVIDIA_MODEL="your-model"
 ```
 
+## Configuration Resolution Priority
+
+MyText supports multiple configuration sources (CLI arguments, environment variables, and built-in defaults).
+When resolving any configurable parameter (e.g., `model`), MyText follows this priority order:
+
+1. CLI argument (highest priority)
+2. Corresponding environment variable
+3. Built-in default value (lowest priority)
+
 ## Issues & Bug Reports			
 
 Just fill an issue and describe it. We'll check it ASAP!
