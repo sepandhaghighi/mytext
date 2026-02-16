@@ -138,7 +138,7 @@ print(result["status"], result["message"])
 ## Supported Providers
 
 MyText automatically detects which providers are available based on environment variables.
-Each provider has a default model. You can optionally override it using a corresponding `*_MODEL` environment variable.
+Each provider has a default model. You may optionally override it using either the CLI `--model` argument or a `*_MODEL` environment variable.
 
 | Provider | Required Environment Variables | Default Model | Optional Model Override |
 |---------|--------------------------------|------------|------------|
@@ -149,30 +149,15 @@ Each provider has a default model. You can optionally override it using a corres
 | [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` |
 | [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `NVIDIA_MODEL` |
 
-## Environment Configuration
 
-Set your API keys before using MyText:
+## Configuration Resolution Priority
 
-```bash
-export AI_STUDIO_API_KEY="your-key"
-export CLOUDFLARE_API_KEY="your-key"
-export CLOUDFLARE_ACCOUNT_ID="your-account-id"
-export OPENROUTER_API_KEY="your-key"
-export CEREBRAS_API_KEY="your-key"
-export GROQ_API_KEY="your-key"
-export NVIDIA_API_KEY="your-key"
-```
+MyText supports multiple configuration sources (CLI arguments, environment variables, and built-in defaults).
+When resolving any configurable parameter (e.g., `model`), MyText follows this priority order:
 
-If you want to use a custom model instead of the default one:
-
-```bash
-export AI_STUDIO_MODEL="your-model"
-export CLOUDFLARE_MODEL="your-model"
-export OPENROUTER_MODEL="your-model"
-export CEREBRAS_MODEL="your-model"
-export GROQ_MODEL="your-model"
-export NVIDIA_MODEL="your-model"
-```
+1. CLI argument (highest priority)
+2. Corresponding environment variable
+3. Built-in default value (lowest priority)
 
 ## Issues & Bug Reports			
 
