@@ -13,12 +13,14 @@ from .params import TEXT_IS_REQUIRED_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE
 from .params import LOOP_INPUT_MESSAGE
 
+
 def _print_mytext_info() -> None:
     """Print mytext details."""
     tprint("MyText")
     tprint("V:" + MY_TEXT_VERSION)
     print(MY_TEXT_OVERVIEW)
     print("Repo : " + MY_TEXT_REPO)
+
 
 def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
     """Load authentication parameters from environment."""
@@ -55,7 +57,6 @@ def _load_model_from_env() -> Dict[Provider, str]:
         Provider.GROQ: os.getenv("GROQ_MODEL"),
         Provider.NVIDIA: os.getenv("NVIDIA_MODEL"),
     }
-
 
 
 def main() -> None:
@@ -129,7 +130,7 @@ def main() -> None:
             successful_attempt = False
             for provider in providers:
                 auth = auth_map.get(provider)
-                model = model_map.get(provider) 
+                model = model_map.get(provider)
                 if args.provider != "auto":
                     model = args.model or model
                 if not auth or not all(auth.values()):
