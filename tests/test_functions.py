@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pytest
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
-from mytext.functions import main
+from mytext.cli import main
 from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "Functions tests"
@@ -234,8 +234,8 @@ def test_run_mytext_nvidia_failure():
     assert "failed" in result["message"]
 
 
-@patch("mytext.functions._load_auth_from_env")
-@patch("mytext.functions.run_mytext")
+@patch("mytext.cli._load_auth_from_env")
+@patch("mytext.cli.run_mytext")
 def test_main_single_run_success1(mock_run, mock_env, capsys):
     mock_env.return_value = {
         Provider.AI_STUDIO: {"api_key": "x"},
@@ -250,8 +250,8 @@ def test_main_single_run_success1(mock_run, mock_env, capsys):
     assert "AI RESULT" in out
 
 
-@patch("mytext.functions._load_auth_from_env")
-@patch("mytext.functions.run_mytext")
+@patch("mytext.cli._load_auth_from_env")
+@patch("mytext.cli.run_mytext")
 def test_main_single_run_success2(mock_run, mock_env, capsys):
     mock_env.return_value = {
         Provider.AI_STUDIO: {"api_key": "x"},
@@ -266,8 +266,8 @@ def test_main_single_run_success2(mock_run, mock_env, capsys):
     assert "AI RESULT" in out
 
 
-@patch("mytext.functions._load_auth_from_env")
-@patch("mytext.functions.run_mytext")
+@patch("mytext.cli._load_auth_from_env")
+@patch("mytext.cli.run_mytext")
 def test_main_loop_success(mock_run, mock_env, capsys):
     mock_env.return_value = {
         Provider.AI_STUDIO: {"api_key": "x"},
@@ -316,8 +316,8 @@ def test_main_no_text(capsys):
     assert "--text is required" in err
 
 
-@patch("mytext.functions._load_auth_from_env")
-@patch("mytext.functions.run_mytext")
+@patch("mytext.cli._load_auth_from_env")
+@patch("mytext.cli.run_mytext")
 def test_main_all_providers_failure(mock_run, mock_env, capsys):
     mock_env.return_value = {
         Provider.AI_STUDIO: {"api_key": "a"},
@@ -336,8 +336,8 @@ def test_main_all_providers_failure(mock_run, mock_env, capsys):
     assert "No provider succeeded" in out
 
 
-@patch("mytext.functions._load_auth_from_env")
-@patch("mytext.functions.run_mytext")
+@patch("mytext.cli._load_auth_from_env")
+@patch("mytext.cli.run_mytext")
 def test_main_specific_provider_failure(mock_run, mock_env, capsys):
     mock_env.return_value = {
         Provider.AI_STUDIO: {"api_key": "a"},
