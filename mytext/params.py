@@ -21,6 +21,7 @@ class Provider(Enum):
     CEREBRAS = "cerebras"
     GROQ = "groq"
     NVIDIA = "nvidia"
+    GITHUB = "github"
 
 
 class Mode(Enum):
@@ -97,6 +98,15 @@ NVIDIA_HEADERS = {
     "Authorization": "Bearer {api_key}",
     "Content-Type": "application/json",
 }
+
+GITHUB_API_URL = "https://models.github.ai/inference/chat/completions"
+
+GITHUB_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json",
+}
+
+
 
 INSTRUCTIONS = {
     Mode.PARAPHRASE: (
