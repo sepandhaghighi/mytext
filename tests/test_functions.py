@@ -265,7 +265,7 @@ def test_run_mytext_github_failure():
         provider=Provider.GITHUB
     )
     assert not result["status"]
-    assert "failed" in result["message"]
+    assert "Unauthorized" in result["message"]
 
 
 @patch("mytext.cli._load_auth_from_env")
