@@ -54,6 +54,7 @@ DEFAULT_MODELS = {
     Provider.CEREBRAS: "gpt-oss-120b",
     Provider.GROQ: "openai/gpt-oss-20b",
     Provider.NVIDIA: "meta/llama-3.1-8b-instruct",
+    Provider.GITHUB: "openai/gpt-4o-mini",
 }
 
 
