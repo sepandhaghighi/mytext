@@ -102,7 +102,7 @@ mytext \
 
 ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`
 
-ℹ️ Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`
+ℹ️ Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`, `github`
 
 ### Library
 
@@ -148,6 +148,7 @@ Each provider has a default model. You may optionally override it using either t
 | [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `gpt-oss-120b` | `CEREBRAS_MODEL` |
 | [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` |
 | [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `NVIDIA_MODEL` |
+| [**GITHUB**](https://docs.github.com/en/github-models) | `GITHUB_API_KEY` | `openai/gpt-4o-mini` | `GITHUB_MODEL` |
 
 
 ## Configuration Resolution Priority
