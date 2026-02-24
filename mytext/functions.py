@@ -14,7 +14,7 @@ from .params import INVALID_MODEL_ERROR
 from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
 from .params import MISSING_OPENROUTER_KEYS_ERROR
 from .params import MISSING_CEREBRAS_KEYS_ERROR, MISSING_GROQ_KEYS_ERROR
-from .params import MISSING_NVIDIA_KEYS_ERROR
+from .params import MISSING_NVIDIA_KEYS_ERROR, MISSING_GITHUB_KEYS_ERROR
 
 
 def _build_instruction(mode: Mode, tone: Tone) -> str:
@@ -81,6 +81,9 @@ def _validate_run_mytext_inputs(
     elif provider == Provider.NVIDIA:
         if "api_key" not in auth:
             raise ValueError(MISSING_NVIDIA_KEYS_ERROR)
+    elif provider == Provider.GITHUB:
+        if "api_key" not in auth:
+            raise ValueError(MISSING_GITHUB_KEYS_ERROR)
 
 
 def run_mytext(

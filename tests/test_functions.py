@@ -11,6 +11,26 @@ TEST_CASE_NAME = "Functions tests"
 
 
 @patch("mytext.functions._call_provider")
+def test_run_mytext_github_success(mock_call):
+    mock_call.return_value = {
+        "status": True,
+        "message": "OK!",
+        "model": "model"
+    }
+
+    auth = {"api_key": "KEY"}
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.GITHUB
+    )
+
+    assert result["status"]
+    assert result["message"] == "OK!"
+
+@patch("mytext.functions._call_provider")
 def test_run_mytext_nvidia_success(mock_call):
     mock_call.return_value = {
         "status": True,
@@ -234,6 +254,20 @@ def test_run_mytext_nvidia_failure():
     assert "failed" in result["message"]
 
 
+def test_run_mytext_github_failure():
+
+    auth = {"api_key": "KEY"}
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.GITHUB
+    )
+    assert not result["status"]
+    assert "Unauthorized" in result["message"]
+
+
 @patch("mytext.cli._load_auth_from_env")
 @patch("mytext.cli.run_mytext")
 def test_main_single_run_success1(mock_run, mock_env, capsys):
@@ -326,6 +360,7 @@ def test_main_all_providers_failure(mock_run, mock_env, capsys):
         Provider.CEREBRAS: {"api_key": "e"},
         Provider.GROQ: {"api_key": "f"},
         Provider.NVIDIA: {"api_key": "g"},
+        Provider.GITHUB: {"api_key": "h"},
     }
     mock_run.return_value = {"status": False, "message": "ERR", "model": "m"}
 
@@ -345,6 +380,7 @@ def test_main_specific_provider_failure(mock_run, mock_env, capsys):
         Provider.OPENROUTER: {"api_key": "d"},
         Provider.CEREBRAS: {"api_key": "e"},
         Provider.GROQ: {"api_key": "f"},
+        Provider.GITHUB: {"api_key": "g"},
         Provider.NVIDIA: {"api_key": None},
     }
     mock_run.return_value = {"status": False, "message": "ERR", "model": "m"}

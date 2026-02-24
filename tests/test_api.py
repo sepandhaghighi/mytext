@@ -37,6 +37,11 @@ def skip_if_no_env_nvidia():
         pytest.skip("NVIDIA real API keys are not available.")
 
 
+def skip_if_no_env_github():
+    if not os.getenv("GH_API_KEY"):
+        pytest.skip("GitHub real API keys are not available.")
+
+
 def test_ai_studio_real_api():
     skip_if_no_env_ai_studio()
     api_key = os.getenv("AI_STUDIO_API_KEY")
@@ -133,6 +138,23 @@ def test_nvidia_real_api():
         mode=Mode.PARAPHRASE,
         tone=Tone.NEUTRAL,
         provider=Provider.NVIDIA,
+    )
+
+    assert result["status"]
+    assert result["message"]
+    assert result["model"]
+
+
+def test_github_real_api():
+    skip_if_no_env_github()
+    api_key = os.getenv("GH_API_KEY")
+
+    result = run_mytext(
+        text="Hello, how are you?",
+        auth={"api_key": api_key},
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.GITHUB,
     )
 
     assert result["status"]

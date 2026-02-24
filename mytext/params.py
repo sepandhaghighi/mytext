@@ -21,6 +21,7 @@ class Provider(Enum):
     CEREBRAS = "cerebras"
     GROQ = "groq"
     NVIDIA = "nvidia"
+    GITHUB = "github"
 
 
 class Mode(Enum):
@@ -53,6 +54,7 @@ DEFAULT_MODELS = {
     Provider.CEREBRAS: "gpt-oss-120b",
     Provider.GROQ: "openai/gpt-oss-20b",
     Provider.NVIDIA: "meta/llama-3.1-8b-instruct",
+    Provider.GITHUB: "openai/gpt-4o-mini",
 }
 
 
@@ -97,6 +99,15 @@ NVIDIA_HEADERS = {
     "Authorization": "Bearer {api_key}",
     "Content-Type": "application/json",
 }
+
+GITHUB_API_URL = "https://models.github.ai/inference/chat/completions"
+
+GITHUB_HEADERS = {
+    "Authorization": "Bearer {api_key}",
+    "Content-Type": "application/json",
+}
+
+
 
 INSTRUCTIONS = {
     Mode.PARAPHRASE: (
@@ -182,6 +193,7 @@ MISSING_OPENROUTER_KEYS_ERROR = "OPENROUTER provider requires keys: `api_key`"
 MISSING_CEREBRAS_KEYS_ERROR = "CEREBRAS provider requires keys: `api_key`"
 MISSING_GROQ_KEYS_ERROR = "GROQ provider requires keys: `api_key`"
 MISSING_NVIDIA_KEYS_ERROR = "NVIDIA provider requires keys: `api_key`"
+MISSING_GITHUB_KEYS_ERROR = "GITHUB provider requires keys: `api_key`"
 
 NO_PROVIDER_SUCCEEDED_MESSAGE = "No provider succeeded.\n"
 NO_VALID_PROVIDER_CREDENTIALS_MESSAGE = "No valid provider credentials found in the environment."
