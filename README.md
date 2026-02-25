@@ -144,7 +144,7 @@ Each provider has a default model. You may optionally override it using either t
 |---------|--------------------------------|------------|------------|
 | [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemma-3-1b-it` | `AI_STUDIO_MODEL` |
 | [**Cloudflare**](https://developers.cloudflare.com/workers-ai/) | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` | `CLOUDFLARE_MODEL` |
-| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `openai/gpt-oss-120b:free` | `OPENROUTER_MODEL` |
+| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `openai/gpt-oss-20b:free` | `OPENROUTER_MODEL` |
 | [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `gpt-oss-120b` | `CEREBRAS_MODEL` |
 | [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` |
 | [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `NVIDIA_MODEL` |
