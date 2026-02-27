@@ -56,6 +56,7 @@ def _load_model_from_env() -> Dict[Provider, str]:
         Provider.CEREBRAS: os.getenv("CEREBRAS_MODEL"),
         Provider.GROQ: os.getenv("GROQ_MODEL"),
         Provider.NVIDIA: os.getenv("NVIDIA_MODEL"),
+        Provider.GITHUB: os.getenv("GITHUB_MODEL"),
     }
 
 
