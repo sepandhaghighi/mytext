@@ -38,7 +38,7 @@ def skip_if_no_env_nvidia():
 
 
 def skip_if_no_env_github():
-    if not os.getenv("GH_API_KEY"):
+    if not os.getenv("GITHUB_API_KEY"):
         pytest.skip("GitHub real API keys are not available.")
 
 
@@ -147,7 +147,7 @@ def test_nvidia_real_api():
 
 def test_github_real_api():
     skip_if_no_env_github()
-    api_key = os.getenv("GH_API_KEY")
+    api_key = os.getenv("GITHUB_API_KEY")
 
     result = run_mytext(
         text="Hello, how are you?",
