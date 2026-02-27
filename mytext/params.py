@@ -200,3 +200,4 @@ NO_VALID_PROVIDER_CREDENTIALS_MESSAGE = "No valid provider credentials found in 
 ALL_PROVIDERS_FAILED_MESSAGE = "Tried the following providers, but all failed:\n"
 
 LOOP_INPUT_MESSAGE = "Enter the text: "
+EXIT_MESSAGE = "See you. Bye!"
