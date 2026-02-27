@@ -11,7 +11,7 @@ from .params import Mode, Tone, Provider
 from .params import OUTPUT_TEMPLATE
 from .params import TEXT_IS_REQUIRED_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE
-from .params import LOOP_INPUT_MESSAGE
+from .params import LOOP_INPUT_MESSAGE, EXIT_MESSAGE
 
 
 def _print_mytext_info() -> None:
@@ -59,8 +59,8 @@ def _load_model_from_env() -> Dict[Provider, str]:
     }
 
 
-def main() -> None:
-    """CLI main function."""
+def _parse_args() -> argparse.Namespace:
+    """Parse arguments."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
     parser.add_argument('--version', help='Version', nargs="?", const=1)
@@ -106,6 +106,14 @@ def main() -> None:
     parser.add_argument("--loop", help="Loop mode flag", action='store_true', default=False)
 
     args = parser.parse_args()
+    return args
+
+def _run(args: argparse.Namespace) -> None:
+    """
+    Run mytext CLI.
+
+    :param args: arguments
+    """
     if args.version:
         print(MY_TEXT_VERSION)
     elif args.info:
@@ -159,3 +167,12 @@ def main() -> None:
                 text = input(LOOP_INPUT_MESSAGE)
             else:
                 break
+
+
+def main() -> None:
+    """CLI main function."""
+    try:
+        args = _parse_args()
+        _run(args)
+    except (KeyboardInterrupt, EOFError):
+        print(EXIT_MESSAGE)
