@@ -2,6 +2,7 @@
 """mytext cli."""
 
 import os
+import sys
 import argparse
 from typing import Dict
 from art import tprint
@@ -177,3 +178,4 @@ def main() -> None:
         _run(parser)
     except (KeyboardInterrupt, EOFError):
         print(EXIT_MESSAGE)
+        sys.exit(1)
