@@ -60,8 +60,8 @@ def _load_model_from_env() -> Dict[Provider, str]:
     }
 
 
-def _parse_args() -> argparse.Namespace:
-    """Parse arguments."""
+def _build_parser() -> argparse.ArgumentParser:
+    """Build argument parser."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
     parser.add_argument('--version', help='Version', nargs="?", const=1)
@@ -106,15 +106,15 @@ def _parse_args() -> argparse.Namespace:
 
     parser.add_argument("--loop", help="Loop mode flag", action='store_true', default=False)
 
-    args = parser.parse_args()
-    return args
+    return parser
 
-def _run(args: argparse.Namespace) -> None:
+def _run(parser: argparse.ArgumentParser) -> None:
     """
     Run mytext CLI.
 
-    :param args: arguments
+    :param parser: argument parser
     """
+    args = parser.parse_args()
     if args.version:
         print(MY_TEXT_VERSION)
     elif args.info:
@@ -173,7 +173,7 @@ def _run(args: argparse.Namespace) -> None:
 def main() -> None:
     """CLI main function."""
     try:
-        args = _parse_args()
-        _run(args)
+        parser = _build_parser()
+        _run(parser)
     except (KeyboardInterrupt, EOFError):
         print(EXIT_MESSAGE)
