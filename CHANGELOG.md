@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - GitHub provider
 ### Changed
 - CLI functions moved to `cli.py`
+- CLI messages updated
+- CLI modified
 - OpenRouter default model changed to `openai/gpt-oss-20b:free`
 - Test system modified
 - `README.md` updated

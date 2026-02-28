@@ -318,11 +318,9 @@ def test_main_loop_success(mock_run, mock_env, capsys):
 
     with patch("builtins.input", side_effect=fake_input):
         with patch("sys.argv", ["mytext", "--loop"]):
-            try:
+            with pytest.raises(SystemExit):
                 main()
-            except KeyboardInterrupt:
-                pass
-
+            
     out, _ = capsys.readouterr()
     assert out.count("AI RESULT") == 2
 

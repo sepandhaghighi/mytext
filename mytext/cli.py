@@ -2,6 +2,7 @@
 """mytext cli."""
 
 import os
+import sys
 import argparse
 from typing import Dict
 from art import tprint
@@ -11,7 +12,7 @@ from .params import Mode, Tone, Provider
 from .params import OUTPUT_TEMPLATE
 from .params import TEXT_IS_REQUIRED_ERROR
 from .params import NO_PROVIDER_SUCCEEDED_MESSAGE
-from .params import LOOP_INPUT_MESSAGE
+from .params import LOOP_INPUT_MESSAGE, EXIT_MESSAGE
 
 
 def _print_mytext_info() -> None:
@@ -56,11 +57,12 @@ def _load_model_from_env() -> Dict[Provider, str]:
         Provider.CEREBRAS: os.getenv("CEREBRAS_MODEL"),
         Provider.GROQ: os.getenv("GROQ_MODEL"),
         Provider.NVIDIA: os.getenv("NVIDIA_MODEL"),
+        Provider.GITHUB: os.getenv("GITHUB_MODEL"),
     }
 
 
-def main() -> None:
-    """CLI main function."""
+def _build_parser() -> argparse.ArgumentParser:
+    """Build argument parser."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
     parser.add_argument('--version', help='Version', nargs="?", const=1)
@@ -105,6 +107,14 @@ def main() -> None:
 
     parser.add_argument("--loop", help="Loop mode flag", action='store_true', default=False)
 
+    return parser
+
+def _run(parser: argparse.ArgumentParser) -> None:
+    """
+    Run mytext CLI.
+
+    :param parser: argument parser
+    """
     args = parser.parse_args()
     if args.version:
         print(MY_TEXT_VERSION)
@@ -159,3 +169,13 @@ def main() -> None:
                 text = input(LOOP_INPUT_MESSAGE)
             else:
                 break
+
+
+def main() -> None:
+    """CLI main function."""
+    try:
+        parser = _build_parser()
+        _run(parser)
+    except (KeyboardInterrupt, EOFError):
+        print(EXIT_MESSAGE)
+        sys.exit(1)
