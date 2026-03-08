@@ -9,6 +9,7 @@ from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "CLI tests"
 
+
 @patch("mytext.cli._load_auth_from_env")
 @patch("mytext.cli.run_mytext")
 def test_main_single_run_success1(mock_run, mock_env, capsys):
@@ -61,7 +62,7 @@ def test_main_loop_success(mock_run, mock_env, capsys):
         with patch("sys.argv", ["mytext", "--loop"]):
             with pytest.raises(SystemExit):
                 main()
-            
+
     out, _ = capsys.readouterr()
     assert out.count("AI RESULT") == 2
 

@@ -30,6 +30,7 @@ def test_run_mytext_github_success(mock_call):
     assert result["status"]
     assert result["message"] == "OK!"
 
+
 @patch("mytext.functions._call_provider")
 def test_run_mytext_nvidia_success(mock_call):
     mock_call.return_value = {
@@ -268,15 +269,6 @@ def test_run_mytext_github_failure():
     assert "Unauthorized" in result["message"]
 
 
-
-
-
-
-
-
-
-
-
 def test_main_version(capsys):
     with patch("sys.argv", ["mytext", "--version"]):
         main()
@@ -298,9 +290,3 @@ def test_main_no_text(capsys):
             main()
     _, err = capsys.readouterr()
     assert "--text is required" in err
-
-
-
-
-
-
