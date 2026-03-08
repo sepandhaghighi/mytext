@@ -2,10 +2,9 @@
 
 from unittest.mock import patch
 import pytest
-from mytext import Mode, Tone, Provider
-from mytext import run_mytext
+from mytext import Tone, Provider
 from mytext.cli import main
-from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
+from mytext.params import MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "CLI tests"
 
