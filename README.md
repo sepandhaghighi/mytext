@@ -50,13 +50,13 @@
 ## Installation		
 
 ### Source Code
-- Download [Version 0.5](https://github.com/sepandhaghighi/mytext/archive/v0.5.zip) or [Latest Source](https://github.com/sepandhaghighi/mytext/archive/dev.zip)
+- Download [Version 0.6](https://github.com/sepandhaghighi/mytext/archive/v0.6.zip) or [Latest Source](https://github.com/sepandhaghighi/mytext/archive/dev.zip)
 - `pip install .`				
 
 ### PyPI
 
 - Check [Python Packaging User Guide](https://packaging.python.org/installing/)     
-- `pip install mytext==0.5`						
+- `pip install mytext==0.6`						
 
 
 ## Usage
