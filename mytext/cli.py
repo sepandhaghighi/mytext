@@ -109,6 +109,7 @@ def _build_parser() -> argparse.ArgumentParser:
 
     return parser
 
+
 def _run(parser: argparse.ArgumentParser) -> None:
     """
     Run mytext CLI.

@@ -108,7 +108,6 @@ GITHUB_HEADERS = {
 }
 
 
-
 INSTRUCTIONS = {
     Mode.PARAPHRASE: (
         "Paraphrase the user's text."

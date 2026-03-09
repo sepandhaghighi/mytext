@@ -55,6 +55,7 @@ def _call_github(
                 status_code=response.status_code,
                 content=response.text))
 
+
 def _call_ai_studio(
         prompt: Prompt,
         auth: Dict[str, str],
