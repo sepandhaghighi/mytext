@@ -32,7 +32,7 @@ def read_description() -> str:
 setup(
     name='mytext',
     packages=['mytext'],
-    version='0.5',
+    version='0.6',
     description='MyText: A Minimal AI-Powered Text Rewriting Tool',
     long_description=read_description(),
     long_description_content_type='text/markdown',
@@ -40,7 +40,7 @@ setup(
     author='Sepand Haghighi',
     author_email='me@sepand.tech',
     url='https://github.com/sepandhaghighi/mytext',
-    download_url='https://github.com/sepandhaghighi/mytext/tarball/v0.5',
+    download_url='https://github.com/sepandhaghighi/mytext/tarball/v0.6',
     keywords="text rewrite paraphrase editing llm ai text-processing cli",
     project_urls={
         'Source': 'https://github.com/sepandhaghighi/mytext'
@@ -48,7 +48,7 @@ setup(
     install_requires=get_requires(),
     python_requires='>=3.7',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Natural Language :: English',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
