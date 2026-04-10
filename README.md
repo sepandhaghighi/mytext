@@ -98,7 +98,7 @@ mytext \
 | `--version` | Show application version| - |
 | `--info` | Show application information| - |
 
-ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`
+ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
 
 ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`
 
