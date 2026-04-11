@@ -52,7 +52,7 @@ DEFAULT_MODELS = {
     Provider.AI_STUDIO: "gemma-3-1b-it",
     Provider.CLOUDFLARE: "meta/llama-3-8b-instruct",
     Provider.OPENROUTER: "openai/gpt-oss-20b:free",
-    Provider.CEREBRAS: "gpt-oss-120b",
+    Provider.CEREBRAS: "llama3.1-8b",
     Provider.GROQ: "openai/gpt-oss-20b",
     Provider.NVIDIA: "meta/llama-3.1-8b-instruct",
     Provider.GITHUB: "openai/gpt-4o-mini",
