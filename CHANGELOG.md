@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `emojify` mode
 ### Changed
 - `README.md` updated
+- Cerebras default model changed to `llama3.1-8b`
 ## [0.6] - 2026-03-11
 ### Added
 - GitHub provider
