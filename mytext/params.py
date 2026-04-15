@@ -49,7 +49,7 @@ class Tone(Enum):
 
 
 TONE_HINTS = {
-    Tone.NEUTRAL: "",
+    Tone.NEUTRAL: "Use clear, balanced, and objective language. Avoid expressive, emotional, or stylistic wording.",
     Tone.FORMAL: "Use formal and structured language.",
     Tone.CASUAL: "Use relaxed and conversational language.",
     Tone.FRIENDLY: "Use warm and approachable language.",
