@@ -48,6 +48,17 @@ class Tone(Enum):
     CREATIVE = "creative"
 
 
+TONE_HINTS = {
+    Tone.NEUTRAL: "",
+    Tone.FORMAL: "Use formal and structured language.",
+    Tone.CASUAL: "Use relaxed and conversational language.",
+    Tone.FRIENDLY: "Use warm and approachable language.",
+    Tone.PROFESSIONAL: "Use clear and workplace-appropriate language.",
+    Tone.ACADEMIC: "Use precise and scholarly language.",
+    Tone.CREATIVE: "Use expressive and imaginative language.",
+}
+
+
 DEFAULT_MODELS = {
     Provider.AI_STUDIO: "gemma-3-1b-it",
     Provider.CLOUDFLARE: "meta/llama-3-8b-instruct",
