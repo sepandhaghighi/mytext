@@ -7,7 +7,7 @@ from memor import Prompt, PromptTemplate
 from .providers import _call_provider
 from .params import Mode, Tone, Provider
 from .params import DEFAULT_MODELS
-from .params import INSTRUCTIONS
+from .params import INSTRUCTIONS, TONE_HINTS
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import INVALID_MODEL_ERROR
@@ -25,7 +25,8 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     :param tone: tone
     """
     template = INSTRUCTIONS.get(mode, INSTRUCTIONS[Mode.PARAPHRASE])
-    return template.format(tone=tone.value)
+    tone_hint = TONE_HINTS.get(tone, "")
+    return template.format(tone=tone.value, tone_hint=tone_hint)
 
 
 def _validate_run_mytext_inputs(
