@@ -46,6 +46,7 @@ class Tone(Enum):
     PROFESSIONAL = "professional"
     ACADEMIC = "academic"
     CREATIVE = "creative"
+    BIBLICAL = "biblical"
 
 
 TONE_HINTS = {
