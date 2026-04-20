@@ -100,7 +100,7 @@ mytext \
 
 ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
 
-ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`
+ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`, `biblical`
 
 ℹ️ Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`, `github`
 

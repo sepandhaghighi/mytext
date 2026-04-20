@@ -46,6 +46,7 @@ class Tone(Enum):
     PROFESSIONAL = "professional"
     ACADEMIC = "academic"
     CREATIVE = "creative"
+    BIBLICAL = "biblical"
 
 
 TONE_HINTS = {
@@ -56,6 +57,7 @@ TONE_HINTS = {
     Tone.PROFESSIONAL: "Use clear and workplace-appropriate language.",
     Tone.ACADEMIC: "Use precise and scholarly language.",
     Tone.CREATIVE: "Use expressive and imaginative language.",
+    Tone.BIBLICAL: "Use archaic and scripture-like language.",
 }
 
 
