@@ -47,6 +47,7 @@ class Tone(Enum):
     ACADEMIC = "academic"
     CREATIVE = "creative"
     BIBLICAL = "biblical"
+    VIKING = "viking"
 
 
 TONE_HINTS = {
@@ -58,6 +59,7 @@ TONE_HINTS = {
     Tone.ACADEMIC: "Use precise and scholarly language.",
     Tone.CREATIVE: "Use expressive and imaginative language.",
     Tone.BIBLICAL: "Use archaic and scripture-like language.",
+    Tone.VIKING: "Use bold, heroic, and warrior-like expressions.",
 }
 
 
