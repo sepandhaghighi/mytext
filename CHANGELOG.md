@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `biblical` tone
 - `viking` tone
 - `zen` tone
+- `corporate` tone
 - Tone hint
 ### Changed
 - `README.md` updated
