@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """mytext params."""
 from enum import Enum
-MY_TEXT_VERSION = "0.6"
+MY_TEXT_VERSION = "0.7"
 
 MY_TEXT_OVERVIEW = """
 MyText is a lightweight AI-powered text enhancement tool that rewrites, paraphrases, and adjusts tone using modern LLM providers.
