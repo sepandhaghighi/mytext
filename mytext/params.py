@@ -49,6 +49,7 @@ class Tone(Enum):
     BIBLICAL = "biblical"
     VIKING = "viking"
     ZEN = "zen"
+    CORPORATE = "corporate"
 
 
 TONE_HINTS = {
@@ -62,6 +63,7 @@ TONE_HINTS = {
     Tone.BIBLICAL: "Use archaic and scripture-like language.",
     Tone.VIKING: "Use bold, heroic, and warrior-like expressions.",
     Tone.ZEN: "Use minimal, calm, and reflective phrasing.",
+    Tone.CORPORATE: "Use business-oriented and concise language."
 }
 
 
