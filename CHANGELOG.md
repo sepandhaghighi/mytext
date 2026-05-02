@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - `grammar` mode optimized
+- Instructions modified
 ## [0.7] - 2026-04-24
 ### Added
 - `emojify` mode
