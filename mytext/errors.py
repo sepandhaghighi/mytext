@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """mytext errors."""
 
+
 class MyTextError(Exception):
     """Base exception for all MyText errors."""
 
