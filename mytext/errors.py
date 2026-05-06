@@ -5,7 +5,7 @@ class MyTextError(Exception):
     """Base exception for all MyText errors."""
 
 
-class MyTextValidationError(MyTextError):
+class MyTextValidationError(MyTextError, ValueError):
     """Raised when input validation fails."""
 
 
