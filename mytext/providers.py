@@ -5,6 +5,7 @@ import time
 import requests
 from typing import Union, Dict
 from memor import Prompt, RenderFormat
+from .errors import MyTextProviderError
 from .params import Provider
 from .params import AI_STUDIO_API_URL, AI_STUDIO_HEADERS
 from .params import CLOUDFLARE_API_URL, CLOUDFLARE_HEADERS
@@ -50,7 +51,7 @@ def _call_github(
                 "model": model
             }
 
-        raise Exception(
+        raise MyTextProviderError(
             "Status Code: {status_code}\n\nContent:\n{content}".format(
                 status_code=response.status_code,
                 content=response.text))
@@ -86,7 +87,7 @@ def _call_ai_studio(
                 "status": True,
                 "message": response_data['candidates'][0]['content']['parts'][0]['text'],
                 "model": model}
-        raise Exception(
+        raise MyTextProviderError(
             "Status Code: {status_code}\n\nContent:\n{content}".format(
                 status_code=response.status_code,
                 content=response.text))
@@ -124,7 +125,7 @@ def _call_cloudflare(
                 "status": True,
                 "message": response_data["result"]["response"],
                 "model": model}
-        raise Exception(
+        raise MyTextProviderError(
             "Status Code: {status_code}\n\nContent:\n{content}".format(
                 status_code=response.status_code,
                 content=response.text))
@@ -162,7 +163,7 @@ def _call_openrouter(
                 "status": True,
                 "message": message_text,
                 "model": model}
-        raise Exception(
+        raise MyTextProviderError(
             "Status Code: {status_code}\n\nContent:\n{content}".format(
                 status_code=response.status_code,
                 content=response.text))
@@ -202,7 +203,7 @@ def _call_cerebras(
                 "message": response_data["choices"][0]["message"]["content"],
                 "model": model
             }
-        raise Exception(
+        raise MyTextProviderError(
             "Status Code: {status_code}\n\nContent:\n{content}".format(
                 status_code=response.status_code,
                 content=response.text
@@ -240,7 +241,7 @@ def _call_groq(
                 "status": True,
                 "message": response_data["choices"][0]["message"]["content"],
                 "model": model}
-        raise Exception(
+        raise MyTextProviderError(
             "Status Code: {status_code}\n\nContent:\n{content}".format(
                 status_code=response.status_code,
                 content=response.text))
@@ -279,7 +280,7 @@ def _call_nvidia(
                 "message": response_data["choices"][0]["message"]["content"],
                 "model": model
             }
-        raise Exception(
+        raise MyTextProviderError(
             "Status Code: {status_code}\n\nContent:\n{content}".format(
                 status_code=response.status_code,
                 content=response.text
