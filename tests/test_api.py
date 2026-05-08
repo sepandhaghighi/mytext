@@ -54,8 +54,8 @@ def test_ai_studio_real_api():
         provider=Provider.AI_STUDIO,
     )
 
-    #assert result["status"]
-    assert result["message"] == 2
+    assert result["status"]
+    assert result["message"]
     assert result["model"]
 
 
