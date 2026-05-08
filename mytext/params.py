@@ -68,7 +68,7 @@ TONE_HINTS = {
 
 
 DEFAULT_MODELS = {
-    Provider.AI_STUDIO: "gemma-4-26b-a4b-it",
+    Provider.AI_STUDIO: "gemma-4-31b-it",
     Provider.CLOUDFLARE: "meta/llama-3-8b-instruct",
     Provider.OPENROUTER: "openai/gpt-oss-20b:free",
     Provider.CEREBRAS: "llama3.1-8b",
