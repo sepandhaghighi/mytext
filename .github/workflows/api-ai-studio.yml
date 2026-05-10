@@ -1,0 +1,45 @@
+name: AI Studio API
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *"
+
+concurrency:
+  group: api-ai-studio
+  cancel-in-progress: true
+
+jobs:
+  ai-studio-api-test:
+    name: AI Studio Integration Test
+
+    runs-on: ubuntu-22.04
+
+    timeout-minutes: 10
+
+    env:
+      AI_STUDIO_API_KEY: ${{ secrets.AI_STUDIO_API_KEY }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install Package
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+
+      - name: Install Test Requirements
+        run: |
+          python otherfiles/requirements-splitter.py
+          pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
+
+      - name: Run AI Studio Integration Test
+        run: |
+          python -m pytest tests/providers/test_ai_studio.py -v 
