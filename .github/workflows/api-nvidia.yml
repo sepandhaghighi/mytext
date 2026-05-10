@@ -6,40 +6,13 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
-concurrency:
-  group: api-nvidia
-  cancel-in-progress: true
-
 jobs:
-  nvidia-api-test:
-    name: NVIDIA Integration Test
+  nvidia:
+    uses: ./.github/workflows/provider-template.yml
 
-    runs-on: ubuntu-22.04
+    with:
+      provider-name: nvidia
+      test-file: tests/providers/test_nvidia.py
 
-    timeout-minutes: 10
-
-    env:
-      NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.9"
-
-      - name: Install Package
-        run: |
-          python -m pip install --upgrade pip
-          pip install .
-
-      - name: Install Test Requirements
-        run: |
-          python otherfiles/requirements-splitter.py
-          pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
-
-      - name: Run NVIDIA Integration Test
-        run: |
-          python -m pytest tests/providers/test_nvidia.py -v 
+    secrets:
+      secret_1: ${{ secrets.NVIDIA_API_KEY }}
