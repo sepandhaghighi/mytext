@@ -64,32 +64,32 @@ jobs:
         run: |
           case "${{ inputs.provider-name }}" in
 
-            "ai-studio")
+            "AI-Studio")
               echo "AI_STUDIO_API_KEY=$SECRET_1" >> $GITHUB_ENV
               ;;
 
-            "cloudflare")
+            "Cloudflare")
               echo "CLOUDFLARE_API_KEY=$SECRET_1" >> $GITHUB_ENV
               echo "CLOUDFLARE_ACCOUNT_ID=$SECRET_2" >> $GITHUB_ENV
               ;;
 
-            "openrouter")
+            "OpenRouter")
               echo "OPENROUTER_API_KEY=$SECRET_1" >> $GITHUB_ENV
               ;;
 
-            "cerebras")
+            "Cerebras")
               echo "CEREBRAS_API_KEY=$SECRET_1" >> $GITHUB_ENV
               ;;
 
-            "groq")
+            "Groq")
               echo "GROQ_API_KEY=$SECRET_1" >> $GITHUB_ENV
               ;;
 
-            "nvidia")
+            "NVIDIA")
               echo "NVIDIA_API_KEY=$SECRET_1" >> $GITHUB_ENV
               ;;
 
-            "github")
+            "GitHub")
               echo "GITHUB_API_KEY=$SECRET_1" >> $GITHUB_ENV
               ;;
 
