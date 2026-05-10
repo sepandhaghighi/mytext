@@ -1,10 +1,6 @@
 name: NVIDIA API
 
 on:
-  pull_request:
-    branches:
-      - main
-      - dev
   workflow_dispatch:
 
   schedule:
