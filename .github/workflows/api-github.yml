@@ -7,7 +7,7 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  ai-studio:
+  github:
     uses: ./.github/workflows/provider-template.yml
 
     with:
