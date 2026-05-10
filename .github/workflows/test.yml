@@ -46,7 +46,7 @@ jobs:
           pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
       - name: Test with pytest (Functions) 
         run: |
-          python -m pytest . --cov=mytext --cov-report=term --ignore=tests/test_api.py
+          python -m pytest . --cov=mytext --cov-report=term --ignore=tests/providers
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
