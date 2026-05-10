@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - `grammar` mode optimized
 - Instructions modified
+- AI Studio default model changed to `gemma-4-31b-it`
 ## [0.7] - 2026-04-24
 ### Added
 - `emojify` mode

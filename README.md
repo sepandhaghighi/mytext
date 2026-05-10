@@ -142,7 +142,7 @@ Each provider has a default model. You may optionally override it using either t
 
 | Provider | Required Environment Variables | Default Model | Optional Model Override |
 |---------|--------------------------------|------------|------------|
-| [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemma-3-1b-it` | `AI_STUDIO_MODEL` |
+| [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemma-4-31b-it` | `AI_STUDIO_MODEL` |
 | [**Cloudflare**](https://developers.cloudflare.com/workers-ai/) | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` | `CLOUDFLARE_MODEL` |
 | [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `openai/gpt-oss-20b:free` | `OPENROUTER_MODEL` |
 | [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `llama3.1-8b` | `CEREBRAS_MODEL` |
