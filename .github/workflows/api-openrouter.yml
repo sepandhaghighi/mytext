@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: openrouter
+      provider-name: OpenRouter
       test-file: tests/providers/test_openrouter.py
 
     secrets:

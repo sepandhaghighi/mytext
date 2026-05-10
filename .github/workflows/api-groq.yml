@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: groq
+      provider-name: Groq
       test-file: tests/providers/test_groq.py
 
     secrets:

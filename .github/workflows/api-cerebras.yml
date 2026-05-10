@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: cerebras
+      provider-name: Cerebras
       test-file: tests/providers/test_cerebras.py
 
     secrets:

@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: github
+      provider-name: GitHub
       test-file: tests/providers/test_github.py
 
     secrets:

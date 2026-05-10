@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: nvidia
+      provider-name: NVIDIA
       test-file: tests/providers/test_nvidia.py
 
     secrets:

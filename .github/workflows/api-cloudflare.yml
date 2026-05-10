@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: cloudflare
+      provider-name: Cloudflare
       test-file: tests/providers/test_cloudflare.py
 
     secrets:

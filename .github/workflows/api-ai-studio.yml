@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: ai-studio
+      provider-name: AI-Studio
       test-file: tests/providers/test_ai_studio.py
 
     secrets:
