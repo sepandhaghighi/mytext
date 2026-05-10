@@ -11,11 +11,11 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  ai-studio:
+  cerebras:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: ai-studio
+      provider-name: cerebras
       test-file: tests/providers/test_cerebras.py
 
     secrets:

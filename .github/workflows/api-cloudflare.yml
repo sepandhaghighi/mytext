@@ -11,11 +11,11 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  ai-studio:
+  cloudflare:
     uses: ./.github/workflows/provider-template.yml
 
     with:
-      provider-name: ai-studio
+      provider-name: cloudflare
       test-file: tests/providers/test_cloudflare.py
 
     secrets:
