@@ -140,15 +140,15 @@ print(result["status"], result["message"])
 MyText automatically detects which providers are available based on environment variables.
 Each provider has a default model. You may optionally override it using either the CLI `--model` argument or a `*_MODEL` environment variable.
 
-| Provider | Required Environment Variables | Default Model | Optional Model Override |
-|---------|--------------------------------|------------|------------|
-| [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemma-4-31b-it` | `AI_STUDIO_MODEL` |
-| [**Cloudflare**](https://developers.cloudflare.com/workers-ai/) | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` | `CLOUDFLARE_MODEL` |
-| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `openai/gpt-oss-20b:free` | `OPENROUTER_MODEL` |
-| [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `llama3.1-8b` | `CEREBRAS_MODEL` |
-| [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` |
-| [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `NVIDIA_MODEL` |
-| [**GITHUB**](https://docs.github.com/en/github-models) | `GITHUB_API_KEY` | `openai/gpt-4o-mini` | `GITHUB_MODEL` |
+| Provider | Required Environment Variables | Default Model | Optional Model Override | Status |
+|---------|--------------------------------|------------|------------|------------|
+| [**AI Studio**](https://ai.google.dev/) | `AI_STUDIO_API_KEY` | `gemma-4-31b-it` | `AI_STUDIO_MODEL` | ![](https://github.com/sepandhaghighi/mytext/actions/workflows/api-ai-studio.yml/badge.svg) |
+| [**Cloudflare**](https://developers.cloudflare.com/workers-ai/) | `CLOUDFLARE_API_KEY`, `CLOUDFLARE_ACCOUNT_ID` | `meta/llama-3-8b-instruct` | `CLOUDFLARE_MODEL` | ![](https://github.com/sepandhaghighi/mytext/actions/workflows/api-cloudflare.yml/badge.svg) |
+| [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `openai/gpt-oss-20b:free` | `OPENROUTER_MODEL` | ![](https://github.com/sepandhaghighi/mytext/actions/workflows/api-openrouter.yml/badge.svg) |
+| [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `llama3.1-8b` | `CEREBRAS_MODEL` | ![](https://github.com/sepandhaghighi/mytext/actions/workflows/api-cerebras.yml/badge.svg) |
+| [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` | ![](https://github.com/sepandhaghighi/mytext/actions/workflows/api-groq.yml/badge.svg) |
+| [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `NVIDIA_MODEL` | ![](https://github.com/sepandhaghighi/mytext/actions/workflows/api-nvidia.yml/badge.svg) |
+| [**GITHUB**](https://docs.github.com/en/github-models) | `GITHUB_API_KEY` | `openai/gpt-4o-mini` | `GITHUB_MODEL` | ![](https://github.com/sepandhaghighi/mytext/actions/workflows/api-github.yml/badge.svg) |
 
 
 ## Configuration Resolution Priority
