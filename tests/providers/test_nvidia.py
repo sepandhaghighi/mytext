@@ -13,9 +13,8 @@ pytestmark = pytest.mark.integration
 
 def test_nvidia_real_api():
     api_key = os.getenv("NVIDIA_API_KEY")
-
-    if not api_key:
-        pytest.skip("NVIDIA real API keys are not available.")
+    
+    assert api_key, "NVIDIA real API keys are not available."
 
     result = run_mytext(
         text="Hello world",

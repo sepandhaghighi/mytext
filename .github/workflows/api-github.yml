@@ -15,4 +15,4 @@ jobs:
       test-file: tests/providers/test_github.py
 
     secrets:
-      secret_1: ${{ secrets.GITHUB_API_KEY }}
+      secret_1: ${{ secrets.GH_API_KEY }}

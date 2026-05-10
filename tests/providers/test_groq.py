@@ -13,9 +13,8 @@ pytestmark = pytest.mark.integration
 
 def test_groq_real_api():
     api_key = os.getenv("GROQ_API_KEY")
-
-    if not api_key:
-        pytest.skip("Groq real API keys are not available.")
+    
+    assert api_key, "Groq real API keys are not available."
 
     result = run_mytext(
         text="Hello world",

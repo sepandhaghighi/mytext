@@ -14,8 +14,7 @@ pytestmark = pytest.mark.integration
 def test_cerebras_real_api():
     api_key = os.getenv("CEREBRAS_API_KEY")
 
-    if not api_key:
-        pytest.skip("Cerebras real API keys are not available.")
+    assert api_key, "Cerebras real API keys are not available."
 
     result = run_mytext(
         text="Hello world",

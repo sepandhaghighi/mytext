@@ -14,8 +14,7 @@ pytestmark = pytest.mark.integration
 def test_github_real_api():
     api_key = os.getenv("GITHUB_API_KEY")
 
-    if not api_key:
-        pytest.skip("GitHub real API keys are not available.")
+    assert api_key, "GitHub real API keys are not available."
 
     result = run_mytext(
         text="Hello world",

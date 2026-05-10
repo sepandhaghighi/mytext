@@ -13,9 +13,8 @@ pytestmark = pytest.mark.integration
 
 def test_openrouter_real_api():
     api_key = os.getenv("OPENROUTER_API_KEY")
-
-    if not api_key:
-        pytest.skip("OpenRouter real API keys are not available.")
+    
+    assert api_key, "OpenRouter real API keys are not available."
 
     result = run_mytext(
         text="Hello world",

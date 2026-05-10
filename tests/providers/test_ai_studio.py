@@ -13,9 +13,8 @@ pytestmark = pytest.mark.integration
 
 def test_ai_studio_real_api():
     api_key = os.getenv("AI_STUDIO_API_KEY")
-
-    if not api_key:
-        pytest.skip("AI Studio API key not available.")
+    
+    assert api_key, "AI Studio API key not available."
 
     result = run_mytext(
         text="Hello world",
