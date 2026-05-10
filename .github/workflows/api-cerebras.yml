@@ -1,0 +1,45 @@
+name: Cerebras API
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *"
+
+concurrency:
+  group: api-cerebras
+  cancel-in-progress: true
+
+jobs:
+  cerebras-api-test:
+    name: Cerebras Integration Test
+
+    runs-on: ubuntu-22.04
+
+    timeout-minutes: 10
+
+    env:
+      CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install Package
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+
+      - name: Install Test Requirements
+        run: |
+          python otherfiles/requirements-splitter.py
+          pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
+
+      - name: Run Cerebras Integration Test
+        run: |
+          python -m pytest tests/providers/test_cerebras.py -v 
