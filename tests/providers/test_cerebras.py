@@ -24,7 +24,7 @@ def test_cerebras_real_api():
         provider=Provider.CEREBRAS,
     )
 
-    assert result["status"] is True
+    assert result["status"], result["message"]
     assert isinstance(result["message"], str)
     assert result["message"].strip()
     assert result["model"]
