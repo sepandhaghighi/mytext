@@ -1,0 +1,19 @@
+name: Cloudflare API
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  cloudflare:
+    uses: ./.github/workflows/provider-template.yml
+
+    with:
+      provider-name: Cloudflare
+      test-file: tests/providers/test_cloudflare.py
+
+    secrets:
+      secret_1: ${{ secrets.CLOUDFLARE_API_KEY }}
+      secret_2: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,0 +1,18 @@
+name: Cerebras API
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  cerebras:
+    uses: ./.github/workflows/provider-template.yml
+
+    with:
+      provider-name: Cerebras
+      test-file: tests/providers/test_cerebras.py
+
+    secrets:
+      secret_1: ${{ secrets.CEREBRAS_API_KEY }}

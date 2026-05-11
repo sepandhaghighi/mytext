@@ -1,0 +1,104 @@
+name: Provider Integration Template
+
+on:
+  workflow_call:
+    inputs:
+      provider-name:
+        required: true
+        type: string
+
+      test-file:
+        required: true
+        type: string
+
+      python-version:
+        required: false
+        type: string
+        default: "3.9"
+
+    secrets:
+      secret_1:
+        required: false
+
+      secret_2:
+        required: false
+
+jobs:
+  integration-test:
+    name: ${{ inputs.provider-name }} Integration Test
+
+    runs-on: ubuntu-22.04
+
+    timeout-minutes: 10
+
+    concurrency:
+      group: provider-${{ inputs.provider-name }}
+      cancel-in-progress: true
+
+    env:
+      SECRET_1: ${{ secrets.secret_1 }}
+      SECRET_2: ${{ secrets.secret_2 }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install Package
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+
+      - name: Install Test Requirements
+        run: |
+          python otherfiles/requirements-splitter.py
+          pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
+          pip install pytest-rerunfailures
+
+      - name: Export Provider Environment Variables
+        shell: bash
+        run: |
+          case "${{ inputs.provider-name }}" in
+
+            "AI-Studio")
+              echo "AI_STUDIO_API_KEY=$SECRET_1" >> $GITHUB_ENV
+              ;;
+
+            "Cloudflare")
+              echo "CLOUDFLARE_API_KEY=$SECRET_1" >> $GITHUB_ENV
+              echo "CLOUDFLARE_ACCOUNT_ID=$SECRET_2" >> $GITHUB_ENV
+              ;;
+
+            "OpenRouter")
+              echo "OPENROUTER_API_KEY=$SECRET_1" >> $GITHUB_ENV
+              ;;
+
+            "Cerebras")
+              echo "CEREBRAS_API_KEY=$SECRET_1" >> $GITHUB_ENV
+              ;;
+
+            "Groq")
+              echo "GROQ_API_KEY=$SECRET_1" >> $GITHUB_ENV
+              ;;
+
+            "NVIDIA")
+              echo "NVIDIA_API_KEY=$SECRET_1" >> $GITHUB_ENV
+              ;;
+
+            "GitHub")
+              echo "GITHUB_API_KEY=$SECRET_1" >> $GITHUB_ENV
+              ;;
+
+            *)
+              echo "Unknown provider"
+              exit 1
+              ;;
+          esac
+
+      - name: Run Integration Test
+        run: |
+          python -m pytest ${{ inputs.test-file }} -v

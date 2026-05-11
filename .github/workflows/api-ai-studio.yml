@@ -1,0 +1,18 @@
+name: AI Studio API
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  ai-studio:
+    uses: ./.github/workflows/provider-template.yml
+
+    with:
+      provider-name: AI-Studio
+      test-file: tests/providers/test_ai_studio.py
+
+    secrets:
+      secret_1: ${{ secrets.AI_STUDIO_API_KEY }}

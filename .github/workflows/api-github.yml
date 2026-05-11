@@ -1,0 +1,18 @@
+name: GitHub API
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  github:
+    uses: ./.github/workflows/provider-template.yml
+
+    with:
+      provider-name: GitHub
+      test-file: tests/providers/test_github.py
+
+    secrets:
+      secret_1: ${{ secrets.GH_API_KEY }}
