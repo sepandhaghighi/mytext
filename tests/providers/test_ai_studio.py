@@ -14,7 +14,7 @@ pytestmark = pytest.mark.integration
 def test_ai_studio_real_api():
     api_key = os.getenv("AI_STUDIO_API_KEY")
     
-    assert api_key, "AI Studio API key not available."
+    assert api_key, "AI Studio API keys are not available."
 
     result = run_mytext(
         text="Hello world",
@@ -24,7 +24,7 @@ def test_ai_studio_real_api():
         provider=Provider.AI_STUDIO,
     )
 
-    assert result["status"] is True
+    assert result["status"], result["message"]
     assert isinstance(result["message"], str)
     assert result["message"].strip()
     assert result["model"]
