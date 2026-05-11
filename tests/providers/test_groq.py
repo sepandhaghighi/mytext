@@ -24,7 +24,7 @@ def test_groq_real_api():
         provider=Provider.GROQ,
     )
 
-    assert result["status"] is True
+    assert result["status"], result["message"]
     assert isinstance(result["message"], str)
     assert result["message"].strip()
     assert result["model"]
