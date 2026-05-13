@@ -26,7 +26,7 @@ def test_cloudflare_real_api():
         provider=Provider.CLOUDFLARE,
     )
 
-    assert result["status"] is True
+    assert result["status"], result["message"]
     assert isinstance(result["message"], str)
     assert result["message"].strip()
     assert result["model"]
