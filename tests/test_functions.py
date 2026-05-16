@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import pytest
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
