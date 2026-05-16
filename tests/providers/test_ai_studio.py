@@ -13,7 +13,7 @@ pytestmark = pytest.mark.integration
 
 def test_ai_studio_real_api():
     api_key = os.getenv("AI_STUDIO_API_KEY")
-    
+
     assert api_key, "AI Studio API keys are not available."
 
     result = run_mytext(

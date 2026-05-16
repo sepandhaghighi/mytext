@@ -319,7 +319,7 @@ def test_run_mytext_groq_failure(mock_post):
     mock_response.text = "Unauthorized"
 
     mock_post.return_value = mock_response
-    
+
     auth = {"api_key": "KEY"}
     result = run_mytext(
         text="hello",
@@ -361,7 +361,7 @@ def test_run_mytext_github_failure(mock_post):
     mock_response.text = "Unauthorized"
 
     mock_post.return_value = mock_response
-    
+
     auth = {"api_key": "KEY"}
     result = run_mytext(
         text="hello",
