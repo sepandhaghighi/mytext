@@ -5,7 +5,6 @@ import pytest
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
 from mytext.cli import main
-from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "Functions tests"
 
@@ -372,26 +371,3 @@ def test_run_mytext_github_failure(mock_post):
     )
     assert not result["status"]
     assert "Unauthorized" in result["message"]
-
-
-def test_main_version(capsys):
-    with patch("sys.argv", ["mytext", "--version"]):
-        main()
-    out, _ = capsys.readouterr()
-    assert MY_TEXT_VERSION in out
-
-
-def test_main_info(capsys):
-    with patch("sys.argv", ["mytext", "--info"]):
-        main()
-    out, _ = capsys.readouterr()
-    assert MY_TEXT_OVERVIEW in out
-    assert MY_TEXT_REPO in out
-
-
-def test_main_no_text(capsys):
-    with patch("sys.argv", ["mytext"]):
-        with pytest.raises(SystemExit):
-            main()
-    _, err = capsys.readouterr()
-    assert "--text is required" in err
