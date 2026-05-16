@@ -10,13 +10,21 @@ from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 TEST_CASE_NAME = "Functions tests"
 
 
-@patch("mytext.functions._call_provider")
-def test_run_mytext_github_success(mock_call):
-    mock_call.return_value = {
-        "status": True,
-        "message": "OK!",
-        "model": "model"
+@patch("requests.Session.post")
+def test_run_mytext_github_success(mock_post):
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "OK!"
+                }
+            }
+        ]
     }
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -31,13 +39,21 @@ def test_run_mytext_github_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_provider")
-def test_run_mytext_nvidia_success(mock_call):
-    mock_call.return_value = {
-        "status": True,
-        "message": "OK!",
-        "model": "model"
+@patch("requests.Session.post")
+def test_run_mytext_nvidia_success(mock_post):
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "OK!"
+                }
+            }
+        ]
     }
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -52,13 +68,21 @@ def test_run_mytext_nvidia_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_provider")
-def test_run_mytext_groq_success(mock_call):
-    mock_call.return_value = {
-        "status": True,
-        "message": "OK!",
-        "model": "model"
+@patch("requests.Session.post")
+def test_run_mytext_groq_success(mock_post):
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "OK!"
+                }
+            }
+        ]
     }
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -73,13 +97,21 @@ def test_run_mytext_groq_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_provider")
-def test_run_mytext_cerebras_success(mock_call):
-    mock_call.return_value = {
-        "status": True,
-        "message": "OK!",
-        "model": "model"
+@patch("requests.Session.post")
+def test_run_mytext_cerebras_success(mock_post):
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "OK!"
+                }
+            }
+        ]
     }
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -94,13 +126,21 @@ def test_run_mytext_cerebras_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_provider")
-def test_run_mytext_openrouter_success(mock_call):
-    mock_call.return_value = {
-        "status": True,
-        "message": "OK!",
-        "model": "gemini"
+@patch("requests.Session.post")
+def test_run_mytext_openrouter_success(mock_post):
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "OK!"
+                }
+            }
+        ]
     }
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -115,13 +155,25 @@ def test_run_mytext_openrouter_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_provider")
-def test_run_mytext_ai_studio_success(mock_call):
-    mock_call.return_value = {
-        "status": True,
-        "message": "OK!",
-        "model": "gemini"
+@patch("requests.Session.post")
+def test_run_mytext_ai_studio_success(mock_post):
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "candidates": [
+            {
+                "content": {
+                    "parts": [
+                        {
+                            "text": "OK!"
+                        }
+                    ]
+                }
+            }
+        ]
     }
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -136,13 +188,17 @@ def test_run_mytext_ai_studio_success(mock_call):
     assert result["message"] == "OK!"
 
 
-@patch("mytext.functions._call_provider")
-def test_run_mytext_cloudflare_success(mock_call):
-    mock_call.return_value = {
-        "status": True,
-        "message": "OK2",
-        "model": "cf"
+@patch("requests.Session.post")
+def test_run_mytext_cloudflare_success(mock_post):
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "result": {
+            "response": "OK2"
+        }
     }
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY", "account_id": "ACC"}
     result = run_mytext(
