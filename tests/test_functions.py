@@ -227,7 +227,14 @@ def test_run_mytext_api_failure(mock_call):
     assert "error" in result["message"]
 
 
-def test_run_mytext_cloudflare_failure():
+@patch("requests.Session.post")
+def test_run_mytext_cloudflare_failure(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 401
+    mock_response.text = "Unauthorized"
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY", "account_id": "ACC"}
     result = run_mytext(
@@ -238,10 +245,17 @@ def test_run_mytext_cloudflare_failure():
         provider=Provider.CLOUDFLARE
     )
     assert not result["status"]
-    assert "error" in result["message"]
+    assert "Unauthorized" in result["message"]
 
 
-def test_run_mytext_ai_studio_failure():
+@patch("requests.Session.post")
+def test_run_mytext_ai_studio_failure(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 401
+    mock_response.text = "Unauthorized"
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -252,10 +266,17 @@ def test_run_mytext_ai_studio_failure():
         provider=Provider.AI_STUDIO
     )
     assert not result["status"]
-    assert "error" in result["message"]
+    assert "Unauthorized" in result["message"]
 
 
-def test_run_mytext_openrouter_failure():
+@patch("requests.Session.post")
+def test_run_mytext_openrouter_failure(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 401
+    mock_response.text = "Unauthorized"
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -266,10 +287,17 @@ def test_run_mytext_openrouter_failure():
         provider=Provider.OPENROUTER
     )
     assert not result["status"]
-    assert "error" in result["message"]
+    assert "Unauthorized" in result["message"]
 
 
-def test_run_mytext_cerebras_failure():
+@patch("requests.Session.post")
+def test_run_mytext_cerebras_failure(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 401
+    mock_response.text = "Unauthorized"
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -280,11 +308,18 @@ def test_run_mytext_cerebras_failure():
         provider=Provider.CEREBRAS
     )
     assert not result["status"]
-    assert "error" in result["message"]
+    assert "Unauthorized" in result["message"]
 
 
-def test_run_mytext_groq_failure():
+@patch("requests.Session.post")
+def test_run_mytext_groq_failure(mock_post):
 
+    mock_response = MagicMock()
+    mock_response.status_code = 401
+    mock_response.text = "Unauthorized"
+
+    mock_post.return_value = mock_response
+    
     auth = {"api_key": "KEY"}
     result = run_mytext(
         text="hello",
@@ -294,10 +329,17 @@ def test_run_mytext_groq_failure():
         provider=Provider.GROQ
     )
     assert not result["status"]
-    assert "error" in result["message"]
+    assert "Unauthorized" in result["message"]
 
 
-def test_run_mytext_nvidia_failure():
+@patch("requests.Session.post")
+def test_run_mytext_nvidia_failure(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 401
+    mock_response.text = "Unauthorized"
+
+    mock_post.return_value = mock_response
 
     auth = {"api_key": "KEY"}
     result = run_mytext(
@@ -308,11 +350,18 @@ def test_run_mytext_nvidia_failure():
         provider=Provider.NVIDIA
     )
     assert not result["status"]
-    assert "failed" in result["message"]
+    assert "Unauthorized" in result["message"]
 
 
-def test_run_mytext_github_failure():
+@patch("requests.Session.post")
+def test_run_mytext_github_failure(mock_post):
 
+    mock_response = MagicMock()
+    mock_response.status_code = 401
+    mock_response.text = "Unauthorized"
+
+    mock_post.return_value = mock_response
+    
     auth = {"api_key": "KEY"}
     result = run_mytext(
         text="hello",
