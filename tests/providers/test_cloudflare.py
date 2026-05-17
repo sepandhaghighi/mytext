@@ -14,7 +14,7 @@ pytestmark = pytest.mark.integration
 def test_cloudflare_real_api():
     api_key = os.getenv("CLOUDFLARE_API_KEY")
     account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID")
-    
+
     assert api_key, "Cloudflare real API keys are not available."
     assert account_id, "Cloudflare real API keys are not available."
 
