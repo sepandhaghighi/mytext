@@ -377,3 +377,41 @@ def test_run_mytext_github_failure(mock_post):
 def test_provider_map_contains_all_providers():
     for provider in Provider:
         assert provider in PROVIDER_MAP
+
+
+@patch("requests.Session.post")
+def test_provider_retry_success(mock_post):
+
+    fail_response = MagicMock()
+    fail_response.status_code = 500
+    fail_response.text = "Server Error"
+
+    success_response = MagicMock()
+    success_response.status_code = 200
+    success_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "Recovered"
+                }
+            }
+        ]
+    }
+
+    mock_post.side_effect = [
+        fail_response,
+        success_response
+    ]
+
+    auth = {"api_key": "KEY"}
+
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        provider=Provider.GROQ,
+        max_retries=2,
+        retry_delay=0
+    )
+
+    assert result["status"]
+    assert result["message"] == "Recovered"
