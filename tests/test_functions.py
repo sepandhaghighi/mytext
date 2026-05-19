@@ -408,9 +408,7 @@ def test_provider_retry_success(mock_post):
     result = run_mytext(
         text="hello",
         auth=auth,
-        provider=Provider.GROQ,
-        max_retries=2,
-        retry_delay=0
+        provider=Provider.GROQ
     )
 
     assert result["status"]
@@ -431,9 +429,7 @@ def test_provider_retry_exhausted(mock_post):
     result = run_mytext(
         text="hello",
         auth=auth,
-        provider=Provider.GROQ,
-        max_retries=2,
-        retry_delay=0
+        provider=Provider.GROQ
     )
 
     assert not result["status"]
