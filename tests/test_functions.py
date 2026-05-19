@@ -415,3 +415,26 @@ def test_provider_retry_success(mock_post):
 
     assert result["status"]
     assert result["message"] == "Recovered"
+
+
+@patch("requests.Session.post")
+def test_provider_retry_exhausted(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 500
+    mock_response.text = "Internal Error"
+
+    mock_post.return_value = mock_response
+
+    auth = {"api_key": "KEY"}
+
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        provider=Provider.GROQ,
+        max_retries=2,
+        retry_delay=0
+    )
+
+    assert not result["status"]
+    assert "Internal Error" in result["message"]
