@@ -438,3 +438,36 @@ def test_provider_retry_exhausted(mock_post):
 
     assert not result["status"]
     assert "Internal Error" in result["message"]
+
+
+@patch("requests.Session.post")
+def test_run_mytext_custom_model(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "OK!"
+                }
+            }
+        ]
+    }
+
+    mock_post.return_value = mock_response
+
+    auth = {"api_key": "KEY"}
+
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        provider=Provider.GROQ,
+        model="custom-model"
+    )
+
+    assert result["status"]
+
+    _, kwargs = mock_post.call_args
+
+    assert kwargs["json"]["model"] == "custom-model"
