@@ -5,6 +5,7 @@ import pytest
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
 from mytext.cli import main
+from mytext.providers import PROVIDER_MAP
 
 TEST_CASE_NAME = "Functions tests"
 
@@ -371,3 +372,8 @@ def test_run_mytext_github_failure(mock_post):
     )
     assert not result["status"]
     assert "Unauthorized" in result["message"]
+
+
+def test_provider_map_contains_all_providers():
+    for provider in Provider:
+        assert provider in PROVIDER_MAP
