@@ -5,6 +5,7 @@ import pytest
 from mytext import Mode, Tone, Provider
 from mytext import run_mytext
 from mytext.cli import main
+from mytext.providers import PROVIDER_MAP
 
 TEST_CASE_NAME = "Functions tests"
 
@@ -371,3 +372,98 @@ def test_run_mytext_github_failure(mock_post):
     )
     assert not result["status"]
     assert "Unauthorized" in result["message"]
+
+
+def test_provider_map_contains_all_providers():
+    for provider in Provider:
+        assert provider in PROVIDER_MAP
+
+
+@patch("requests.Session.post")
+def test_provider_retry_success(mock_post):
+
+    fail_response = MagicMock()
+    fail_response.status_code = 500
+    fail_response.text = "Server Error"
+
+    success_response = MagicMock()
+    success_response.status_code = 200
+    success_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "Recovered"
+                }
+            }
+        ]
+    }
+
+    mock_post.side_effect = [
+        fail_response,
+        success_response
+    ]
+
+    auth = {"api_key": "KEY"}
+
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        provider=Provider.GROQ
+    )
+
+    assert result["status"]
+    assert result["message"] == "Recovered"
+
+
+@patch("requests.Session.post")
+def test_provider_retry_exhausted(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 500
+    mock_response.text = "Internal Error"
+
+    mock_post.return_value = mock_response
+
+    auth = {"api_key": "KEY"}
+
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        provider=Provider.GROQ
+    )
+
+    assert not result["status"]
+    assert "Internal Error" in result["message"]
+
+
+@patch("requests.Session.post")
+def test_run_mytext_custom_model(mock_post):
+
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "OK!"
+                }
+            }
+        ]
+    }
+
+    mock_post.return_value = mock_response
+
+    auth = {"api_key": "KEY"}
+
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        provider=Provider.GROQ,
+        model="custom-model"
+    )
+
+    assert result["status"]
+
+    _, kwargs = mock_post.call_args
+
+    assert kwargs["json"]["model"] == "custom-model"

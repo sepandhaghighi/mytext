@@ -129,3 +129,36 @@ def test_main_specific_provider_failure(mock_run, mock_env, capsys):
 
     out, _ = capsys.readouterr()
     assert "No provider succeeded" in out
+
+
+@patch("mytext.cli._load_auth_from_env")
+@patch("mytext.cli.run_mytext")
+def test_cli_custom_model(mock_run, mock_env, capsys):
+
+    mock_env.return_value = {
+        Provider.GROQ: {"api_key": "x"},
+    }
+
+    mock_run.return_value = {
+        "status": True,
+        "message": "DONE",
+        "model": "custom"
+    }
+
+    with patch(
+        "sys.argv",
+        [
+            "mytext",
+            "--text",
+            "hello",
+            "--provider",
+            "groq",
+            "--model",
+            "llama-custom"
+        ]
+    ):
+        main()
+
+    _, kwargs = mock_run.call_args
+
+    assert kwargs["model"] == "llama-custom"
