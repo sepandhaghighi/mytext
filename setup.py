@@ -1,17 +1,9 @@
 # -*- coding: utf-8 -*-
 """Setup module."""
-from typing import List
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
-
-
-def get_requires() -> List[str]:
-    """Read requirements.txt."""
-    requirements = open("requirements.txt", "r").read()
-    return list(filter(lambda x: x != "", requirements.split()))
-
 
 def read_description() -> str:
     """Read README.md and CHANGELOG.md."""
@@ -45,7 +37,7 @@ setup(
     project_urls={
         'Source': 'https://github.com/sepandhaghighi/mytext'
     },
-    install_requires=get_requires(),
+    install_requires=['memor>=0.6', 'requests>=2.20.0', 'art>=5.3'],
     python_requires='>=3.7',
     classifiers=[
         'Development Status :: 4 - Beta',
