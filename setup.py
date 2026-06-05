@@ -33,11 +33,15 @@ setup(
     author_email='me@sepand.tech',
     url='https://github.com/sepandhaghighi/mytext',
     download_url='https://github.com/sepandhaghighi/mytext/tarball/v0.7',
-    keywords="text rewrite paraphrase editing llm ai text-processing cli",
+    keywords='text rewrite paraphrase editing llm ai text-processing cli',
     project_urls={
         'Source': 'https://github.com/sepandhaghighi/mytext'
     },
-    install_requires=['memor>=0.6', 'requests>=2.20.0', 'art>=5.3'],
+    install_requires=[
+        'memor>=0.6',
+        'requests>=2.20.0',
+        'art>=5.3'
+    ],
     python_requires='>=3.7',
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -57,9 +61,9 @@ setup(
         'Intended Audience :: End Users/Desktop',
         'Intended Audience :: Other Audience',
         'Topic :: Utilities',
-        "Topic :: Text Processing :: Linguistic",
-        "Topic :: Text Processing :: General",
-        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        'Topic :: Text Processing :: Linguistic',
+        'Topic :: Text Processing :: General',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ],
     license='MIT',
     entry_points={
