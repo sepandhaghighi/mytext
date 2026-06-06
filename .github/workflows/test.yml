@@ -40,10 +40,9 @@ jobs:
         run: |
           mytext --version
           mytext --info
-      - name: Test requirements installation
+      - name: Dev requirements installation
         run: |
-          python otherfiles/requirements-splitter.py
-          pip install --upgrade --upgrade-strategy=only-if-needed -r test-requirements.txt
+          pip install --upgrade --upgrade-strategy=only-if-needed -r requirements-dev.txt
       - name: Test with pytest (Functions) 
         run: |
           python -m pytest . --cov=mytext --cov-report=term --ignore=tests/providers
