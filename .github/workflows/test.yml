@@ -65,3 +65,21 @@ jobs:
         run: |
           python otherfiles/version_check.py
         if: matrix.python-version == env.TEST_PYTHON_VERSION
+      - name: Build package
+        run: |
+          python -m build
+      - name: Check package metadata
+        run: |
+          twine check dist/*
+      - name: Wheel smoke test
+        shell: bash
+        run: |
+          pip uninstall -y mytext
+          pip install dist/*.whl
+          mkdir wheel_test
+          cd wheel_test
+          python -c "from mytext import *"
+          mytext --version
+          mytext --info
+          python -m mytext --version
+          python -m mytext --info
