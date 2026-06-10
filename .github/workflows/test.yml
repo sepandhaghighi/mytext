@@ -36,10 +36,13 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install .
-      - name: First test
+      - name: Smoke test
         run: |
+          python -c "from mytext import *"
           mytext --version
           mytext --info
+          python -m mytext --version
+          python -m mytext --info
       - name: Dev requirements installation
         run: |
           pip install --upgrade --upgrade-strategy=only-if-needed -r requirements-dev.txt
