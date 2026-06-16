@@ -6,6 +6,7 @@
 
 # Other Contributors
 ----------
+- [muhamedfazalps](https://github.com/muhamedfazalps)
 - [Gemini](https://gemini.google.com) ++
 
 ++ Graphic designer
