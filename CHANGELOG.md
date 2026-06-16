@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Instructions modified
 - AI Studio default model changed to `gemma-4-31b-it`
 - Cloudflare default model changed to `llama-3.1-8b-instruct-fast`
+- Cerebras default model changed to `gpt-oss-120b`
 - `README.md` updated
 - Test system modified
 - Dependencies structure modified
