@@ -189,12 +189,12 @@ def test_run_mytext_ai_studio_success(mock_post):
 
 
 @patch("requests.Session.post")
-def test_run_mytext_cloudflare_success(mock_post):
+def test_run_mytext_cloudflare_success1(mock_post):
     mock_response = MagicMock()
     mock_response.status_code = 200
     mock_response.json.return_value = {
         "result": {
-            "response": "OK2"
+            "response": "OK"
         }
     }
 
@@ -210,7 +210,36 @@ def test_run_mytext_cloudflare_success(mock_post):
     )
 
     assert result["status"]
-    assert result["message"] == "OK2"
+    assert result["message"] == "OK"
+
+
+@patch("requests.Session.post")
+def test_run_mytext_cloudflare_success2(mock_post):
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": "OK"
+                }
+            }
+        ]
+    }
+
+    mock_post.return_value = mock_response
+
+    auth = {"api_key": "KEY", "account_id": "ACC"}
+    result = run_mytext(
+        text="hello",
+        auth=auth,
+        mode=Mode.PARAPHRASE,
+        tone=Tone.NEUTRAL,
+        provider=Provider.CLOUDFLARE
+    )
+
+    assert result["status"]
+    assert result["message"] == "OK"
 
 
 @patch("mytext.functions._call_provider")
