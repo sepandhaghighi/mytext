@@ -218,13 +218,15 @@ def test_run_mytext_cloudflare_success2(mock_post):
     mock_response = MagicMock()
     mock_response.status_code = 200
     mock_response.json.return_value = {
-        "choices": [
-            {
-                "message": {
-                    "content": "OK"
+        "result":{
+            "choices": [
+                {
+                    "message": {
+                        "content": "OK"
+                    }
                 }
-            }
-        ]
+            ]
+        }
     }
 
     mock_post.return_value = mock_response
