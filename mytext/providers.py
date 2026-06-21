@@ -120,10 +120,14 @@ def _call_cloudflare(
             json=data,
             timeout=timeout)
         if response.status_code in (200, 201):
-            response_data = response.json()
+            result = response.json()["result"]
+            if "choices" in result.keys():
+                message = result["choices"][0]["message"]["content"]
+            else:
+                message = result["response"]
             return {
                 "status": True,
-                "message": response_data["result"]["response"],
+                "message": message,
                 "model": model}
         raise MyTextProviderError(
             "Status Code: {status_code}\n\nContent:\n{content}".format(
