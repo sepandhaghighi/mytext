@@ -16,6 +16,35 @@ from .params import NVIDIA_API_URL, NVIDIA_HEADERS
 from .params import GITHUB_API_URL, GITHUB_HEADERS
 
 
+def _post_json(
+        session: requests.sessions.Session,
+        url: str,
+        headers: dict,
+        payload: dict,
+        timeout: float) -> dict:
+    """
+    Post JSON.
+
+    :param session: requests session
+    :param url: API URL
+    :param headers: headers
+    :param payload: payload
+    :param timeout: API timeout 
+    """
+    response = session.post(
+        url,
+        headers=headers,
+        json=payload,
+        timeout=timeout
+    )
+    if response.status_code not in (200, 201):
+        raise MyTextProviderError(
+            "Status Code: {status_code}\n\nContent:\n{content}".format(
+                status_code=response.status_code,
+                content=response.text))
+    return response.json()
+
+
 def _call_github(
         prompt: Prompt,
         auth: Dict[str, str],
