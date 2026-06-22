@@ -121,25 +121,17 @@ def _call_cloudflare(
     headers = CLOUDFLARE_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
-        response = session.post(
-            api_url,
-            headers=headers,
-            json=data,
-            timeout=timeout)
-        if response.status_code in (200, 201):
-            result = response.json()["result"]
-            if "choices" in result.keys():
-                message = result["choices"][0]["message"]["content"]
-            else:
-                message = result["response"]
-            return {
-                "status": True,
-                "message": message,
-                "model": model}
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text))
+        response_data = _post_json(session=session, url=api_url, headers=headers, payload=data, timeout=timeout)
+        result = response_data["result"]
+        if "choices" in result.keys():
+            message = result["choices"][0]["message"]["content"]
+        else:
+            message = result["response"]
+        return {
+            "status": True,
+            "message": message,
+            "model": model
+        }
 
 
 def _call_openrouter(
