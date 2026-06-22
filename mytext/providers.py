@@ -92,21 +92,12 @@ def _call_ai_studio(
         api_key=auth["api_key"],
         model=model)
     with requests.Session() as session:
-        response = session.post(
-            api_url,
-            headers=AI_STUDIO_HEADERS,
-            json=data,
-            timeout=timeout)
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            return {
-                "status": True,
-                "message": response_data['candidates'][0]['content']['parts'][0]['text'],
-                "model": model}
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text))
+        response_data = _post_json(session=session, url=api_url, headers=AI_STUDIO_HEADERS, payload=data, timeout=timeout)
+        return {
+            "status": True,
+            "message": response_data['candidates'][0]['content']['parts'][0]['text'],
+            "model": model
+        }
 
 
 def _call_cloudflare(
