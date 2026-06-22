@@ -23,12 +23,12 @@ def _post_json(
         payload: dict,
         timeout: float) -> dict:
     """
-    Post JSON.
+    Send a POST request with a JSON payload and return the decoded response.
 
-    :param session: requests session
-    :param url: API URL
-    :param headers: headers
-    :param payload: payload
+    :param session: requests session used to perform the HTTP request
+    :param url: target API endpoint URL
+    :param headers: HTTP headers to include in the request
+    :param payload: JSON-serializable payload sent in the request body
     :param timeout: API timeout 
     """
     response = session.post(
