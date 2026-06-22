@@ -240,25 +240,12 @@ def _call_nvidia(
     headers = NVIDIA_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
-        response = session.post(
-            NVIDIA_API_URL,
-            headers=headers,
-            json=data,
-            timeout=timeout
-        )
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            return {
-                "status": True,
-                "message": response_data["choices"][0]["message"]["content"],
-                "model": model
-            }
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text
-            )
-        )
+        response_data = _post_json(session=session, url=NVIDIA_API_URL, headers=headers, payload=data, timeout=timeout)
+        return {
+            "status": True,
+            "message": response_data["choices"][0]["message"]["content"],
+            "model": model
+        }
 
 
 PROVIDER_MAP = {
