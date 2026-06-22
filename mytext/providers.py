@@ -29,7 +29,7 @@ def _post_json(
     :param url: target API endpoint URL
     :param headers: HTTP headers to include in the request
     :param payload: JSON-serializable payload sent in the request body
-    :param timeout: API timeout 
+    :param timeout: API timeout
     """
     response = session.post(
         url,
@@ -92,7 +92,12 @@ def _call_ai_studio(
         api_key=auth["api_key"],
         model=model)
     with requests.Session() as session:
-        response_data = _post_json(session=session, url=api_url, headers=AI_STUDIO_HEADERS, payload=data, timeout=timeout)
+        response_data = _post_json(
+            session=session,
+            url=api_url,
+            headers=AI_STUDIO_HEADERS,
+            payload=data,
+            timeout=timeout)
         return {
             "status": True,
             "message": response_data['candidates'][0]['content']['parts'][0]['text'],
@@ -154,7 +159,12 @@ def _call_openrouter(
     headers = OPENROUTER_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
-        response_data = _post_json(session=session, url=OPENROUTER_API_URL, headers=headers, payload=data, timeout=timeout)
+        response_data = _post_json(
+            session=session,
+            url=OPENROUTER_API_URL,
+            headers=headers,
+            payload=data,
+            timeout=timeout)
         message_text = response_data["choices"][0]["message"]["content"]
         return {
             "status": True,
@@ -181,11 +191,16 @@ def _call_cerebras(
     headers = CEREBRAS_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     payload = {
-                "model": model,
-                "messages": data["messages"]
-            }
+        "model": model,
+        "messages": data["messages"]
+    }
     with requests.Session() as session:
-        response_data = _post_json(session=session, url=CEREBRAS_API_URL, headers=headers, payload=payload, timeout=timeout)
+        response_data = _post_json(
+            session=session,
+            url=CEREBRAS_API_URL,
+            headers=headers,
+            payload=payload,
+            timeout=timeout)
         return {
             "status": True,
             "message": response_data["choices"][0]["message"]["content"],
