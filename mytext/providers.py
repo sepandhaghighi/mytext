@@ -180,29 +180,17 @@ def _call_cerebras(
     data["messages"] = [prompt.render(RenderFormat.OPENAI)]
     headers = CEREBRAS_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
-    with requests.Session() as session:
-        response = session.post(
-            CEREBRAS_API_URL,
-            headers=headers,
-            json={
+    payload = {
                 "model": model,
                 "messages": data["messages"]
-            },
-            timeout=timeout,
-        )
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            return {
-                "status": True,
-                "message": response_data["choices"][0]["message"]["content"],
-                "model": model
             }
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text
-            )
-        )
+    with requests.Session() as session:
+        response_data = _post_json(session=session, url=CEREBRAS_API_URL, headers=headers, payload=payload, timeout=timeout)
+        return {
+            "status": True,
+            "message": response_data["choices"][0]["message"]["content"],
+            "model": model
+        }
 
 
 def _call_groq(
