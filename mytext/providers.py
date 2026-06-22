@@ -154,22 +154,13 @@ def _call_openrouter(
     headers = OPENROUTER_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
-        response = session.post(
-            OPENROUTER_API_URL,
-            headers=headers,
-            json=data,
-            timeout=timeout)
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            message_text = response_data["choices"][0]["message"]["content"]
-            return {
-                "status": True,
-                "message": message_text,
-                "model": model}
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text))
+        response_data = _post_json(session=session, url=OPENROUTER_API_URL, headers=headers, payload=data, timeout=timeout)
+        message_text = response_data["choices"][0]["message"]["content"]
+        return {
+            "status": True,
+            "message": message_text,
+            "model": model
+        }
 
 
 def _call_cerebras(
