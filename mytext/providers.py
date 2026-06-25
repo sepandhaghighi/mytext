@@ -16,6 +16,35 @@ from .params import NVIDIA_API_URL, NVIDIA_HEADERS
 from .params import GITHUB_API_URL, GITHUB_HEADERS
 
 
+def _post_json(
+        session: requests.sessions.Session,
+        url: str,
+        headers: dict,
+        payload: dict,
+        timeout: float) -> dict:
+    """
+    Send a POST request with a JSON payload and return the decoded response.
+
+    :param session: requests session used to perform the HTTP request
+    :param url: target API endpoint URL
+    :param headers: HTTP headers to include in the request
+    :param payload: JSON-serializable payload sent in the request body
+    :param timeout: API timeout
+    """
+    response = session.post(
+        url,
+        headers=headers,
+        json=payload,
+        timeout=timeout
+    )
+    if response.status_code not in (200, 201):
+        raise MyTextProviderError(
+            "Status Code: {status_code}\n\nContent:\n{content}".format(
+                status_code=response.status_code,
+                content=response.text))
+    return response.json()
+
+
 def _call_github(
         prompt: Prompt,
         auth: Dict[str, str],
@@ -35,26 +64,13 @@ def _call_github(
 
     headers = GITHUB_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
-
     with requests.Session() as session:
-        response = session.post(
-            GITHUB_API_URL,
-            headers=headers,
-            json=data,
-            timeout=timeout)
-
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            return {
-                "status": True,
-                "message": response_data["choices"][0]["message"]["content"],
-                "model": model
-            }
-
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text))
+        response_data = _post_json(session=session, url=GITHUB_API_URL, headers=headers, payload=data, timeout=timeout)
+        return {
+            "status": True,
+            "message": response_data["choices"][0]["message"]["content"],
+            "model": model
+        }
 
 
 def _call_ai_studio(
@@ -76,21 +92,17 @@ def _call_ai_studio(
         api_key=auth["api_key"],
         model=model)
     with requests.Session() as session:
-        response = session.post(
-            api_url,
+        response_data = _post_json(
+            session=session,
+            url=api_url,
             headers=AI_STUDIO_HEADERS,
-            json=data,
+            payload=data,
             timeout=timeout)
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            return {
-                "status": True,
-                "message": response_data['candidates'][0]['content']['parts'][0]['text'],
-                "model": model}
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text))
+        return {
+            "status": True,
+            "message": response_data['candidates'][0]['content']['parts'][0]['text'],
+            "model": model
+        }
 
 
 def _call_cloudflare(
@@ -114,25 +126,17 @@ def _call_cloudflare(
     headers = CLOUDFLARE_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
-        response = session.post(
-            api_url,
-            headers=headers,
-            json=data,
-            timeout=timeout)
-        if response.status_code in (200, 201):
-            result = response.json()["result"]
-            if "choices" in result.keys():
-                message = result["choices"][0]["message"]["content"]
-            else:
-                message = result["response"]
-            return {
-                "status": True,
-                "message": message,
-                "model": model}
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text))
+        response_data = _post_json(session=session, url=api_url, headers=headers, payload=data, timeout=timeout)
+        result = response_data["result"]
+        if "choices" in result.keys():
+            message = result["choices"][0]["message"]["content"]
+        else:
+            message = result["response"]
+        return {
+            "status": True,
+            "message": message,
+            "model": model
+        }
 
 
 def _call_openrouter(
@@ -155,22 +159,18 @@ def _call_openrouter(
     headers = OPENROUTER_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
-        response = session.post(
-            OPENROUTER_API_URL,
+        response_data = _post_json(
+            session=session,
+            url=OPENROUTER_API_URL,
             headers=headers,
-            json=data,
+            payload=data,
             timeout=timeout)
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            message_text = response_data["choices"][0]["message"]["content"]
-            return {
-                "status": True,
-                "message": message_text,
-                "model": model}
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text))
+        message_text = response_data["choices"][0]["message"]["content"]
+        return {
+            "status": True,
+            "message": message_text,
+            "model": model
+        }
 
 
 def _call_cerebras(
@@ -190,29 +190,22 @@ def _call_cerebras(
     data["messages"] = [prompt.render(RenderFormat.OPENAI)]
     headers = CEREBRAS_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
+    payload = {
+        "model": model,
+        "messages": data["messages"]
+    }
     with requests.Session() as session:
-        response = session.post(
-            CEREBRAS_API_URL,
+        response_data = _post_json(
+            session=session,
+            url=CEREBRAS_API_URL,
             headers=headers,
-            json={
-                "model": model,
-                "messages": data["messages"]
-            },
-            timeout=timeout,
-        )
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            return {
-                "status": True,
-                "message": response_data["choices"][0]["message"]["content"],
-                "model": model
-            }
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text
-            )
-        )
+            payload=payload,
+            timeout=timeout)
+        return {
+            "status": True,
+            "message": response_data["choices"][0]["message"]["content"],
+            "model": model
+        }
 
 
 def _call_groq(
@@ -234,21 +227,12 @@ def _call_groq(
     headers = GROQ_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
-        response = session.post(
-            GROQ_API_URL,
-            headers=headers,
-            json=data,
-            timeout=timeout)
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            return {
-                "status": True,
-                "message": response_data["choices"][0]["message"]["content"],
-                "model": model}
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text))
+        response_data = _post_json(session=session, url=GROQ_API_URL, headers=headers, payload=data, timeout=timeout)
+        return {
+            "status": True,
+            "message": response_data["choices"][0]["message"]["content"],
+            "model": model
+        }
 
 
 def _call_nvidia(
@@ -271,25 +255,12 @@ def _call_nvidia(
     headers = NVIDIA_HEADERS.copy()
     headers["Authorization"] = headers["Authorization"].format(api_key=auth["api_key"])
     with requests.Session() as session:
-        response = session.post(
-            NVIDIA_API_URL,
-            headers=headers,
-            json=data,
-            timeout=timeout
-        )
-        if response.status_code in (200, 201):
-            response_data = response.json()
-            return {
-                "status": True,
-                "message": response_data["choices"][0]["message"]["content"],
-                "model": model
-            }
-        raise MyTextProviderError(
-            "Status Code: {status_code}\n\nContent:\n{content}".format(
-                status_code=response.status_code,
-                content=response.text
-            )
-        )
+        response_data = _post_json(session=session, url=NVIDIA_API_URL, headers=headers, payload=data, timeout=timeout)
+        return {
+            "status": True,
+            "message": response_data["choices"][0]["message"]["content"],
+            "model": model
+        }
 
 
 PROVIDER_MAP = {
