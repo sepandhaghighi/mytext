@@ -35,12 +35,12 @@ def _validate_provider_auth(provider: Provider, auth: Dict[str, str]) -> None:
     :param auth: authentication parameters
     """
     required = PROVIDER_REQUIRED_KEYS[provider]
-    required_str = list(map(lambda item: "`{item}`".format(item=item), required))
+    required_backtick = list(map(lambda item: "`{item}`".format(item=item), required))
     if any(key not in auth for key in required):
         raise MyTextValidationError(
             MISSING_PROVIDER_KEYS_ERROR.format(
                 provider=provider.value.upper(),
-                keys=", ".join(required_str)))
+                keys=", ".join(required_backtick)))
 
 
 def _validate_run_mytext_inputs(
