@@ -77,6 +77,16 @@ DEFAULT_MODELS = {
     Provider.GITHUB: "openai/gpt-4o-mini",
 }
 
+PROVIDER_REQUIRED_KEYS = {
+    Provider.AI_STUDIO: ["api_key"],
+    Provider.CLOUDFLARE: ["api_key", "account_id"],
+    Provider.OPENROUTER: ["api_key"],
+    Provider.CEREBRAS: ["api_key"],
+    Provider.GROQ: ["api_key"],
+    Provider.NVIDIA: ["api_key"],
+    Provider.GITHUB: ["api_key"],
+}
+
 
 AI_STUDIO_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
 
