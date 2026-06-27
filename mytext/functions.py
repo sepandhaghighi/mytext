@@ -12,7 +12,7 @@ from .params import INSTRUCTIONS, TONE_HINTS, COMMON_RULES
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import INVALID_MODEL_ERROR
-from .params import MISSING_PROVIDER_KEYS_ERRORS, PROVIDER_REQUIRED_KEYS
+from .params import MISSING_PROVIDER_KEYS_ERROR, PROVIDER_REQUIRED_KEYS
 
 
 def _build_instruction(mode: Mode, tone: Tone) -> str:
@@ -26,6 +26,17 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     tone_hint = TONE_HINTS.get(tone, "")
     return template.format(tone=tone.value, tone_hint=tone_hint, common_rules=COMMON_RULES)
 
+def _validate_provider_auth(provider: Provider, auth: Dict[str, str]) -> None:
+    """
+    Validate provider credentials.
+
+    :param provider: API provider
+    :param auth: authentication parameters
+    """
+    required = PROVIDER_REQUIRED_KEYS[provider]
+    required_str = list(map(lambda item: "`{item}`".format(item=item), required))
+    if any(key not in auth for key in required):
+        raise MyTextValidationError(MISSING_PROVIDER_KEYS_ERROR.format(provider=provider.value, keys=", ".join(required_str)))
 
 def _validate_run_mytext_inputs(
         text: Any,
@@ -61,10 +72,10 @@ def _validate_run_mytext_inputs(
 
     if model is not None and not isinstance(model, str):
         raise MyTextValidationError(INVALID_MODEL_ERROR)
+    
+    _validate_provider_auth(provider=provider, auth=auth)
 
-    required = PROVIDER_REQUIRED_KEYS[provider]
-    if any(key not in auth for key in required):
-        raise MyTextValidationError(MISSING_PROVIDER_KEYS_ERRORS.format(provider=provider.value, keys=", ".join(required)))
+    
 
 
 def run_mytext(
