@@ -36,7 +36,7 @@ def _validate_provider_auth(provider: Provider, auth: Dict[str, str]) -> None:
     required = PROVIDER_REQUIRED_KEYS[provider]
     required_str = list(map(lambda item: "`{item}`".format(item=item), required))
     if any(key not in auth for key in required):
-        raise MyTextValidationError(MISSING_PROVIDER_KEYS_ERROR.format(provider=provider.value, keys=", ".join(required_str)))
+        raise MyTextValidationError(MISSING_PROVIDER_KEYS_ERROR.format(provider=provider.value.upper(), keys=", ".join(required_str)))
 
 def _validate_run_mytext_inputs(
         text: Any,

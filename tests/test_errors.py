@@ -46,46 +46,46 @@ def test_run_mytext_missing_api_key_for_ai_studio():
     auth = {}
     result = run_mytext(text="test", auth=auth, provider=Provider.AI_STUDIO)
     assert not result["status"]
-    assert result["message"] == "AI_STUDIO provider requires keys: `api_key`"
+    assert result["message"] == "`AI-STUDIO` provider requires keys: `api_key`"
 
 
 def test_run_mytext_missing_keys_for_cloudflare():
     auth = {"api_key": "x"}
     result = run_mytext(text="test", auth=auth, provider=Provider.CLOUDFLARE)
     assert not result["status"]
-    assert result["message"] == "CLOUDFLARE provider requires keys: `api_key`, `account_id`"
+    assert result["message"] == "`CLOUDFLARE` provider requires keys: `api_key`, `account_id`"
 
 
 def test_run_mytext_missing_api_key_for_openrouter():
     auth = {}
     result = run_mytext(text="test", auth=auth, provider=Provider.OPENROUTER)
     assert not result["status"]
-    assert result["message"] == "OPENROUTER provider requires keys: `api_key`"
+    assert result["message"] == "`OPENROUTER` provider requires keys: `api_key`"
 
 
 def test_run_mytext_missing_api_key_for_cerebras():
     auth = {}
     result = run_mytext(text="test", auth=auth, provider=Provider.CEREBRAS)
     assert not result["status"]
-    assert result["message"] == "CEREBRAS provider requires keys: `api_key`"
+    assert result["message"] == "`CEREBRAS` provider requires keys: `api_key`"
 
 
 def test_run_mytext_missing_api_key_for_groq():
     auth = {}
     result = run_mytext(text="test", auth=auth, provider=Provider.GROQ)
     assert not result["status"]
-    assert result["message"] == "GROQ provider requires keys: `api_key`"
+    assert result["message"] == "`GROQ` provider requires keys: `api_key`"
 
 
 def test_run_mytext_missing_api_key_for_nvidia():
     auth = {}
     result = run_mytext(text="test", auth=auth, provider=Provider.NVIDIA)
     assert not result["status"]
-    assert result["message"] == "NVIDIA provider requires keys: `api_key`"
+    assert result["message"] == "`NVIDIA` provider requires keys: `api_key`"
 
 
 def test_run_mytext_missing_api_key_for_github():
     auth = {}
     result = run_mytext(text="test", auth=auth, provider=Provider.GITHUB)
     assert not result["status"]
-    assert result["message"] == "GITHUB provider requires keys: `api_key`"
+    assert result["message"] == "`GITHUB` provider requires keys: `api_key`"
