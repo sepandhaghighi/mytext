@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cerebras default model changed to `gpt-oss-120b`
 - Cloudflare API call bug fixed
 - Test system modified
+- Validation system modified
 - `README.md` updated
 ## [0.8] - 2026-06-14
 ### Added

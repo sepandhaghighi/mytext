@@ -12,10 +12,7 @@ from .params import INSTRUCTIONS, TONE_HINTS, COMMON_RULES
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import INVALID_MODEL_ERROR
-from .params import MISSING_AI_STUDIO_KEYS_ERROR, MISSING_CLOUDFLARE_KEYS_ERROR
-from .params import MISSING_OPENROUTER_KEYS_ERROR
-from .params import MISSING_CEREBRAS_KEYS_ERROR, MISSING_GROQ_KEYS_ERROR
-from .params import MISSING_NVIDIA_KEYS_ERROR, MISSING_GITHUB_KEYS_ERROR
+from .params import MISSING_PROVIDER_KEYS_ERROR, PROVIDER_REQUIRED_KEYS
 
 
 def _build_instruction(mode: Mode, tone: Tone) -> str:
@@ -28,6 +25,22 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     template = INSTRUCTIONS.get(mode, INSTRUCTIONS[Mode.PARAPHRASE])
     tone_hint = TONE_HINTS.get(tone, "")
     return template.format(tone=tone.value, tone_hint=tone_hint, common_rules=COMMON_RULES)
+
+
+def _validate_provider_auth(provider: Provider, auth: Dict[str, str]) -> None:
+    """
+    Validate provider credentials.
+
+    :param provider: API provider
+    :param auth: authentication parameters
+    """
+    required = PROVIDER_REQUIRED_KEYS[provider]
+    required_backtick = list(map(lambda item: "`{item}`".format(item=item), required))
+    if any(key not in auth for key in required):
+        raise MyTextValidationError(
+            MISSING_PROVIDER_KEYS_ERROR.format(
+                provider=provider.value.upper(),
+                keys=", ".join(required_backtick)))
 
 
 def _validate_run_mytext_inputs(
@@ -65,27 +78,7 @@ def _validate_run_mytext_inputs(
     if model is not None and not isinstance(model, str):
         raise MyTextValidationError(INVALID_MODEL_ERROR)
 
-    if provider == Provider.AI_STUDIO:
-        if "api_key" not in auth:
-            raise MyTextValidationError(MISSING_AI_STUDIO_KEYS_ERROR)
-    elif provider == Provider.CLOUDFLARE:
-        if "api_key" not in auth or "account_id" not in auth:
-            raise MyTextValidationError(MISSING_CLOUDFLARE_KEYS_ERROR)
-    elif provider == Provider.OPENROUTER:
-        if "api_key" not in auth:
-            raise MyTextValidationError(MISSING_OPENROUTER_KEYS_ERROR)
-    elif provider == Provider.CEREBRAS:
-        if "api_key" not in auth:
-            raise MyTextValidationError(MISSING_CEREBRAS_KEYS_ERROR)
-    elif provider == Provider.GROQ:
-        if "api_key" not in auth:
-            raise MyTextValidationError(MISSING_GROQ_KEYS_ERROR)
-    elif provider == Provider.NVIDIA:
-        if "api_key" not in auth:
-            raise MyTextValidationError(MISSING_NVIDIA_KEYS_ERROR)
-    elif provider == Provider.GITHUB:
-        if "api_key" not in auth:
-            raise MyTextValidationError(MISSING_GITHUB_KEYS_ERROR)
+    _validate_provider_auth(provider=provider, auth=auth)
 
 
 def run_mytext(
