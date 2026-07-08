@@ -29,7 +29,7 @@ def test_main_no_text(capsys):
         with pytest.raises(SystemExit):
             main()
     _, err = capsys.readouterr()
-    assert "--text is required" in err
+    assert "Provide text either as a positional argument or with --text." in err
 
 
 @patch("mytext.cli._load_auth_from_env")
@@ -58,6 +58,22 @@ def test_main_single_run_success2(mock_run, mock_env, capsys):
     mock_run.return_value = {"status": True, "message": "AI RESULT", "model": "gemini"}
 
     with patch("sys.argv", ["mytext", "--text", "hello", "--provider", "ai-studio"]):
+        main()
+
+    out, _ = capsys.readouterr()
+    assert "AI RESULT" in out
+
+
+@patch("mytext.cli._load_auth_from_env")
+@patch("mytext.cli.run_mytext")
+def test_main_single_run_success3(mock_run, mock_env, capsys):
+    mock_env.return_value = {
+        Provider.AI_STUDIO: {"api_key": "x"},
+        Provider.CLOUDFLARE: {"api_key": None, "account_id": None},
+    }
+    mock_run.return_value = {"status": True, "message": "AI RESULT", "model": "gemini"}
+
+    with patch("sys.argv", ["mytext", "hello", "--provider", "ai-studio"]):
         main()
 
     out, _ = capsys.readouterr()
