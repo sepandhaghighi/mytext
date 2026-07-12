@@ -235,7 +235,7 @@ INVALID_TONE_ERROR = "`tone` must be an instance of Tone enum."
 INVALID_PROVIDER_ERROR = "`provider` must be an instance of Provider enum."
 INVALID_MODEL_ERROR = "`model` must be a string or None."
 UNSUPPORTED_PROVIDER_ERROR = "Unsupported provider."
-TEXT_IS_REQUIRED_ERROR = "--text is required."
+TEXT_IS_REQUIRED_ERROR = "Provide text either as a positional argument or with --text."
 
 
 MISSING_PROVIDER_KEYS_ERROR = "`{provider}` provider requires keys: {keys}"

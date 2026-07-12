@@ -69,9 +69,9 @@ Executes a one-time text transformation using the provided options and exits imm
 
 ```bash
 mytext \
+  "Can you update me on the project timeline by the end of the day?"
   --mode="paraphrase" \
-  --tone="formal" \
-  --text="Can you update me on the project timeline by the end of the day?"
+  --tone="formal"
 ```
 
 #### Loop
@@ -89,7 +89,7 @@ mytext \
 
 | Argument | Description | Default |
 |--------- |-------------|---------|
-| `--text` | Text to process (required unless `--loop` is used) | - |
+| `text`/`--text` | Text to process (required unless `--loop` is used) | - |
 | `--mode` | Text processing mode | `paraphrase` |
 | `--tone` | Output text desired tone | `neutral` |
 | `--provider` | AI provider selection | `auto` |
