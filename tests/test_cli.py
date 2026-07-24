@@ -3,7 +3,7 @@
 from unittest.mock import patch
 import pytest
 from mytext import Provider
-from mytext.cli import main
+from mytext.cli import main, _load_auth_from_env
 from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "CLI tests"
