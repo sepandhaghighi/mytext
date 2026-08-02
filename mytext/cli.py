@@ -45,6 +45,9 @@ def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
         Provider.NVIDIA: {
             "api_key": os.getenv("NVIDIA_API_KEY"),
         },
+        Provider.GITHUB: {
+            "api_key": os.getenv("GITHUB_API_KEY"),
+        },
     }
 
 

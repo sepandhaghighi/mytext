@@ -3,7 +3,7 @@
 from unittest.mock import patch
 import pytest
 from mytext import Provider
-from mytext.cli import main
+from mytext.cli import main, _load_auth_from_env
 from mytext.params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 
 TEST_CASE_NAME = "CLI tests"
@@ -178,3 +178,81 @@ def test_cli_custom_model(mock_run, mock_env, capsys):
     _, kwargs = mock_run.call_args
 
     assert kwargs["model"] == "llama-custom"
+
+
+@pytest.mark.parametrize(
+    "provider, env, expected",
+    [
+        (
+            Provider.AI_STUDIO,
+            {
+                "AI_STUDIO_API_KEY": "ai-key",
+            },
+            {
+                "api_key": "ai-key",
+            },
+        ),
+        (
+            Provider.CLOUDFLARE,
+            {
+                "CLOUDFLARE_API_KEY": "cloudflare-key",
+                "CLOUDFLARE_ACCOUNT_ID": "cloudflare-account",
+            },
+            {
+                "api_key": "cloudflare-key",
+                "account_id": "cloudflare-account",
+            },
+        ),
+        (
+            Provider.OPENROUTER,
+            {
+                "OPENROUTER_API_KEY": "openrouter-key",
+            },
+            {
+                "api_key": "openrouter-key",
+            },
+        ),
+        (
+            Provider.CEREBRAS,
+            {
+                "CEREBRAS_API_KEY": "cerebras-key",
+            },
+            {
+                "api_key": "cerebras-key",
+            },
+        ),
+        (
+            Provider.GROQ,
+            {
+                "GROQ_API_KEY": "groq-key",
+            },
+            {
+                "api_key": "groq-key",
+            },
+        ),
+        (
+            Provider.NVIDIA,
+            {
+                "NVIDIA_API_KEY": "nvidia-key",
+            },
+            {
+                "api_key": "nvidia-key",
+            },
+        ),
+        (
+            Provider.GITHUB,
+            {
+                "GITHUB_API_KEY": "github-key",
+            },
+            {
+                "api_key": "github-key",
+            },
+        ),
+    ],
+)
+def test_load_auth_from_env_all_providers(provider, env, expected):
+    with patch.dict("os.environ", env, clear=True):
+        auth_map = _load_auth_from_env()
+
+    assert provider in auth_map
+    assert auth_map[provider] == expected

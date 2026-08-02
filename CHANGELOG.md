@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `text` CLI argument
 ### Changed
+- GitHub provider credentials load bug fixed
 - API call functions modified
 - Cerebras default model changed to `gpt-oss-120b`
 - Cloudflare API call bug fixed
