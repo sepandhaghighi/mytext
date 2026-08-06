@@ -88,10 +88,6 @@ jobs:
               echo "NVIDIA_API_KEY=$SECRET_1" >> $GITHUB_ENV
               ;;
 
-            "GitHub")
-              echo "GITHUB_API_KEY=$SECRET_1" >> $GITHUB_ENV
-              ;;
-
             *)
               echo "Unknown provider"
               exit 1
