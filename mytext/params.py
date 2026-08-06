@@ -21,7 +21,6 @@ class Provider(Enum):
     CEREBRAS = "cerebras"
     GROQ = "groq"
     NVIDIA = "nvidia"
-    GITHUB = "github"
 
 
 class Mode(Enum):
@@ -74,7 +73,6 @@ DEFAULT_MODELS = {
     Provider.CEREBRAS: "gpt-oss-120b",
     Provider.GROQ: "openai/gpt-oss-20b",
     Provider.NVIDIA: "meta/llama-3.1-8b-instruct",
-    Provider.GITHUB: "openai/gpt-4o-mini",
 }
 
 PROVIDER_REQUIRED_KEYS = {
@@ -84,7 +82,6 @@ PROVIDER_REQUIRED_KEYS = {
     Provider.CEREBRAS: ["api_key"],
     Provider.GROQ: ["api_key"],
     Provider.NVIDIA: ["api_key"],
-    Provider.GITHUB: ["api_key"],
 }
 
 
@@ -126,13 +123,6 @@ GROQ_HEADERS = {
 NVIDIA_API_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
 
 NVIDIA_HEADERS = {
-    "Authorization": "Bearer {api_key}",
-    "Content-Type": "application/json",
-}
-
-GITHUB_API_URL = "https://models.github.ai/inference/chat/completions"
-
-GITHUB_HEADERS = {
     "Authorization": "Bearer {api_key}",
     "Content-Type": "application/json",
 }
