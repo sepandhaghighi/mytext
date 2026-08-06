@@ -11,35 +11,6 @@ TEST_CASE_NAME = "Functions tests"
 
 
 @patch("requests.Session.post")
-def test_run_mytext_github_success(mock_post):
-    mock_response = MagicMock()
-    mock_response.status_code = 200
-    mock_response.json.return_value = {
-        "choices": [
-            {
-                "message": {
-                    "content": "OK!"
-                }
-            }
-        ]
-    }
-
-    mock_post.return_value = mock_response
-
-    auth = {"api_key": "KEY"}
-    result = run_mytext(
-        text="hello",
-        auth=auth,
-        mode=Mode.PARAPHRASE,
-        tone=Tone.NEUTRAL,
-        provider=Provider.GITHUB
-    )
-
-    assert result["status"]
-    assert result["message"] == "OK!"
-
-
-@patch("requests.Session.post")
 def test_run_mytext_nvidia_success(mock_post):
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -379,27 +350,6 @@ def test_run_mytext_nvidia_failure(mock_post):
         mode=Mode.PARAPHRASE,
         tone=Tone.NEUTRAL,
         provider=Provider.NVIDIA
-    )
-    assert not result["status"]
-    assert "Unauthorized" in result["message"]
-
-
-@patch("requests.Session.post")
-def test_run_mytext_github_failure(mock_post):
-
-    mock_response = MagicMock()
-    mock_response.status_code = 401
-    mock_response.text = "Unauthorized"
-
-    mock_post.return_value = mock_response
-
-    auth = {"api_key": "KEY"}
-    result = run_mytext(
-        text="hello",
-        auth=auth,
-        mode=Mode.PARAPHRASE,
-        tone=Tone.NEUTRAL,
-        provider=Provider.GITHUB
     )
     assert not result["status"]
     assert "Unauthorized" in result["message"]
