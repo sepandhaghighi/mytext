@@ -240,7 +240,7 @@ PROVIDER_MAP = {
     Provider.OPENROUTER: _call_openrouter,
     Provider.CEREBRAS: _call_cerebras,
     Provider.GROQ: _call_groq,
-    Provider.NVIDIA: _call_nvidia
+    Provider.NVIDIA: _call_nvidia,
 }
 
 
