@@ -115,7 +115,6 @@ def test_main_all_providers_failure(mock_run, mock_env, capsys):
         Provider.CEREBRAS: {"api_key": "e"},
         Provider.GROQ: {"api_key": "f"},
         Provider.NVIDIA: {"api_key": "g"},
-        Provider.GITHUB: {"api_key": "h"},
     }
     mock_run.return_value = {"status": False, "message": "ERR", "model": "m"}
 
@@ -135,7 +134,6 @@ def test_main_specific_provider_failure(mock_run, mock_env, capsys):
         Provider.OPENROUTER: {"api_key": "d"},
         Provider.CEREBRAS: {"api_key": "e"},
         Provider.GROQ: {"api_key": "f"},
-        Provider.GITHUB: {"api_key": "g"},
         Provider.NVIDIA: {"api_key": None},
     }
     mock_run.return_value = {"status": False, "message": "ERR", "model": "m"}
@@ -237,15 +235,6 @@ def test_cli_custom_model(mock_run, mock_env, capsys):
             },
             {
                 "api_key": "nvidia-key",
-            },
-        ),
-        (
-            Provider.GITHUB,
-            {
-                "GITHUB_API_KEY": "github-key",
-            },
-            {
-                "api_key": "github-key",
             },
         ),
     ],
