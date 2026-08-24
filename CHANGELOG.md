@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `text` CLI argument
-- OpenRouter default model changed to `openai/gpt-oss-20b:free`
+- OpenRouter default model changed to `z-ai/glm-5.2:free`
 ### Changed
 - Providers credentials load bug fixed
 - API call functions modified
