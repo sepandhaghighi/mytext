@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test system modified
 - Validation system modified
 - `README.md` updated
+- OpenRouter default model changed to `z-ai/glm-5.2:free`
 ### Removed
 - GitHub provider
 ## [0.8] - 2026-06-14
