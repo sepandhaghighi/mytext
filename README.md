@@ -147,7 +147,7 @@ Each provider has a default model. You may optionally override it using either t
 | [**OpenRouter**](https://openrouter.ai/docs) | `OPENROUTER_API_KEY` | `z-ai/glm-5.2:free` | `OPENROUTER_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-openrouter.yml?style=flat-square&logo=openai&label=OpenRouter) |
 | [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `gpt-oss-120b` | `CEREBRAS_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-cerebras.yml?style=flat-square&logo=cerebras&label=Cerebras) |
 | [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-groq.yml?style=flat-square&logo=groq&label=Groq) |
-| [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `meta/llama-3.1-8b-instruct` | `NVIDIA_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-nvidia.yml?style=flat-square&logo=nvidia&label=NVIDIA) |
+| [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `nvidia/nemotron-3-super-120b-a12b` | `NVIDIA_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-nvidia.yml?style=flat-square&logo=nvidia&label=NVIDIA) |
 
 
 ## Configuration Resolution Priority
