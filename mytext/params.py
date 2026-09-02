@@ -72,7 +72,7 @@ DEFAULT_MODELS = {
     Provider.OPENROUTER: "z-ai/glm-5.2:free",
     Provider.CEREBRAS: "gpt-oss-120b",
     Provider.GROQ: "openai/gpt-oss-20b",
-    Provider.NVIDIA: "meta/llama-3.1-8b-instruct",
+    Provider.NVIDIA: "nvidia/nemotron-3-super-120b-a12b",
 }
 
 PROVIDER_REQUIRED_KEYS = {
