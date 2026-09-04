@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Validation system modified
 - `README.md` updated
 - OpenRouter default model changed to `z-ai/glm-5.2:free`
-- Nvidia default model changed to `nvidia/nemotron-3-super-120b-a12b`
+- NVIDIA default model changed to `nvidia/nemotron-3-super-120b-a12b`
 - `max_retries` parameter bug fixed
 - `max_retries` parameter default value changed to 3
 ### Removed
