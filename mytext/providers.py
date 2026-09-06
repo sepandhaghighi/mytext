@@ -250,7 +250,7 @@ def _call_provider(
         auth: Dict[str, str],
         model: str,
         timeout: float = 15,
-        max_retries: int = 4,
+        max_retries: int = 3,
         retry_delay: float = 0.5,
         backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
     """
@@ -269,7 +269,7 @@ def _call_provider(
     error_message = ""
     next_delay = retry_delay
     selected_model = model
-    while retry_index < max_retries:
+    while retry_index < max_retries + 1:
         try:
             return PROVIDER_MAP[provider](prompt=prompt, auth=auth, model=selected_model, timeout=timeout)
         except Exception as e:
