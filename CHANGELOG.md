@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cloudflare API call bug fixed
 - Test system modified
 - Validation system modified
+- CLI arguments modified
 - `README.md` updated
 - OpenRouter default model changed to `z-ai/glm-5.2:free`
 - NVIDIA default model changed to `nvidia/nemotron-3-super-120b-a12b`
