@@ -64,9 +64,9 @@ def _build_parser() -> argparse.ArgumentParser:
     """Build argument parser."""
     parser = argparse.ArgumentParser(description="mytext -- AI-powered text enhancer.")
 
-    parser.add_argument('--version', help='Version', action='store_true')
+    parser.add_argument('--version', help='Version', action='store_true', default=False)
 
-    parser.add_argument('--info', help='Info', action='store_true')
+    parser.add_argument('--info', help='Info', action='store_true', default=False)
 
     parser.add_argument(
         "--mode",
