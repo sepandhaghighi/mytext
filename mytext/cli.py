@@ -5,7 +5,8 @@ import os
 import sys
 import argparse
 from typing import Dict
-from art import tprint
+from art import text2art
+from typio import type_print, TypeMode
 from .functions import run_mytext
 from .params import MY_TEXT_VERSION, MY_TEXT_OVERVIEW, MY_TEXT_REPO
 from .params import Mode, Tone, Provider
@@ -17,10 +18,10 @@ from .params import LOOP_INPUT_MESSAGE, EXIT_MESSAGE
 
 def _print_mytext_info() -> None:
     """Print mytext details."""
-    tprint("MyText")
-    tprint("V:" + MY_TEXT_VERSION)
-    print(MY_TEXT_OVERVIEW)
-    print("Repo : " + MY_TEXT_REPO)
+    type_print(text2art("MyText"), mode=TypeMode.LINE, delay=0.05)
+    type_print(text2art("V:" + MY_TEXT_VERSION), mode=TypeMode.LINE, delay=0.05)
+    type_print(MY_TEXT_OVERVIEW, mode=TypeMode.CHAR, delay=0.05)
+    type_print("Repo : " + MY_TEXT_REPO, mode=TypeMode.CHAR, delay=0.1)
 
 
 def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
