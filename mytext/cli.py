@@ -18,8 +18,8 @@ from .params import LOOP_INPUT_MESSAGE, EXIT_MESSAGE
 
 def _print_mytext_info() -> None:
     """Print mytext details."""
-    type_print(text2art("MyText"), mode=TypeMode.LINE, delay=0.05)
-    type_print(text2art("V:" + MY_TEXT_VERSION), mode=TypeMode.LINE, delay=0.05)
+    type_print(text2art("MyText"), mode=TypeMode.LINE, delay=0.1)
+    type_print(text2art("V:" + MY_TEXT_VERSION), mode=TypeMode.LINE, delay=0.1)
     type_print(MY_TEXT_OVERVIEW, mode=TypeMode.CHAR, delay=0.05)
     type_print("Repo : " + MY_TEXT_REPO, mode=TypeMode.CHAR, delay=0.1)
 
