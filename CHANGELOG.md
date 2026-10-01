@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - `_print_mytext_info` function modified
+- `Python 3.7` support dropped
 ## [0.9] - 2026-09-30
 ### Added
 - `text` CLI argument
