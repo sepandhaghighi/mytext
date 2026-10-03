@@ -20,8 +20,8 @@ def _print_mytext_info() -> None:
     """Print mytext details."""
     type_print(text2art("MyText"), mode=TypeMode.LINE, delay=0.1)
     type_print(text2art("V:" + MY_TEXT_VERSION), mode=TypeMode.LINE, delay=0.1)
-    type_print(MY_TEXT_OVERVIEW, mode=TypeMode.CHAR, delay=0.1)
-    type_print("Repo : " + MY_TEXT_REPO, mode=TypeMode.CHAR, delay=0.1)
+    type_print(MY_TEXT_OVERVIEW, mode=TypeMode.CHAR, delay=0.07)
+    type_print("Repo : " + MY_TEXT_REPO, mode=TypeMode.CHAR, delay=0.07)
 
 
 def _load_auth_from_env() -> Dict[Provider, Dict[str, str]]:
