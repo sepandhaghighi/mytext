@@ -85,7 +85,7 @@ def run_mytext(
         text: str,
         auth: dict,
         mode: Mode = Mode.PARAPHRASE,
-        tone: Tone = Tone.NEUTRAL,
+        tone: Tone = Tone.PRESERVE,
         provider: Provider = Provider.AI_STUDIO,
         model: Optional[str] = None) -> Dict[str, Union[bool, str]]:
     """
