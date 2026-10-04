@@ -38,6 +38,7 @@ class Mode(Enum):
 class Tone(Enum):
     """Tone enum."""
 
+    PRESERVE = "preserve"
     NEUTRAL = "neutral"
     FORMAL = "formal"
     CASUAL = "casual"
@@ -52,6 +53,7 @@ class Tone(Enum):
 
 
 TONE_HINTS = {
+    Tone.PRESERVE: "Preserve the original tone, voice, style, and level of formality of the user's text.",
     Tone.NEUTRAL: "Use clear, balanced, and objective language. Avoid expressive, emotional, or stylistic wording.",
     Tone.FORMAL: "Use formal and structured language.",
     Tone.CASUAL: "Use relaxed and conversational language.",
