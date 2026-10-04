@@ -131,7 +131,7 @@ print(result["status"], result["message"])
 | `text` | Input text to process | - |
 | `auth` | Authentication parameters for the provider | - |
 | `mode` | Text processing mode | `Mode.PARAPHRASE` |
-| `tone` | Output text desired tone | `Tone.NEUTRAL` |
+| `tone` | Output text desired tone | `Tone.PRESERVE` |
 | `provider` | AI provider | `Provider.AI_STUDIO` |
 | `model` | Override provider LLM model | `None` |
 
