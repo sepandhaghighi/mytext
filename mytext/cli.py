@@ -81,8 +81,8 @@ def _build_parser() -> argparse.ArgumentParser:
         "--tone",
         type=str.lower,
         choices=[x.value for x in Tone],
-        default=Tone.NEUTRAL.value,
-        help="Writing tone (default: neutral)"
+        default=Tone.PRESERVE.value,
+        help="Writing tone (default: preserve)"
     )
 
     parser.add_argument(
