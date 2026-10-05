@@ -53,7 +53,7 @@ class Tone(Enum):
 
 
 TONE_HINTS = {
-    Tone.PRESERVE: "Preserve the original tone, voice, style, and level of formality of the user's text.",
+    Tone.PRESERVE: "Preserve the input text's tone, style, and formality.",
     Tone.NEUTRAL: "Use clear, balanced, and objective language. Avoid expressive, emotional, or stylistic wording.",
     Tone.FORMAL: "Use formal and structured language.",
     Tone.CASUAL: "Use relaxed and conversational language.",
