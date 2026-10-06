@@ -53,18 +53,76 @@ class Tone(Enum):
 
 
 TONE_HINTS = {
-    Tone.PRESERVE: "Preserve the input text's tone, style, and formality.",
-    Tone.NEUTRAL: "Use clear, balanced, and objective language. Avoid expressive, emotional, or stylistic wording.",
-    Tone.FORMAL: "Use formal and structured language.",
-    Tone.CASUAL: "Use relaxed and conversational language.",
-    Tone.FRIENDLY: "Use warm and approachable language.",
-    Tone.PROFESSIONAL: "Use clear and workplace-appropriate language.",
-    Tone.ACADEMIC: "Use precise and scholarly language.",
-    Tone.CREATIVE: "Use expressive and imaginative language.",
-    Tone.BIBLICAL: "Use archaic and scripture-like language.",
-    Tone.VIKING: "Use bold, heroic, and warrior-like expressions.",
-    Tone.ZEN: "Use minimal, calm, and reflective phrasing.",
-    Tone.CORPORATE: "Use business-oriented and concise language."
+    Tone.PRESERVE: (
+        "Preserve the input text's original tone, style, formality, and overall voice."
+        "Do not intentionally change its tone or style."
+    ),
+    Tone.NEUTRAL: (
+        "Write in a neutral tone."
+        "Use clear, balanced, and objective language. Avoid expressive, emotional, or stylistic wording."
+        "Adapt the wording, rhythm, and vocabulary to match a neutral writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.FORMAL: (
+        "Write in a formal tone."
+        "Use formal and structured language."
+        "Adapt the wording, rhythm, and vocabulary to match a formal writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.CASUAL: (
+        "Write in a casual tone."
+        "Use relaxed and conversational language."
+        "Adapt the wording, rhythm, and vocabulary to match a casual writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.FRIENDLY: (
+        "Write in a friendly tone."
+        "Use warm and approachable language."
+        "Adapt the wording, rhythm, and vocabulary to match a friendly writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.PROFESSIONAL: (
+        "Write in a professional tone."
+        "Use clear and workplace-appropriate language."
+        "Adapt the wording, rhythm, and vocabulary to match a professional writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.ACADEMIC: (
+        "Write in a academic tone."
+        "Use precise and scholarly language."
+        "Adapt the wording, rhythm, and vocabulary to match a academic writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.CREATIVE: (
+        "Write in a creative tone."
+        "Use expressive and imaginative language."
+        "Adapt the wording, rhythm, and vocabulary to match a creative writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.BIBLICAL: (
+        "Write in a biblical tone."
+        "Use archaic and scripture-like language."
+        "Adapt the wording, rhythm, and vocabulary to match a biblical writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.VIKING: (
+        "Write in a viking tone."
+        "Use bold, heroic, and warrior-like expressions."
+        "Adapt the wording, rhythm, and vocabulary to match a viking writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.ZEN: (
+        "Write in a zen tone."
+        "Use minimal, calm, and reflective phrasing."
+        "Adapt the wording, rhythm, and vocabulary to match a zen writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    ),
+    Tone.CORPORATE: (
+        "Write in a corporate tone."
+        "Use business-oriented and concise language."
+        "Adapt the wording, rhythm, and vocabulary to match a corporate writing style."
+        "Ensure the tone is clearly recognizable and consistent throughout the text."
+    )
 }
 
 
@@ -140,9 +198,6 @@ INSTRUCTIONS = {
     Mode.PARAPHRASE: (
         "Paraphrase the user's text."
         "Your ONLY task is to rewrite the text while fully preserving its original meaning."
-        "Write in a {tone} tone."
-        "Adapt the wording, rhythm, and vocabulary to match a {tone} writing style."
-        "Ensure the tone is clearly recognizable and consistent throughout the text."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
         "{common_rules}"
@@ -160,9 +215,6 @@ INSTRUCTIONS = {
     Mode.SUMMARIZE: (
         "Summarize the user's text."
         "Your ONLY task is to summarize the text while preserving its original meaning."
-        "Write in a {tone} tone."
-        "Adapt the wording, rhythm, and vocabulary to match a {tone} writing style."
-        "Ensure the tone is clearly recognizable and consistent throughout the text."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
         "{common_rules}"
@@ -172,9 +224,6 @@ INSTRUCTIONS = {
     Mode.SIMPLIFY: (
         "Simplify the user's text."
         "Your ONLY task is to rewrite the text in a simpler and more accessible way while preserving its original meaning."
-        "Write in a {tone} tone."
-        "Adapt the wording, rhythm, and vocabulary to match a {tone} writing style."
-        "Ensure the tone is clearly recognizable and consistent throughout the text."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
         "{common_rules}"
@@ -185,9 +234,6 @@ INSTRUCTIONS = {
         "Convert the user's text into concise bullet points."
         "Use '-' as the bullet symbol for every item."
         "Your ONLY task is to extract and bulletize the content while preserving its original meaning."
-        "Write in a {tone} tone."
-        "Adapt the wording, rhythm, and vocabulary to match a {tone} writing style."
-        "Ensure the tone is clearly recognizable and consistent throughout the text."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
         "{common_rules}"
@@ -197,9 +243,6 @@ INSTRUCTIONS = {
     Mode.SHORTEN: (
         "Shorten the user's text."
         "Your ONLY task is to make the text more concise while preserving its original meaning."
-        "Write in a {tone} tone."
-        "Adapt the wording, rhythm, and vocabulary to match a {tone} writing style."
-        "Ensure the tone is clearly recognizable and consistent throughout the text."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
         "{common_rules}"
