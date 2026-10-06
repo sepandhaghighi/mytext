@@ -91,7 +91,7 @@ mytext \
 |--------- |-------------|---------|
 | `text`/`--text` | Text to process (required unless `--loop` is used) | - |
 | `--mode` | Text processing mode | `paraphrase` |
-| `--tone` | Output text desired tone | `neutral` |
+| `--tone` | Output text desired tone | `preserve` |
 | `--provider` | AI provider selection | `auto` |
 | `--loop` | Enable interactive loop mode | `false` |
 | `--model` | Override provider LLM model | - |
@@ -100,7 +100,7 @@ mytext \
 
 ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
 
-ℹ️ Supported tones: `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`, `biblical`, `viking`, `zen`, `corporate`
+ℹ️ Supported tones: `preserve`, `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`, `biblical`, `viking`, `zen`, `corporate`
 
 ℹ️ Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`
 
