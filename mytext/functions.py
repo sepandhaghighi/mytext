@@ -24,7 +24,7 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     """
     template = INSTRUCTIONS.get(mode, INSTRUCTIONS[Mode.PARAPHRASE])
     tone_hint = TONE_HINTS.get(tone, "")
-    return template.format(tone=tone.value, tone_hint=tone_hint, common_rules=COMMON_RULES)
+    return template.format(tone_hint=tone_hint, common_rules=COMMON_RULES)
 
 
 def _validate_provider_auth(provider: Provider, auth: Dict[str, str]) -> None:
