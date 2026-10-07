@@ -55,7 +55,6 @@ class Tone(Enum):
 TONE_HINTS = {
     Tone.PRESERVE: (
         "Preserve the input text's original tone, style, formality, and overall voice."
-        "Do not intentionally change its tone or style."
     ),
     Tone.NEUTRAL: (
         "Write in a neutral tone."
