@@ -195,6 +195,18 @@ COMMON_RULES = (
 
 
 INSTRUCTIONS = {
+    Mode.POLISH: (
+        "Polish the user's text."
+        "Your ONLY task is to improve the clarity, fluency, readability, grammar, "
+        "spelling, punctuation, and naturalness of the text."
+        "Preserve the original meaning, tone, voice, style, and structure."
+        "Make only the minimum changes necessary to improve the text."
+        "Do NOT substantially rewrite, paraphrase, shorten, expand, or reorganize the text."
+        "Preserve the original wording whenever it is already clear and natural."
+        "{common_rules}"
+        "Return ONLY the polished text, with no commentary."
+        "Return only the final polished text."
+    ),
     Mode.PARAPHRASE: (
         "Paraphrase the user's text."
         "Your ONLY task is to rewrite the text while fully preserving its original meaning."
