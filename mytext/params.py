@@ -26,6 +26,7 @@ class Provider(Enum):
 class Mode(Enum):
     """Mode enum."""
 
+    POLISH = "polish"
     PARAPHRASE = "paraphrase"
     GRAMMAR = "grammar"
     SUMMARIZE = "summarize"
