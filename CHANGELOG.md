@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `preserve` tone
 ### Changed
 - `_print_mytext_info` function modified
+- `_build_instruction` function modified
+- Instructions modified
 - `Python 3.7` support dropped
 - `README.md` updated
 ## [0.9] - 2026-09-30
