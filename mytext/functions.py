@@ -22,7 +22,7 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     :param mode: mode
     :param tone: tone
     """
-    template = INSTRUCTIONS.get(mode, INSTRUCTIONS[Mode.PARAPHRASE])
+    template = INSTRUCTIONS.get(mode, INSTRUCTIONS[Mode.POLISH])
     tone_hint = TONE_HINTS.get(tone, "")
     return template.format(tone_hint=tone_hint, common_rules=COMMON_RULES)
 
@@ -84,7 +84,7 @@ def _validate_run_mytext_inputs(
 def run_mytext(
         text: str,
         auth: dict,
-        mode: Mode = Mode.PARAPHRASE,
+        mode: Mode = Mode.POLISH,
         tone: Tone = Tone.PRESERVE,
         provider: Provider = Provider.AI_STUDIO,
         model: Optional[str] = None) -> Dict[str, Union[bool, str]]:

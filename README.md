@@ -90,7 +90,7 @@ mytext \
 | Argument | Description | Default |
 |--------- |-------------|---------|
 | `text`/`--text` | Text to process (required unless `--loop` is used) | - |
-| `--mode` | Text processing mode | `paraphrase` |
+| `--mode` | Text processing mode | `polish` |
 | `--tone` | Output text desired tone | `preserve` |
 | `--provider` | AI provider selection | `auto` |
 | `--loop` | Enable interactive loop mode | `false` |
@@ -98,7 +98,7 @@ mytext \
 | `--version` | Show application version| - |
 | `--info` | Show application information| - |
 
-ℹ️ Supported modes: `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
+ℹ️ Supported modes: `polish`, `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
 
 ℹ️ Supported tones: `preserve`, `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`, `biblical`, `viking`, `zen`, `corporate`
 
@@ -130,7 +130,7 @@ print(result["status"], result["message"])
 |-----------|-------------|---------|
 | `text` | Input text to process | - |
 | `auth` | Authentication parameters for the provider | - |
-| `mode` | Text processing mode | `Mode.PARAPHRASE` |
+| `mode` | Text processing mode | `Mode.POLISH` |
 | `tone` | Output text desired tone | `Tone.PRESERVE` |
 | `provider` | AI provider | `Provider.AI_STUDIO` |
 | `model` | Override provider LLM model | `None` |

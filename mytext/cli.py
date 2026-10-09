@@ -73,8 +73,8 @@ def _build_parser() -> argparse.ArgumentParser:
         "--mode",
         type=str.lower,
         choices=[x.value for x in Mode],
-        default=Mode.PARAPHRASE.value,
-        help="Processing mode (default: paraphrase)"
+        default=Mode.POLISH.value,
+        help="Processing mode (default: polish)"
     )
 
     parser.add_argument(
