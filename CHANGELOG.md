@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `polish` mode
 - `preserve` tone
 ### Changed
+- Default mode changed to `polish`
+- Default tone changed to `preserve`
 - `_print_mytext_info` function modified
 - `_build_instruction` function modified
 - Instructions modified
