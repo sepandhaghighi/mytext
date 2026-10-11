@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Default mode changed to `polish`
 - Default tone changed to `preserve`
+- Default timeout changed to 25
 - `_print_mytext_info` function modified
 - `_build_instruction` function modified
 - Instructions modified
