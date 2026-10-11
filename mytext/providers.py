@@ -249,7 +249,7 @@ def _call_provider(
         prompt: Prompt,
         auth: Dict[str, str],
         model: str,
-        timeout: float = 15,
+        timeout: float = 25,
         max_retries: int = 3,
         retry_delay: float = 0.5,
         backoff_factor: float = 1.2) -> Dict[str, Union[bool, str]]:
