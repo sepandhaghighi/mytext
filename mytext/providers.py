@@ -48,7 +48,7 @@ def _call_ai_studio(
         prompt: Prompt,
         auth: Dict[str, str],
         model: str,
-        timeout: float = 15) -> Dict[str, Union[bool, str]]:
+        timeout: float) -> Dict[str, Union[bool, str]]:
     """
     Call AI Studio API and return the response.
 
@@ -80,7 +80,7 @@ def _call_cloudflare(
         prompt: Prompt,
         auth: Dict[str, str],
         model: str,
-        timeout: float = 15) -> Dict[str, Union[bool, str]]:
+        timeout: float) -> Dict[str, Union[bool, str]]:
     """
     Call Cloudflare API and return the response.
 
@@ -114,7 +114,7 @@ def _call_openrouter(
         prompt: Prompt,
         auth: Dict[str, str],
         model: str,
-        timeout: float = 15) -> Dict[str, Union[bool, str]]:
+        timeout: float) -> Dict[str, Union[bool, str]]:
     """
     Call OpenRouter API and return the response.
 
@@ -148,7 +148,7 @@ def _call_cerebras(
         prompt: Prompt,
         auth: Dict[str, str],
         model: str,
-        timeout: float = 15) -> Dict[str, Union[bool, str]]:
+        timeout: float) -> Dict[str, Union[bool, str]]:
     """
     Call Cerebras API and return the response.
 
@@ -183,7 +183,7 @@ def _call_groq(
         prompt: Prompt,
         auth: Dict[str, str],
         model: str,
-        timeout: float = 15) -> Dict[str, Union[bool, str]]:
+        timeout: float) -> Dict[str, Union[bool, str]]:
     """
     Call Groq API and return the response.
 
@@ -210,7 +210,7 @@ def _call_nvidia(
         prompt: Prompt,
         auth: Dict[str, str],
         model: str,
-        timeout: float = 15) -> Dict[str, Union[bool, str]]:
+        timeout: float) -> Dict[str, Union[bool, str]]:
     """
     Call NVIDIA NIM API and return the response.
 
