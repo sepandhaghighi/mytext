@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `Python 3.15` added to `test.yml`
 - `Python 3.7` support dropped
 - `README.md` updated
+- Build system modified
 ## [0.9] - 2026-09-30
 ### Added
 - `text` CLI argument
