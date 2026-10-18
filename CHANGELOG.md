@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `Python 3.7` support dropped
 - `README.md` updated
 - Build system modified
+- OpenRouter default model changed to `nvidia/nemotron-3-super-120b-a12b:free`
 ## [0.9] - 2026-09-30
 ### Added
 - `text` CLI argument
