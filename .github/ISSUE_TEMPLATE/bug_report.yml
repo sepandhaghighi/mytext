@@ -86,6 +86,7 @@ body:
       label: MyText version
       description: Which version of MyText are you using?
       options:
+        - MyText 1.0
         - MyText 0.9
         - MyText 0.8
         - MyText 0.7
