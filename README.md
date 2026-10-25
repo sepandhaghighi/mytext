@@ -157,14 +157,14 @@ Each provider has a default model. You may optionally override it using either t
 
 | Mode | Description | Tone Handling |
 |------|-------------|---------------|
-| Polish | Improves clarity, grammar, and readability while preserving meaning. | Supported |
-| Paraphrase | Rewrites text using different wording while preserving meaning. | Supported |
-| Grammar | Corrects grammar, spelling, and punctuation. | Ignored |
-| Summarize | Condenses text to its main points. | Supported |
-| Simplify | Makes text easier to understand. | Supported |
-| Bulletize | Converts text into a bullet-point list. | Ignored |
-| Shorten | Reduces text length while retaining key information. | Supported |
-| Emojify | Adds relevant emojis to the text. | Ignored |
+| **Polish** | Improves clarity, grammar, and readability while preserving meaning. | Supported |
+| **Paraphrase** | Rewrites text using different wording while preserving meaning. | Supported |
+| **Grammar** | Corrects grammar, spelling, and punctuation. | Ignored |
+| **Summarize** | Condenses text to its main points. | Supported |
+| **Simplify** | Makes text easier to understand. | Supported |
+| **Bulletize** | Converts text into a bullet-point list. | Ignored |
+| **Shorten** | Reduces text length while retaining key information. | Supported |
+| **Emojify** | Adds relevant emojis to the text. | Ignored |
 
 > [!NOTE]
 > Tone handling depends on the selected mode. Modes marked as `Ignored` do not use the `tone` parameter. For other modes, the requested tone influences the output style when applicable.
@@ -174,18 +174,18 @@ Each provider has a default model. You may optionally override it using either t
 
 | Tone | Description |
 |------|-------------|
-| Preserve | Maintains the original text's tone, style, formality, and overall voice. |
-| Neutral | Uses clear, balanced, and objective language without expressive or emotional wording. |
-| Formal | Uses structured, polished, and formal language appropriate for professional or official communication. |
-| Casual | Uses relaxed, conversational, and informal language. |
-| Friendly | Uses warm, approachable, and welcoming language. |
-| Professional | Uses clear, polished, and workplace-appropriate language. |
-| Academic | Uses precise, scholarly, and objective language suitable for academic writing. |
-| Creative | Uses expressive, imaginative, and engaging language. |
-| Biblical | Uses archaic, scripture-like language inspired by biblical writing. |
-| Viking | Uses bold, heroic, and warrior-like expressions. |
-| Zen | Uses minimal, calm, and reflective phrasing. |
-| Corporate | Uses concise, business-oriented language appropriate for corporate communication. |
+| **Preserve** | Maintains the original text's tone, style, formality, and overall voice. |
+| **Neutral** | Uses clear, balanced, and objective language without expressive or emotional wording. |
+| **Formal** | Uses structured, polished, and formal language appropriate for professional or official communication. |
+| **Casual** | Uses relaxed, conversational, and informal language. |
+| **Friendly** | Uses warm, approachable, and welcoming language. |
+| **Professional** | Uses clear, polished, and workplace-appropriate language. |
+| **Academic** | Uses precise, scholarly, and objective language suitable for academic writing. |
+| **Creative** | Uses expressive, imaginative, and engaging language. |
+| **Biblical** | Uses archaic, scripture-like language inspired by biblical writing. |
+| **Viking** | Uses bold, heroic, and warrior-like expressions. |
+| **Zen** | Uses minimal, calm, and reflective phrasing. |
+| **Corporate** | Uses concise, business-oriented language appropriate for corporate communication. |
 
 
 ## Configuration Resolution Priority
