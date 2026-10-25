@@ -98,11 +98,14 @@ mytext \
 | `--version` | Show application version| - |
 | `--info` | Show application information| - |
 
-ℹ️ Supported modes: `polish`, `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
+> [!NOTE]
+> Supported modes: `polish`, `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
 
-ℹ️ Supported tones: `preserve`, `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`, `biblical`, `viking`, `zen`, `corporate`
+> [!NOTE]
+> Supported tones: `preserve`, `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`, `biblical`, `viking`, `zen`, `corporate`
 
-ℹ️ Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`
+> [!NOTE]
+> Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`
 
 ### Library
 
