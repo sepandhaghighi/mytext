@@ -153,6 +153,23 @@ Each provider has a default model. You may optionally override it using either t
 | [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `nvidia/nemotron-3-super-120b-a12b` | `NVIDIA_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-nvidia.yml?style=flat-square&logo=nvidia&label=NVIDIA) |
 
 
+## Supported Modes
+
+| Mode | Description | Tone Handling |
+|------|-------------|---------------|
+| Polish | Improves clarity, grammar, and readability while preserving meaning. | Supported |
+| Paraphrase | Rewrites text using different wording while preserving meaning. | Supported |
+| Grammar | Corrects grammar, spelling, and punctuation. | Ignored |
+| Summarize | Condenses text to its main points. | Supported |
+| Simplify | Makes text easier to understand. | Supported |
+| Bulletize | Converts text into a bullet-point list. | Ignored |
+| Shorten | Reduces text length while retaining key information. | Supported |
+| Emojify | Adds relevant emojis to the text. | Ignored |
+
+> [!NOTE]
+> Tone handling depends on the selected mode. Modes marked as `Ignored` do not use the `tone` parameter. For other modes, the requested tone influences the output style when applicable.
+
+
 ## Configuration Resolution Priority
 
 MyText supports multiple configuration sources (CLI arguments, environment variables, and built-in defaults).
