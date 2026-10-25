@@ -157,12 +157,12 @@ Each provider has a default model. You may optionally override it using either t
 
 | Mode | Description | Tone Handling |
 |------|-------------|---------------|
-| **Polish** | Improves clarity, grammar, and readability while preserving meaning. | Supported |
+| **Polish** | Improves clarity, grammar, and readability while preserving meaning. | Ignored |
 | **Paraphrase** | Rewrites text using different wording while preserving meaning. | Supported |
 | **Grammar** | Corrects grammar, spelling, and punctuation. | Ignored |
 | **Summarize** | Condenses text to its main points. | Supported |
 | **Simplify** | Makes text easier to understand. | Supported |
-| **Bulletize** | Converts text into a bullet-point list. | Ignored |
+| **Bulletize** | Converts text into a bullet-point list. | Supported |
 | **Shorten** | Reduces text length while retaining key information. | Supported |
 | **Emojify** | Adds relevant emojis to the text. | Ignored |
 
