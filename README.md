@@ -160,7 +160,7 @@ Each provider has a default model. You may optionally override it using either t
 | **Polish** | Improves clarity, grammar, and readability while preserving meaning. | Ignored |
 | **Paraphrase** | Rewrites text using different wording while preserving meaning. | Supported |
 | **Grammar** | Corrects grammar, spelling, and punctuation. | Ignored |
-| **Summarize** | Summarizes text while preserving key information and meaning. | Supported |
+| **Summarize** | Summarizes text to its main points. | Supported |
 | **Simplify** | Makes text easier to understand. | Supported |
 | **Bulletize** | Converts text into a bullet-point list. | Supported |
 | **Shorten** | Reduces text length while retaining key information. | Supported |
