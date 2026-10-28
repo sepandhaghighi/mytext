@@ -102,7 +102,7 @@ def run_mytext(
         _validate_run_mytext_inputs(text, auth, mode, tone, provider, model)
         instruction_str = _build_instruction(mode, tone)
         template = PromptTemplate(
-            content="{instruction}\n\nUser text:\n{prompt[message]}",
+            content="{instruction}\n\n<user_text>\n{prompt[message]}\n</user_text>",
             custom_map={"instruction": instruction_str},
         )
         prompt = Prompt(message=text, template=template)
