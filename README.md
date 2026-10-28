@@ -167,7 +167,7 @@ Each provider has a default model. You may optionally override it using either t
 | **Emojify** | Adds relevant emojis to the text. | Ignored |
 
 > [!NOTE]
-> Tone handling depends on the selected mode. Modes marked as `Ignored` do not use the `tone` parameter. For other modes, the requested tone influences the output style when applicable.
+> Tone handling depends on the selected mode. Modes marked as `Ignored` do not use the `tone` parameter.
 
 
 ## Supported Tones
