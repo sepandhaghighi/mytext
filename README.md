@@ -98,11 +98,14 @@ mytext \
 | `--version` | Show application version| - |
 | `--info` | Show application information| - |
 
-ℹ️ Supported modes: `polish`, `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
+> [!NOTE]
+> Supported modes: `polish`, `paraphrase`, `grammar`, `summarize`, `simplify`, `bulletize`, `shorten`, `emojify`
 
-ℹ️ Supported tones: `preserve`, `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`, `biblical`, `viking`, `zen`, `corporate`
+> [!NOTE]
+> Supported tones: `preserve`, `neutral`, `formal`, `casual`, `friendly`, `professional`, `academic`, `creative`, `biblical`, `viking`, `zen`, `corporate`
 
-ℹ️ Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`
+> [!NOTE]
+> Supported providers: `auto`, `ai-studio`, `cloudflare`, `openrouter`, `cerebras`, `groq`, `nvidia`
 
 ### Library
 
@@ -148,6 +151,41 @@ Each provider has a default model. You may optionally override it using either t
 | [**Cerebras**](https://docs.cerebras.ai/) | `CEREBRAS_API_KEY` | `gpt-oss-120b` | `CEREBRAS_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-cerebras.yml?style=flat-square&logo=cerebras&label=Cerebras) |
 | [**Groq**](https://console.groq.com/docs) | `GROQ_API_KEY` | `openai/gpt-oss-20b` | `GROQ_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-groq.yml?style=flat-square&logo=groq&label=Groq) |
 | [**NVIDIA**](https://docs.nvidia.com/nim/) | `NVIDIA_API_KEY` | `nvidia/nemotron-3-super-120b-a12b` | `NVIDIA_MODEL` | ![](https://img.shields.io/github/actions/workflow/status/sepandhaghighi/mytext/api-nvidia.yml?style=flat-square&logo=nvidia&label=NVIDIA) |
+
+
+## Supported Modes
+
+| Mode | Description | Tone Handling |
+|------|-------------|---------------|
+| **Polish** | Improves clarity, grammar, and readability while preserving meaning. | Ignored |
+| **Paraphrase** | Rewrites text using different wording while preserving meaning. | Supported |
+| **Grammar** | Corrects grammar, spelling, and punctuation. | Ignored |
+| **Summarize** | Summarizes text to its main points. | Supported |
+| **Simplify** | Makes text easier to understand. | Supported |
+| **Bulletize** | Converts text into a bullet-point list. | Supported |
+| **Shorten** | Reduces text length while retaining key information. | Supported |
+| **Emojify** | Adds relevant emojis to the text. | Ignored |
+
+> [!NOTE]
+> Tone handling depends on the selected mode. Modes marked as `Ignored` do not use the `tone` parameter.
+
+
+## Supported Tones
+
+| Tone | Description |
+|------|-------------|
+| **Preserve** | Maintains the original text's tone, style, formality, and overall voice. |
+| **Neutral** | Uses clear, balanced, and objective language without expressive or emotional wording. |
+| **Formal** | Uses structured, polished, and formal language appropriate for professional or official communication. |
+| **Casual** | Uses relaxed, conversational, and informal language. |
+| **Friendly** | Uses warm, approachable, and welcoming language. |
+| **Professional** | Uses clear, polished, and workplace-appropriate language. |
+| **Academic** | Uses precise, scholarly, and objective language suitable for academic writing. |
+| **Creative** | Uses expressive, imaginative, and engaging language. |
+| **Biblical** | Uses archaic, scripture-like language inspired by biblical writing. |
+| **Viking** | Uses bold, heroic, and warrior-like expressions. |
+| **Zen** | Uses minimal, calm, and reflective phrasing. |
+| **Corporate** | Uses concise, business-oriented language appropriate for corporate communication. |
 
 
 ## Configuration Resolution Priority
