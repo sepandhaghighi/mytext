@@ -129,7 +129,7 @@ TONE_HINTS = {
 DEFAULT_MODELS = {
     Provider.AI_STUDIO: "gemma-4-31b-it",
     Provider.CLOUDFLARE: "meta/llama-3.1-8b-instruct-fast",
-    Provider.OPENROUTER: "nvidia/nemotron-3-super-120b-a12b:free",
+    Provider.OPENROUTER: "openrouter/free",
     Provider.CEREBRAS: "gpt-oss-120b",
     Provider.GROQ: "openai/gpt-oss-20b",
     Provider.NVIDIA: "nvidia/nemotron-3-super-120b-a12b",
