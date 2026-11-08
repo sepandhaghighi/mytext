@@ -223,44 +223,29 @@ INSTRUCTIONS = {
         "Make only the minimum changes necessary to improve the text."
         "Do NOT substantially rewrite, paraphrase, shorten, expand, or reorganize the text."
         "Preserve the original wording whenever it is already clear and natural."
-        "{common_rules}"
-        "Return ONLY the polished text, with no commentary."
-        "Return only the final polished text."
     ),
     Mode.PARAPHRASE: (
         "Paraphrase the user's text."
         "Your ONLY task is to rewrite the text while fully preserving its original meaning."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
-        "{common_rules}"
-        "Return ONLY the paraphrased text, with no commentary."
-        "Return only the final rewritten text."
     ),
     Mode.GRAMMAR: (
         "Correct grammar, spelling, punctuation, and minor clarity issues in the user's text."
         "Your ONLY task is to fix errors while preserving the text's original meaning."
         "Preserve the original wording and structure as much as possible."
-        "{common_rules}"
-        "Return ONLY the corrected text, with no commentary."
-        "Return only the final rewritten text."
     ),
     Mode.SUMMARIZE: (
         "Summarize the user's text."
         "Your ONLY task is to summarize the text while preserving its original meaning."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
-        "{common_rules}"
-        "Return ONLY the summarized text, with no commentary."
-        "Return only the final rewritten text."
     ),
     Mode.SIMPLIFY: (
         "Simplify the user's text."
         "Your ONLY task is to rewrite the text in a simpler and more accessible way while preserving its original meaning."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
-        "{common_rules}"
-        "Return ONLY the simplified text, with no commentary."
-        "Return only the final rewritten text."
     ),
     Mode.BULLETIZE: (
         "Convert the user's text into concise bullet points."
@@ -268,26 +253,17 @@ INSTRUCTIONS = {
         "Your ONLY task is to extract and bulletize the content while preserving its original meaning."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
-        "{common_rules}"
-        "Return ONLY the bulletized text, with no commentary."
-        "Return only the final rewritten text."
     ),
     Mode.SHORTEN: (
         "Shorten the user's text."
         "Your ONLY task is to make the text more concise while preserving its original meaning."
         "{tone_hint}"
         "If there is a conflict between tone and task, prioritize preserving meaning over stylistic changes."
-        "{common_rules}"
-        "Return ONLY the shortened text, with no commentary."
-        "Return only the final rewritten text."
     ),
     Mode.EMOJIFY: (
         "Enhance the user's text by adding relevant emojis."
         "Your ONLY task is to insert appropriate emojis into the text."
         "Preserve the original meaning and wording."
-        "{common_rules}"
-        "Return ONLY the modified text with emojis, with no commentary."
-        "Return only the final rewritten text."
     ),
 }
 
