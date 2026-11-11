@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from unittest.mock import patch
 from mytext import run_mytext
 from mytext import Mode, Tone, Provider
 
@@ -82,3 +83,12 @@ def test_run_mytext_missing_api_key_for_nvidia():
     result = run_mytext(text="test", auth=auth, provider=Provider.NVIDIA)
     assert not result["status"]
     assert result["message"] == "`NVIDIA` provider requires keys: `api_key`"
+
+
+def test_run_mytext_none_api_key_rejected():
+    with patch("mytext.functions._call_provider") as mock_call:
+        mock_call.side_effect = AssertionError("provider must not be called")
+        result = run_mytext(text="test", auth={"api_key": None}, provider=Provider.GROQ)
+    assert not result["status"]
+    assert result["message"] == "`GROQ` provider requires keys: `api_key`"
+    mock_call.assert_not_called()
