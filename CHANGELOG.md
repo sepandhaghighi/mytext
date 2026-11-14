@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Prompt template modified
+- Instructions modified
 - `README.md` updated
 - OpenRouter default model changed to `openrouter/free`
 ## [1.0] - 2026-10-23
