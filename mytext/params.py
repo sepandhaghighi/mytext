@@ -188,7 +188,7 @@ NVIDIA_HEADERS = {
 }
 
 PROMPT_TEMPLATE = """
-You are an expert text transformation assistant.
+You are an expert text writing assistant.
 
 General Rules:
 
