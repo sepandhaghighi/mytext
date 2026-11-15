@@ -8,7 +8,7 @@ from .errors import MyTextValidationError
 from .providers import _call_provider
 from .params import Mode, Tone, Provider
 from .params import DEFAULT_MODELS
-from .params import INSTRUCTIONS, TONE_HINTS, COMMON_RULES, PROMPT_TEMPLATE
+from .params import INSTRUCTIONS, TONE_HINTS, GENERAL_RULES, PROMPT_TEMPLATE
 from .params import INVALID_TEXT_ERROR, INVALID_AUTH_ERROR, INVALID_MODE_ERROR
 from .params import INVALID_TONE_ERROR, INVALID_PROVIDER_ERROR
 from .params import INVALID_MODEL_ERROR
@@ -103,7 +103,7 @@ def run_mytext(
         instruction_str = _build_instruction(mode, tone)
         template = PromptTemplate(
             content=PROMPT_TEMPLATE,
-            custom_map={"common_rules": COMMON_RULES, "instruction": instruction_str},
+            custom_map={"general_rules": GENERAL_RULES, "instruction": instruction_str},
         )
         prompt = Prompt(message=text, template=template)
         result = _call_provider(provider=provider,
