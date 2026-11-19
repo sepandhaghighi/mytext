@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `README.md` updated
 - OpenRouter default model changed to `openrouter/free`
 - `COMMON_RULES` renamed to `GENERAL_RULES`
+- Empty text bug fixed
+- Test system modified
 ## [1.0] - 2026-10-23
 ### Added
 - `polish` mode
