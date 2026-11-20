@@ -32,6 +32,14 @@ def test_main_no_text(capsys):
     assert "Provide text either as a positional argument or with --text." in err
 
 
+def test_main_empty_text(capsys):
+    with patch("sys.argv", ["mytext", "--text", "     "]):
+        with pytest.raises(SystemExit):
+            main()
+    _, err = capsys.readouterr()
+    assert "Provide text either as a positional argument or with --text." in err
+
+
 @patch("mytext.cli._load_auth_from_env")
 @patch("mytext.cli.run_mytext")
 def test_main_single_run_success1(mock_run, mock_env, capsys):

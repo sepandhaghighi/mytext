@@ -60,7 +60,7 @@ def _validate_run_mytext_inputs(
     :param provider: API provider
     :param model: LLM model
     """
-    if not isinstance(text, str):
+    if not isinstance(text, str) or not text.strip():
         raise MyTextValidationError(INVALID_TEXT_ERROR)
 
     if not isinstance(auth, dict):

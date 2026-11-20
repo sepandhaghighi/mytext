@@ -271,7 +271,7 @@ OUTPUT_TEMPLATE = """
 {result}
 """
 
-INVALID_TEXT_ERROR = "`text` must be a string."
+INVALID_TEXT_ERROR = "`text` must be a non-empty string."
 INVALID_AUTH_ERROR = "`auth` must be a dictionary."
 INVALID_MODE_ERROR = "`mode` must be an instance of Mode enum."
 INVALID_TONE_ERROR = "`tone` must be an instance of Tone enum."
