@@ -131,7 +131,8 @@ def _run(parser: argparse.ArgumentParser) -> None:
         _print_mytext_info()
     else:
         text = args.text_optional or args.text
-        text = text.strip()
+        if text is not None:
+            text = text.strip()
         if not text:
             if args.loop:
                 text = input(LOOP_INPUT_MESSAGE)
