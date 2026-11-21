@@ -5,11 +5,16 @@ from mytext import Mode, Tone, Provider
 
 TEST_CASE_NAME = "Errors tests"
 
+def test_run_mytext_empty_text():
+    result = run_mytext(text="     ", auth={}, mode=Mode.PARAPHRASE, tone=Tone.NEUTRAL)
+    assert not result["status"]
+    assert result["message"] == "`text` must be a non-empty string."
+
 
 def test_run_mytext_invalid_text_type():
     result = run_mytext(text=123, auth={}, mode=Mode.PARAPHRASE, tone=Tone.NEUTRAL)
     assert not result["status"]
-    assert result["message"] == "`text` must be a string."
+    assert result["message"] == "`text` must be a non-empty string."
 
 
 def test_run_mytext_invalid_auth_type():
