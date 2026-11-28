@@ -27,6 +27,15 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     return template.format(tone_hint=tone_hint)
 
 
+def _clean_output(text: str) -> str:
+    """
+    Remove unexpected tags from the text.
+    
+    :param text: input text
+    """
+    return text.replace("<user_input>", "").replace("</user_input>", "").strip()
+
+
 def _validate_provider_auth(provider: Provider, auth: Dict[str, str]) -> None:
     """
     Validate provider credentials.
