@@ -119,6 +119,8 @@ def run_mytext(
                                 prompt=prompt,
                                 auth=auth,
                                 model=model or DEFAULT_MODELS[provider])
+        if result.get("status"):
+            result["message"] = _clean_output(result["message"])
         return result
     except Exception as e:
         return {
