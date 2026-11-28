@@ -29,9 +29,9 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
 
 def _clean_output(text: str) -> str:
     """
-    Remove unexpected tags from the text.
+    Remove unexpected tags from the output text.
     
-    :param text: input text
+    :param text: output text
     """
     return text.replace("<user_input>", "").replace("</user_input>", "").strip()
 
