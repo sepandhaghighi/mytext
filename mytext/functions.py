@@ -27,6 +27,15 @@ def _build_instruction(mode: Mode, tone: Tone) -> str:
     return template.format(tone_hint=tone_hint)
 
 
+def _clean_output(text: str) -> str:
+    """
+    Remove unexpected tags from the output text.
+    
+    :param text: output text
+    """
+    return text.replace("<user_input>", "").replace("</user_input>", "").strip()
+
+
 def _validate_provider_auth(provider: Provider, auth: Dict[str, str]) -> None:
     """
     Validate provider credentials.
@@ -110,6 +119,8 @@ def run_mytext(
                                 prompt=prompt,
                                 auth=auth,
                                 model=model or DEFAULT_MODELS[provider])
+        if result.get("status"):
+            result["message"] = _clean_output(result["message"])
         return result
     except Exception as e:
         return {
