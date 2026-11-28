@@ -448,3 +448,21 @@ def test_run_mytext_custom_model(mock_post):
     _, kwargs = mock_post.call_args
 
     assert kwargs["json"]["model"] == "custom-model"
+
+
+@patch("mytext.functions._call_provider")
+def test_run_mytext_removes_unexpected_user_input_tags(mock_call):
+    mock_call.return_value = {
+        "status": True,
+        "message": "<user_input>Hello world</user_input>",
+        "model": "test-model"
+    }
+
+    result = run_mytext(
+        text="hello",
+        auth={"api_key": "KEY"},
+        provider=Provider.AI_STUDIO
+    )
+
+    assert result["status"]
+    assert result["message"] == "Hello world"
